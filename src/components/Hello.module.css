@@ -1,0 +1,11 @@
+.container {
+	text-align: center;
+}
+
+.header {
+	font-size: var(--title-1);
+}
+
+.text {
+	font-size: var(--text-sm);
+}
