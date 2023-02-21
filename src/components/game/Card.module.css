@@ -1,0 +1,61 @@
+.card {
+	position: relative;
+	height: 12rem;
+	border-radius: 0.5rem;
+	background-color: var(--card-color-back);
+	border: 1px solid black;
+}
+
+.card__front,
+.card__back {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 0.5rem;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+}
+
+.card__back {
+	cursor: pointer;
+}
+
+.card__back:hover {
+	background-color: var(--card-color-hover);
+}
+
+.card__front {
+	background-color: var(--card-color-front);
+}
+
+.inactive {
+	/* background-color: grey; */
+	opacity: 0.5;
+}
+
+.text {
+	color: var(--text-color);
+	font-weight: bold;
+}
+
+.image {
+	max-width: 8rem;
+	height: 100%;
+	object-fit: contain;
+	border: 1px solid black;
+	background-color: white;
+}
+
+.index {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 3rem;
+	height: 3rem;
+	background-color: var(--card-color-item);
+	border-radius: 50%;
+	font-size: var(--title-3);
+	border: 1px solid black;
+}

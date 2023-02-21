@@ -1,0 +1,15 @@
+.container {
+	text-align: center;
+}
+
+.title {
+	color: var(--text-color);
+	font-size: var(--title-2);
+}
+
+.actions {
+	display: flex;
+	justify-content: center;
+	padding: 1rem 2rem;
+	column-gap: 0.5rem;
+}

@@ -1,0 +1,16 @@
+.cards {
+	margin: 0;
+	padding: 1rem 2rem;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-gap: 2rem;
+}
+
+.text {
+	color: var(--text-color);
+	font-size: var(--title-3);
+}
+
+.actions {
+	margin-top: 1rem;
+}

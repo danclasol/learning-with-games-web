@@ -7,10 +7,10 @@
 
 </div>
 
-<div align="center">
-  <h1>React.js Template</h1>
-  <p>
-    Template for React.js projects build with Vite 
+<div>
+  <h1>Finding pairs</h1>
+  <p>    
+    Finding Pairs is a memory game which consists on matching pairs as quickly as possible.
   </p>
   <br />
 </div>
@@ -19,7 +19,7 @@
 
 ## About The Project
 
-The objective of the project is to provide a base project with the minimum necessary tools to develop a project based on React.js.
+Application developed in React.js of the game Finding Pairs.
 
 <!-- BUILT WITH -->
 
@@ -34,7 +34,7 @@ A number of tools have been added to improve the development experience and prov
 - [Standard.js](https://standardjs.com/) -> Configuration template for ESLint
 - [Prettier](https://prettier.io/) -> Opinionated code formatter
 - [Lint-staged](https://www.npmjs.com/package/lint-staged) -> Runs linter and formatter before commits
-
+- [canvas-confetti](https://www.npmjs.com/package/canvas-confetti) -> canvas-confetti
 <!-- USAGE -->
 
 ## Usage

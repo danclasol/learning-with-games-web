@@ -1,0 +1,33 @@
+.button {
+	height: 2.5rem;
+	padding: 0 1.5rem;
+	border: 0.1rem solid transparent;
+	border-radius: 1.5rem;
+	font-weight: bold;
+	line-height: 0;
+	transition: transform;
+	border: 1px solid black;
+}
+
+.button:hover:enabled {
+	transform: scale(1.03);
+}
+
+.button:disabled {
+	color: var(--btn-color-disabled);
+	background-color: var(--btn-color-background-disabled);
+	border-color: var(--btn-color-border-disabled);
+}
+
+.primary {
+	color: var(--btn-text-color-primary);
+	background-color: var(--btn-color-primary);
+}
+
+.primary:focus {
+	background-color: rgb(207, 207, 207);
+}
+
+.primary:hover:enabled {
+	background-color: var(--btn-color-primary-hover);
+}

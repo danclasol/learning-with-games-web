@@ -1,4 +1,35 @@
 :root {
-	--primary-color: white;
-	--secondary-color: rgb(17, 17, 17);
+	/* MAIN */
+	--bg-color: #e3f7b5;
+	--primary-color: #fd8a8a;
+	--secondary-color: #f1f7b5;
+	--text-color: black;
+
+	/* CARDS */
+	--card-color-front: #fd8a8a;
+	--card-color-back: #9ea1d4;
+	--card-color-hover: #a8d1d1;
+	--card-color-item: white;
+	--card-color-item-text: #47b8da;
+
+	/* BUTTONS */
+	/* Primary */
+	--btn-color-primary: #fd8a8a;
+	--btn-color-primary-hover: #a8d1d1;
+	--btn-text-color-primary: black;
+
+	/* Secondary */
+	--btn-color-secondary: #9ea1d4;
+	--btn-color-secondary-hover: #a8d1d1;
+	--btn-text-color-secondary: black;
+
+	/* Disabled */
+	--btn-color-disabled: darkgrey;
+	--btn-color-background-disabled: rgb(77, 75, 75);
+	--btn-color-border-disabled: darkgrey;
+
+	/* MODAL */
+	--modal-background: #a8d1d1;
+	--modal-border-radius: 0.3rem;
+	--overlay-color: rgba(31, 30, 30, 0.75);
 }

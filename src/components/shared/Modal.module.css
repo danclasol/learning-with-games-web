@@ -1,0 +1,38 @@
+.overlay {
+	position: fixed;
+	inset: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--overlay-color);
+	z-index: 10;
+}
+
+.modal {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: auto;
+	border-radius: var(--modal-border-radius);
+	border: 1px solid grey;
+	overflow-y: auto;
+}
+
+@media screen and (min-width: 768px) {
+	.modal {
+		position: relative;
+		width: auto;
+	}
+}
+
+.close {
+	position: absolute;
+	top: 0.35rem;
+	right: 0.35rem;
+}
+
+.bodyOverflow {
+	overflow-y: hidden;
+}

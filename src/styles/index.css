@@ -8,7 +8,7 @@
 
 body {
 	color: var(--secondary-color);
-	background-color: var(--primary-color);
+	background-color: var(--bg-color);
 }
 
 img {
