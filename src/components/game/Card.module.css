@@ -1,43 +1,57 @@
+.wrapper {
+	perspective: 1000px;
+}
+
 .card {
-	--card-color: var(--card-color-back);
-	--card-border-color: var(--card-border-color-back);
+	position: relative;
 	height: 12rem;
 	border-radius: 0.5rem;
-	background-color: var(--card-color);
 	border: 3px solid var(--card-border-color);
 	transform-style: preserve-3d;
 	transform-origin: center;
-	transition: transform 0.5s ease-out;
+	transition: transform 0.3s ease-in;
 }
 
 .flipped {
-	transform: rotateY(-180deg);
-	--card-color: var(--card-color-front);
-	--card-border-color: var(--card-border-color-front);
+	transform: rotateY(180deg);
 }
 
-.card__front,
-.card__back {
+.front,
+.back {
 	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	row-gap: 0.5rem;
 	padding: 0.5rem;
+	border-radius: 0.5rem;
 	backface-visibility: hidden;
 }
 
-.card__back {
+.front {
+	transform: rotateY(180deg);
+	background-color: var(--card-color-front);
+	border: 3px solid var(--card-border-color-front);
+}
+
+.back {
 	cursor: pointer;
+	background-color: var(--card-color-back);
+	border: 3px solid var(--card-border-color-back);
 }
 
 .inactive {
-	opacity: 0.3;
+	background-color: var(--card-color-resolved);
+	border: 3px solid var(--card-border-color-resolved);
 }
 
-.card:hover:has(.card__back) {
-	--card-color: var(--card-color-hover);
+.back:hover {
+	background-color: var(--card-color-hover);
 }
 
 .text {
