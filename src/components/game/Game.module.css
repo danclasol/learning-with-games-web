@@ -1,8 +1,5 @@
-.container {
-	text-align: center;
-}
-
 .title {
+	text-align: center;
 	color: var(--text-color);
 	font-size: var(--title-2);
 }

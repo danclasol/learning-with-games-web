@@ -5,21 +5,22 @@ const Card = ({ text, image, index, isInactive, isFlipped, onClick }) => {
 		!isFlipped && !isInactive && onClick(index);
 	};
 
-	const showCard = isFlipped || isInactive;
-
 	const styleFrontCard = `${styles.card__front} ${
 		isInactive ? styles.inactive : ''
-	}`;
+	} ${isFlipped ? styles.flipped : ''}
+	`;
+
+	const styleCard = `${styles.card} ${isFlipped ? styles.flipped : ''}`;
 
 	return (
-		<div className={styles.card} onClick={handleClick}>
-			{showCard && (
+		<div className={styleCard} onClick={handleClick}>
+			{isFlipped && (
 				<div className={styleFrontCard}>
 					<img className={styles.image} src={image} />
 					<span className={styles.text}>{text}</span>
 				</div>
 			)}
-			{!showCard && (
+			{!isFlipped && (
 				<div className={styles.card__back}>
 					<div className={styles.index}>
 						<span className={styles.text}>{index + 1}</span>

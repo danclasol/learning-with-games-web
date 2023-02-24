@@ -7,7 +7,9 @@
 
 	/* CARDS */
 	--card-color-front: #fd8a8a;
+	--card-border-color-front: #fd6767;
 	--card-color-back: #9ea1d4;
+	--card-border-color-back: rgb(75, 110, 156);
 	--card-color-hover: #a8d1d1;
 	--card-color-item: white;
 	--card-color-item-text: #47b8da;
@@ -15,12 +17,12 @@
 	/* BUTTONS */
 	/* Primary */
 	--btn-color-primary: #fd8a8a;
-	--btn-color-primary-hover: #a8d1d1;
+	--btn-color-primary-hover: rgb(250, 194, 171);
 	--btn-text-color-primary: black;
 
 	/* Secondary */
 	--btn-color-secondary: #9ea1d4;
-	--btn-color-secondary-hover: #a8d1d1;
+	--btn-color-secondary-hover: #c0c3f5;
 	--btn-text-color-secondary: black;
 
 	/* Disabled */
@@ -32,4 +34,10 @@
 	--modal-background: #a8d1d1;
 	--modal-border-radius: 0.3rem;
 	--overlay-color: rgba(31, 30, 30, 0.75);
+
+	/* LISTS */
+	--item-color: #fd8a8a;
+	--item-color-hover: #a8d1d1;
+	--item-color-text: black;
+	--item-border-radius: 0.3rem;
 }

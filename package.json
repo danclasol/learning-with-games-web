@@ -1,6 +1,6 @@
 {
 	"name": "finding-pairs-game",
-	"description": "",
+	"description": "Application developed in React.js of the game Finding Pairs.",
 	"author": {
 		"name": "Daniel Projects",
 		"email": "danielclark.projects@gmail.com"

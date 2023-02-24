@@ -24,10 +24,15 @@
 	background-color: var(--btn-color-primary);
 }
 
-.primary:focus {
-	background-color: rgb(207, 207, 207);
-}
-
 .primary:hover:enabled {
 	background-color: var(--btn-color-primary-hover);
+}
+
+.secondary {
+	color: var(--btn-text-color-secondary);
+	background-color: var(--btn-color-secondary);
+}
+
+.secondary:hover:enabled {
+	background-color: var(--btn-color-secondary-hover);
 }

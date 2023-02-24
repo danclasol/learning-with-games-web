@@ -1,9 +1,14 @@
+.stats {
+	text-align: center;
+}
+
 .cards {
 	margin: 0;
 	padding: 1rem 2rem;
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 	grid-gap: 2rem;
+	/* perspective: 1500px; */
 }
 
 .text {
@@ -12,5 +17,6 @@
 }
 
 .actions {
+	text-align: center;
 	margin-top: 1rem;
 }

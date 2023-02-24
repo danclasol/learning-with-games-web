@@ -11,27 +11,29 @@ const Deck = ({ cards, restart }) => {
 	const [openCards, setOpenCards] = useState([]);
 	const [clearedCards, setClearedCards] = useState([]);
 
-	const checkIsFlipped = index => {
-		return openCards.includes(index);
-	};
+	const checkIsFlipped = index =>
+		openCards.includes(index) || clearedCards.includes(cards[index].value);
 
-	const checkIsInactive = value => {
-		return clearedCards.includes(value);
+	const checkIsInactive = value => clearedCards.includes(value);
+	const checkDeckFinished = () => clearedCards.length === cards.length / 2;
+
+	const handleCardClick = index => {
+		if (openCards.length === 1) {
+			setOpenCards(prev => [...prev, index]);
+		} else {
+			setOpenCards([index]);
+		}
 	};
 
 	const evaluate = () => {
-		const newMovs = movs + 1;
-		setMoves(newMovs);
-
 		const [first, second] = openCards;
+		const newMovs = movs + 1;
+
+		setMoves(newMovs);
 
 		if (cards[first].value === cards[second].value) {
 			setClearedCards(prev => [...prev, cards[first].value]);
 			setOpenCards([]);
-
-			if (clearedCards.length + 1 === cards.length / 2) {
-				openModal(newMovs, reset);
-			}
 		}
 	};
 
@@ -40,14 +42,6 @@ const Deck = ({ cards, restart }) => {
 		setOpenCards([]);
 		setClearedCards([]);
 		restart();
-	};
-
-	const handleCardClick = index => {
-		if (openCards.length === 1) {
-			setOpenCards(prev => [...prev, index]);
-		} else {
-			setOpenCards([index]);
-		}
 	};
 
 	useEffect(() => {
@@ -67,6 +61,10 @@ const Deck = ({ cards, restart }) => {
 			clearInterval(intervalId);
 		};
 	}, [openCards]);
+
+	useEffect(() => {
+		if (checkDeckFinished()) openModal(movs, reset);
+	}, [clearedCards]);
 
 	return (
 		<>
