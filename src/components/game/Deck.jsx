@@ -8,63 +8,63 @@ import FinishedGame from './FinishedGame';
 const Deck = ({ cards, restart }) => {
 	const [movs, setMoves] = useState(0);
 	const { modalContent, closeModal, openModal } = useModal();
-	const [openCards, setOpenCards] = useState([]);
-	const [clearedCards, setClearedCards] = useState([]);
+	const [flippedCards, setFlippledCards] = useState([]);
+	const [resolvedCards, setResolvedCards] = useState([]);
 
 	const checkIsFlipped = index =>
-		openCards.includes(index) || clearedCards.includes(cards[index].value);
+		flippedCards.includes(index) || resolvedCards.includes(cards[index].value);
 
-	const checkIsInactive = value => clearedCards.includes(value);
-	const checkDeckFinished = () => clearedCards.length === cards.length / 2;
+	const checkIsResolved = value => resolvedCards.includes(value);
+	const checkDeckFinished = () => resolvedCards.length === cards.length / 2;
 
 	const handleCardClick = index => {
-		if (openCards.length === 1) {
-			setOpenCards(prev => [...prev, index]);
+		if (flippedCards.length === 1) {
+			setFlippledCards(prev => [...prev, index]);
 		} else {
-			setOpenCards([index]);
+			setFlippledCards([index]);
 		}
 	};
 
 	const evaluate = () => {
-		const [first, second] = openCards;
+		const [first, second] = flippedCards;
 		const newMovs = movs + 1;
 
 		setMoves(newMovs);
 
 		if (cards[first].value === cards[second].value) {
-			setClearedCards(prev => [...prev, cards[first].value]);
-			setOpenCards([]);
+			setResolvedCards(prev => [...prev, cards[first].value]);
+			setFlippledCards([]);
 		}
 	};
 
 	const reset = () => {
 		setMoves(0);
-		setOpenCards([]);
-		setClearedCards([]);
+		setFlippledCards([]);
+		setResolvedCards([]);
 		restart();
 	};
 
 	useEffect(() => {
-		if (openCards.length !== 2) return;
+		if (flippedCards.length !== 2) return;
 
 		evaluate();
-	}, [openCards]);
+	}, [flippedCards]);
 
 	useEffect(() => {
-		if (openCards.length !== 2) return;
+		if (flippedCards.length !== 2) return;
 
 		const intervalId = setTimeout(() => {
-			setOpenCards([]);
+			setFlippledCards([]);
 		}, 1500);
 
 		return () => {
 			clearInterval(intervalId);
 		};
-	}, [openCards]);
+	}, [flippedCards]);
 
 	useEffect(() => {
 		if (checkDeckFinished()) openModal(movs, reset);
-	}, [clearedCards]);
+	}, [resolvedCards]);
 
 	return (
 		<>
@@ -80,7 +80,7 @@ const Deck = ({ cards, restart }) => {
 						text={pair.text}
 						image={pair.image}
 						index={index}
-						isInactive={checkIsInactive(pair.value)}
+						isResolved={checkIsResolved(pair.value)}
 						isFlipped={checkIsFlipped(index)}
 						onClick={handleCardClick}
 					>

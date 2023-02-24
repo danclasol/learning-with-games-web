@@ -6,8 +6,10 @@
 	--text-color: black;
 
 	/* CARDS */
-	--card-color-front: #fd8a8a;
-	--card-border-color-front: #fd6767;
+	--card-color-front: #ffdca9;
+	--card-border-color-front: #faab78;
+	--card-color-resolved: #fd8a8a;
+	--card-border-color-resolved: #fd6767;
 	--card-color-back: #9ea1d4;
 	--card-border-color-back: rgb(75, 110, 156);
 	--card-color-hover: #a8d1d1;

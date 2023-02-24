@@ -1,8 +1,8 @@
 import styles from './Card.module.css';
 
-const Card = ({ text, image, index, isInactive, isFlipped, onClick }) => {
+const Card = ({ text, image, index, isResolved, isFlipped, onClick }) => {
 	const handleClick = () => {
-		!isFlipped && !isInactive && onClick(index);
+		!isFlipped && !isResolved && onClick(index);
 	};
 
 	const styleCard = `${styles.card} ${isFlipped ? styles.flipped : ''} `;
@@ -10,7 +10,7 @@ const Card = ({ text, image, index, isInactive, isFlipped, onClick }) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styleCard} onClick={handleClick}>
-				<div className={`${styles.front} ${isInactive ? styles.inactive : ''}`}>
+				<div className={`${styles.front} ${isResolved ? styles.resolved : ''}`}>
 					<img className={styles.image} src={image} />
 					<span className={styles.text}>{text}</span>
 				</div>

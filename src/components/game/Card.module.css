@@ -45,7 +45,7 @@
 	border: 3px solid var(--card-border-color-back);
 }
 
-.inactive {
+.resolved {
 	background-color: var(--card-color-resolved);
 	border: 3px solid var(--card-border-color-resolved);
 }
