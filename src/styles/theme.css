@@ -42,4 +42,14 @@
 	--item-color-hover: #a8d1d1;
 	--item-color-text: black;
 	--item-border-radius: 0.3rem;
+
+	/* FORMS */
+	/* Inputs */
+	--border-weight: 1px;
+	--border-radius-input: 4px;
+	--label-color: black;
+	--input-color: white;
+	--placeholder-opacity: 0.4;
+	--input-text-color: black;
+	--input-focus-color: black;
 }

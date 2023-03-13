@@ -1,0 +1,32 @@
+.card {
+	display: flex;
+	row-gap: 1.5rem;
+	padding: 0.8rem;
+	background-color: var(--item-color);
+	border-radius: var(--item-border-radius);
+	cursor: pointer;
+	border: 1px solid black;
+}
+
+.card:hover {
+	background-color: var(--item-color-hover);
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 0.3rem;
+	width: 100%;
+	padding: 0.5rem;
+	color: var(--item-color-text);
+}
+
+.title {
+	color: var(--text-color);
+	font-size: var(--title-3);
+}
+
+.image {
+	width: 6rem;
+}
