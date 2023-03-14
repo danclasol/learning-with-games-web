@@ -1,0 +1,17 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+	.container {
+		padding: 2rem 3rem;
+	}
+}
+
+.title {
+	margin-bottom: 0.7rem;
+}

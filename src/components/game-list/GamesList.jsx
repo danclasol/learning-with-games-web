@@ -10,13 +10,11 @@ const GameList = () => {
 
 	const { games, count, error, loading } = useGames({ filters });
 
-	if (loading) return <p>Loading</p>;
-
 	return (
 		<section className={styles.container}>
 			<h1 className={styles.title}>Game List</h1>
 			<GamesFilters filters={filters} setFilters={setFilters} />
-			<GamesListRows games={games} />
+			<GamesListRows games={games} error={error} loading={loading} />
 		</section>
 	);
 };
