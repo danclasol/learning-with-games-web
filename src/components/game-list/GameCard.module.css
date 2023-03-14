@@ -1,6 +1,6 @@
 .card {
 	display: flex;
-	row-gap: 1.5rem;
+	column-gap: 0.5rem;
 	padding: 0.8rem;
 	background-color: var(--item-color);
 	border-radius: var(--item-border-radius);
@@ -27,6 +27,15 @@
 	font-size: var(--title-3);
 }
 
+.type {
+	font-weight: bold;
+}
+
 .image {
 	width: 6rem;
+	object-fit: scale-down;
+	background-color: white;
+	border-radius: 0.5rem;
+	border: 1px solid black;
+	padding: 0.5rem;
 }
