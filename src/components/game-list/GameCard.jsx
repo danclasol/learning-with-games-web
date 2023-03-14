@@ -1,14 +1,18 @@
+import { formatDateLocale } from '../../lib/utils/dates';
 import styles from './GameCard.module.css';
 
 const GAME_TYPE_ICONS = {
 	'finding-pairs': { text: 'Finding Pairs ', image: '/images/game-cards.png' },
 	hangman: { text: 'Hangman', image: '/images/game-letters.png' },
 	quiz: { text: 'Quiz', image: '/images/game-quiz.png' },
-	gambling: { text: 'Gambling', image: '/images/game-gambling.png' }
+	gambling: { text: 'Gambling', image: '/images/game-gambling.png' },
+	other: { text: 'Other', image: '' }
 };
 
 const GameCard = ({ game }) => {
-	const { text, image } = GAME_TYPE_ICONS[game.type];
+	const { text, image } = game.type
+		? GAME_TYPE_ICONS[game.type]
+		: GAME_TYPE_ICONS.other;
 
 	return (
 		<div className={styles.card}>
@@ -17,8 +21,10 @@ const GameCard = ({ game }) => {
 			<div className={styles.info}>
 				<span className={styles.title}>{game.title}</span>
 				<span className={styles.type}>{text}</span>
-				<span className={styles.text}>{`Created by: ${game.userId}`}</span>
-				<span className={styles.text}>{`${game.pairs.length} pairs`}</span>
+				<span className={styles.text}>{game.userId}</span>
+				<span className={styles.date}>
+					{formatDateLocale(game.creationDate)}
+				</span>
 			</div>
 		</div>
 	);

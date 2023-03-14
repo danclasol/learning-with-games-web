@@ -65,7 +65,7 @@ const handleSubmitForm = async ({
 }) => {
 	setIsSubmitting(true);
 
-	const success = await createGame({ data });
+	const success = await createGame({ game: data });
 
 	if (success) {
 		onSuccess();
