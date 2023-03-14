@@ -49,7 +49,7 @@
 }
 
 .primaryFilled:hover {
-	background-color: var(--btn-color-green-hover);
+	background-color: var(--btn-color-primary-hover);
 }
 
 .secondaryFilled:hover {

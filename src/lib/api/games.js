@@ -14,6 +14,11 @@ export const getUserGames = async ({ filters, signal }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}`;
 	const url = new URL(request);
 
+	if (filters.page && filters.itemsPerPage) {
+		url.searchParams.append('page', filters.page);
+		url.searchParams.append('limit', filters.itemsPerPage);
+	}
+
 	if (filters.search) {
 		url.searchParams.append('title', filters.search);
 	}
