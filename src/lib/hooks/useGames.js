@@ -37,13 +37,16 @@ export const useGames = ({ filters }) => {
 };
 
 const loadGames = async (setData, setError, filters, signal) => {
-	const { games, count, aborted } = await getUserGames({ filters, signal });
+	const { games, count, aborted, error } = await getUserGames({
+		filters,
+		signal
+	});
 
 	if (aborted) return;
 
 	if (games) {
 		setData(games, count);
 	} else {
-		setError();
+		setError(error);
 	}
 };

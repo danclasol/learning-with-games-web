@@ -3,8 +3,6 @@ import GameCard from './GameCard';
 import styles from './GamesListRows.module.css';
 
 const GamesListRows = ({ games, error, loading }) => {
-	console.log(games, games.length);
-
 	if (error) return <p className={styles.text}>Ha ocurrido un error</p>;
 
 	if (loading) return <Loading label='Loading' />;

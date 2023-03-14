@@ -24,8 +24,6 @@ export const getUserGames = async ({ filters, signal }) => {
 
 	const sortProps = SORT_MAPPER[filters.sortBy];
 
-	console.log({ filters, sortProps });
-
 	if (sortProps) {
 		const [sort, order] = sortProps;
 		url.searchParams.append('sort', sort);

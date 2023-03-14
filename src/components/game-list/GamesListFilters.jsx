@@ -8,26 +8,33 @@ import FilterIcon from '../icons/FilterIcon';
 import Modal from '../shared/Modal';
 import styles from './GamesListFilters.module.css';
 
-const GamesListFilters = ({ filters, setFilters }) => {
-	const { modalContent, closeModal, openCreateModal } = useModalGame();
+const GamesListFilters = ({
+	search,
+	type,
+	sortBy,
+	setSearch,
+	setType,
+	setSortBy,
+	reset
+}) => {
+	const { modalContent, closeModal, openCreateModal } = useModalGame({
+		reset
+	});
 
 	const handleSearchChange = ev => {
-		const newSearch = ev.target.value;
-		setFilters({ ...filters, search: newSearch });
+		setSearch(ev.target.value);
 	};
 
 	const cleanSearch = () => {
-		setFilters({ ...filters, search: '' });
+		setSearch('');
 	};
 
 	const handleTypeChange = ev => {
-		const newType = ev.target.value;
-		setFilters({ ...filters, type: newType });
+		setType(ev.target.value);
 	};
 
 	const handleSortByChange = ev => {
-		const newSortBy = ev.target.value;
-		setFilters({ ...filters, sortBy: newSortBy });
+		setSortBy(ev.target.value);
 	};
 
 	return (
@@ -35,7 +42,7 @@ const GamesListFilters = ({ filters, setFilters }) => {
 			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<div className={styles.filters}>
 				<InputSearch
-					value={filters.search}
+					value={search}
 					placeholder='Buscar...'
 					onChange={handleSearchChange}
 					onCleanSearch={cleanSearch}
@@ -44,7 +51,7 @@ const GamesListFilters = ({ filters, setFilters }) => {
 				<div className={styles.filter}>
 					<FilterIcon className={styles.icon} />
 					<InputSelect
-						value={filters.type}
+						value={type}
 						className={styles.filter}
 						onChange={handleTypeChange}
 					>
@@ -57,7 +64,7 @@ const GamesListFilters = ({ filters, setFilters }) => {
 				<div className={styles.filter}>
 					<ArrowSort className={styles.icon} />
 					<InputSelect
-						value={filters.sortBy}
+						value={sortBy}
 						className={styles.filter}
 						onChange={handleSortByChange}
 					>
@@ -75,7 +82,7 @@ const GamesListFilters = ({ filters, setFilters }) => {
 	);
 };
 
-const useModalGame = () => {
+const useModalGame = ({ reset }) => {
 	const [modalContent, setModalContent] = useState();
 
 	const closeModal = () => {
@@ -83,7 +90,9 @@ const useModalGame = () => {
 	};
 
 	const openCreateModal = () => {
-		setModalContent(<GameCreateForm closeModal={closeModal} />);
+		setModalContent(
+			<GameCreateForm closeModal={closeModal} onSuccess={reset} />
+		);
 	};
 
 	return {
