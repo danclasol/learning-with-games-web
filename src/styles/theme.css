@@ -47,9 +47,12 @@
 	/* Inputs */
 	--border-weight: 1px;
 	--border-radius-input: 4px;
+	--border-color: black;
 	--label-color: black;
 	--input-color: white;
 	--placeholder-opacity: 0.4;
 	--input-text-color: black;
 	--input-focus-color: black;
+	--text-color-error: tomato;
+	--shadow-sm: 0px;
 }

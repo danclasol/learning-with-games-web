@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getUserGames } from '../api/games';
 
-export const useGames = ({ search }) => {
+export const useGames = ({ filters }) => {
 	const [games, setGames] = useState({
 		data: [],
 		count: 0,
@@ -23,10 +23,10 @@ export const useGames = ({ search }) => {
 	useEffect(() => {
 		const controller = new AbortController();
 
-		loadGames(setData, setError, search, controller.signal);
+		loadGames(setData, setError, filters, controller.signal);
 
 		return () => controller.abort();
-	}, [search]);
+	}, [filters]);
 
 	return {
 		games: games.data,
@@ -36,8 +36,8 @@ export const useGames = ({ search }) => {
 	};
 };
 
-const loadGames = async (setData, setError, search, signal) => {
-	const { games, count, aborted } = await getUserGames({ search, signal });
+const loadGames = async (setData, setError, filters, signal) => {
+	const { games, count, aborted } = await getUserGames({ filters, signal });
 
 	if (aborted) return;
 
