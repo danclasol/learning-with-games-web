@@ -22,9 +22,7 @@ const PageSelector = ({ page, setPage, totalPages }) => {
 				onClick={handleLeftClick}
 				disabled={isFirstPage}
 			/>
-			<span className={styles.text}>{`Pagina ${page} / ${
-				totalPages || 1
-			}`}</span>
+			<span className={styles.text}>{`Page ${page} / ${totalPages || 1}`}</span>
 			<IconButton
 				filled
 				icon={RightIcon}

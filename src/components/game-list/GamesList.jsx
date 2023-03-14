@@ -2,8 +2,8 @@ import { useFilters } from '../../lib/hooks/useFilters.js';
 import { useGames } from '../../lib/hooks/useGames.js';
 import styles from './GamesList.module.css';
 import GamesFilters from './GamesListFilters.jsx';
-import GamesListPagination from './GamesListPagination.jsx';
 import GamesListRows from './GamesListRows.jsx';
+import PageSelector from './PageSelector.jsx';
 
 const GameList = () => {
 	const {
@@ -33,12 +33,10 @@ const GameList = () => {
 				reset={resetFilters}
 			/>
 			<GamesListRows games={games} error={error} loading={loading} />
-			<GamesListPagination
+			<PageSelector
 				page={filters.page}
-				itemsPerPage={filters.itemsPerPage}
-				setPage={setPage}
-				setItemsPerPage={setItemsPerPage}
-				total={count}
+				totalPages={Math.ceil(count / filters.itemsPerPage)}
+				setPage={newPage => setPage(newPage)}
 			/>
 		</section>
 	);

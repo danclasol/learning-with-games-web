@@ -43,7 +43,7 @@ const GamesListFilters = ({
 			<div className={styles.filters}>
 				<InputSearch
 					value={search}
-					placeholder='Buscar...'
+					placeholder='Search...'
 					onChange={handleSearchChange}
 					onCleanSearch={cleanSearch}
 					className={styles.filter}
@@ -55,7 +55,7 @@ const GamesListFilters = ({
 						className={styles.filter}
 						onChange={handleTypeChange}
 					>
-						<option value=''>Filtrar por tipo...</option>
+						<option value=''>Filter by game...</option>
 						<option value='finding-pairs'>Finding Pairs</option>
 						<option value='hangman'>Hangman</option>
 						<option value='quiz'>Quiz</option>
@@ -68,10 +68,10 @@ const GamesListFilters = ({
 						className={styles.filter}
 						onChange={handleSortByChange}
 					>
-						<option value='0'>Fecha DESC</option>
-						<option value='1'>Fecha ASC</option>
-						<option value='2'>Nombre</option>
-						<option value='3'>Tipo</option>
+						<option value='0'>By date asc</option>
+						<option value='1'>By date desc</option>
+						<option value='2'>By name</option>
+						<option value='3'>By game</option>
 					</InputSelect>
 				</div>
 			</div>
