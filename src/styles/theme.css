@@ -16,15 +16,21 @@
 	--card-color-item: white;
 	--card-color-item-text: #47b8da;
 
+	/* DROPDOWN*/
+	--border-radius-items: 0.3rem;
+	--border-radius-nav-item: 0.2rem;
+
 	/* BUTTONS */
 	/* Primary */
 	--btn-color-primary: #fd8a8a;
 	--btn-color-primary-hover: rgb(250, 194, 171);
 	--btn-text-color-primary: black;
+	--btn-border-radius: 1.5rem;
+	--btn-color-shadow: #573030;
 
 	/* Secondary */
 	--btn-color-secondary: #9ea1d4;
-	--btn-color-secondary-hover: #c0c3f5;
+	--btn-color-secondary-hover: #cbcdf8;
 	--btn-text-color-secondary: black;
 
 	/* Disabled */
@@ -34,12 +40,13 @@
 
 	/* MODAL */
 	--modal-background: #a8d1d1;
-	--modal-border-radius: 0.3rem;
+	--modal-border-radius: 1rem;
 	--overlay-color: rgba(31, 30, 30, 0.75);
 
 	/* LISTS */
 	--item-color: #fd8a8a;
-	--item-color-hover: #a8d1d1;
+	--item-color-hover: rgb(250, 194, 171);
+	--item-color-shadow: #573030;
 	--item-color-text: black;
 	--item-border-radius: 0.3rem;
 

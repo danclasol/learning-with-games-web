@@ -1,10 +1,11 @@
 .card {
+	position: relative;
 	display: flex;
 	column-gap: 0.5rem;
 	padding: 0.8rem;
 	background-color: var(--item-color);
 	border-radius: var(--item-border-radius);
-	cursor: pointer;
+	box-shadow: var(--item-color-shadow) 1px 1px 0px;
 	border: 1px solid black;
 }
 
@@ -12,7 +13,7 @@
 	background-color: var(--item-color-hover);
 }
 
-.info {
+.card__info {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

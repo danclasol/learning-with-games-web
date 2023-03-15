@@ -1,17 +1,29 @@
 .button {
 	height: 2.5rem;
 	padding: 0 1.5rem;
-	border: 0.1rem solid transparent;
-	border-radius: 1.5rem;
+	border-radius: var(--btn-border-radius);
 	font-weight: bold;
 	line-height: 0;
 	transition: transform;
 	border: 1px solid black;
+	box-shadow: var(--btn-color-shadow) 3px 3px 0 0;
 	width: 100%;
 }
 
-.button:hover:enabled {
-	transform: scale(1.03);
+.button:hover {
+	background-color: #fff;
+}
+
+.button:active {
+	box-shadow: #422800 2px 2px 0 0;
+	transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+	.button {
+		min-width: 120px;
+		padding: 0 25px;
+	}
 }
 
 .button:disabled {

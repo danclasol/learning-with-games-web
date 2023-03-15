@@ -1,4 +1,5 @@
 import { formatDateLocale } from '../../lib/utils/dates';
+import GameActions from './GameActions';
 import styles from './GameCard.module.css';
 
 const GAME_TYPE_ICONS = {
@@ -18,13 +19,17 @@ const GameCard = ({ game }) => {
 		<div className={styles.card}>
 			<img className={styles.image} src={image}></img>
 
-			<div className={styles.info}>
+			<div className={styles.card__info}>
 				<span className={styles.title}>{game.title}</span>
 				<span className={styles.type}>{text}</span>
 				<span className={styles.text}>{game.userId}</span>
 				<span className={styles.date}>
 					{formatDateLocale(game.creationDate)}
 				</span>
+			</div>
+
+			<div className={styles.card__actions}>
+				<GameActions />
 			</div>
 		</div>
 	);

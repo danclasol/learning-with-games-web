@@ -3,7 +3,7 @@
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
-	border: none;
+	border: 1px solid black;
 }
 
 .icon {
@@ -12,7 +12,7 @@
 }
 
 .primary {
-	color: var(--btn-color-primary);
+	color: var(--btn-text-color-primary);
 }
 
 .secondary {
@@ -30,12 +30,22 @@
 	color: var(--btn-color-disabled);
 }
 
+.primary:hover,
+.secondary:hover {
+	border: 1px solid black;
+}
+
 .primary:hover {
 	background-color: var(--btn-color-primary-hover);
 }
 
 .secondary:hover {
 	background-color: var(--btn-color-secondary-hover);
+}
+
+.primaryFilled,
+.secondaryFilled {
+	box-shadow: #573030 2px 2px 0px;
 }
 
 .primaryFilled {
@@ -53,7 +63,7 @@
 }
 
 .secondaryFilled:hover {
-	background-color: var(--btn-color-white-hover);
+	background-color: var(--btn-color-secondary-hover);
 }
 
 .primaryFilled:disabled,
