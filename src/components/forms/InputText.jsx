@@ -13,7 +13,7 @@ const InputText = ({ name, label, className, register, error, ...props }) => {
 					minLenght: 4
 				})}
 			/>
-			<span className={styles.error}>{error}</span>
+			{error && <span className={styles.error}>{error}</span>}
 		</label>
 	);
 };

@@ -44,6 +44,7 @@
 	min-height: 1.2rem;
 	font-size: var(--text-sm);
 	color: var(--input-color-error);
+	margin-top: 0.3rem;
 	margin-left: 0.5rem;
 }
 

@@ -37,7 +37,7 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 					<InputSelect
 						name='type'
 						label='Game'
-						{...register('type', { required: 'Required' })}
+						{...register('type', { required: 'Field required' })}
 						error={errors.type?.message}
 					>
 						<option value=''>Select game...</option>
