@@ -16,7 +16,7 @@
 	width: 100%;
 	height: auto;
 	border-radius: var(--modal-border-radius);
-	border: 1px solid grey;
+	border: 2px solid black;
 	overflow-y: auto;
 }
 

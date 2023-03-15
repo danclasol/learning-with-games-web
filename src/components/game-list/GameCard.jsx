@@ -10,7 +10,7 @@ const GAME_TYPE_ICONS = {
 	other: { text: 'Other', image: '' }
 };
 
-const GameCard = ({ game }) => {
+const GameCard = ({ game, reset }) => {
 	const { text, image } = game.type
 		? GAME_TYPE_ICONS[game.type]
 		: GAME_TYPE_ICONS.other;
@@ -28,9 +28,7 @@ const GameCard = ({ game }) => {
 				</span>
 			</div>
 
-			<div className={styles.card__actions}>
-				<GameActions />
-			</div>
+			<GameActions game={game} reset={reset} />
 		</div>
 	);
 };

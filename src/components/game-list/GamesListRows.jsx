@@ -2,7 +2,7 @@ import Loading from '../shared/Loading';
 import GameCard from './GameCard';
 import styles from './GamesListRows.module.css';
 
-const GamesListRows = ({ games, error, loading }) => {
+const GamesListRows = ({ games, error, loading, reset }) => {
 	if (error) return <p className={styles.text}>Ha ocurrido un error</p>;
 
 	if (loading) return <Loading label='Loading' />;
@@ -13,7 +13,7 @@ const GamesListRows = ({ games, error, loading }) => {
 	return (
 		<div className={styles.rows}>
 			{games.map(game => (
-				<GameCard key={game.id} game={game} />
+				<GameCard key={game.id} game={game} reset={reset} />
 			))}
 		</div>
 	);

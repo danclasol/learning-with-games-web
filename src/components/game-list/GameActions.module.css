@@ -1,0 +1,38 @@
+.actions {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}
+
+.list {
+	position: absolute;
+	right: 3rem;
+	top: 6rem;
+	overflow: visible;
+	list-style-type: none;
+	cursor: default;
+	margin: 0;
+	padding: 0;
+	background-color: var(--dropdown-bg);
+	padding: 0.3rem;
+	border-radius: var(--dropdown-border-radius);
+	border: 1px solid black;
+	z-index: 1;
+}
+
+.list__item {
+	width: 100%;
+	min-width: 150px;
+	padding: 0.5rem;
+	font-size: var(--text-sm);
+	color: black;
+	border: 1px solid transparent;
+}
+
+.list__item:hover {
+	border-radius: var(--dropdown-item-radius);
+	background-color: var(--dropdown-item-hover);
+	border: 1px solid black;
+	color: white;
+}

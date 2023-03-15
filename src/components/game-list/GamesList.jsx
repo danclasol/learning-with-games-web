@@ -32,7 +32,12 @@ const GameList = () => {
 				setSortBy={setSortBy}
 				reset={resetFilters}
 			/>
-			<GamesListRows games={games} error={error} loading={loading} />
+			<GamesListRows
+				games={games}
+				error={error}
+				loading={loading}
+				reset={resetFilters}
+			/>
 			<PageSelector
 				page={filters.page}
 				totalPages={Math.ceil(count / filters.itemsPerPage)}

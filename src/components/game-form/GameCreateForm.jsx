@@ -49,7 +49,7 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 
 				<div className={styles.actions}>
 					<Button disabled={isSubmitting}>
-						{isSubmitting ? 'Submitting...' : 'Create'}
+						{isSubmitting ? 'Creating...' : 'Create'}
 					</Button>
 				</div>
 			</form>
