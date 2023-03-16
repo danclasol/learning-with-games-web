@@ -1,17 +1,33 @@
-import { useNavigate } from 'react-router-dom';
-import Button from '../buttons/Button';
+import { NavLink } from 'react-router-dom';
+import GameIcon from '../icons/GameIcon';
+import HomeIcon from '../icons/HomeIcon';
+import UserPanel from '../user-panel/UserPanel';
 import styles from './MainHeader.module.css';
 
 const MainHeader = () => {
-	const navigate = useNavigate();
-
-	const handlerOnClick = () => {
-		navigate(`/games/`);
-	};
-
 	return (
 		<header className={styles.header}>
-			<Button onClick={handlerOnClick}>My Games</Button>
+			<div className={styles.header__links}>
+				<NavLink
+					to=''
+					className={({ isActive }) =>
+						`${styles.link} ${isActive ? styles['link--active'] : ''}`
+					}
+				>
+					<HomeIcon className={styles.icon}></HomeIcon>
+					Home
+				</NavLink>
+				<NavLink
+					to='games'
+					className={({ isActive }) =>
+						`${styles.link} ${isActive ? styles['link--active'] : ''}`
+					}
+				>
+					<GameIcon className={styles.icon}></GameIcon>
+					Games
+				</NavLink>
+			</div>
+			<UserPanel />
 		</header>
 	);
 };
