@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react';
+import { suffle } from '../../lib/games/findingPairs';
 import Button from '../buttons/Button';
 import Modal from '../shared/Modal';
 import Card from './Card';
 import styles from './Deck.module.css';
 import FinishedGame from './FinishedGame';
 
-const Deck = ({ cards, restart }) => {
+const Deck = ({ pairsInit }) => {
 	const [movs, setMoves] = useState(0);
 	const { modalContent, closeModal, openModal } = useModal();
 	const [flippedCards, setFlippledCards] = useState([]);
 	const [resolvedCards, setResolvedCards] = useState([]);
+	const [pairs, setPairs] = useState(pairsInit);
 
 	const checkIsFlipped = index =>
-		flippedCards.includes(index) || resolvedCards.includes(cards[index].value);
+		flippedCards.includes(index) || resolvedCards.includes(pairs[index].value);
 
 	const checkIsResolved = value => resolvedCards.includes(value);
-	const checkDeckFinished = () => resolvedCards.length === cards.length / 2;
+	const checkDeckFinished = () => {
+		if (pairs.length === 0) return;
+
+		return resolvedCards.length === pairs.length / 2;
+	};
 
 	const handleCardClick = index => {
 		if (flippedCards.length === 1) {
@@ -31,8 +37,8 @@ const Deck = ({ cards, restart }) => {
 
 		setMoves(newMovs);
 
-		if (cards[first].value === cards[second].value) {
-			setResolvedCards(prev => [...prev, cards[first].value]);
+		if (pairs[first].value === pairs[second].value) {
+			setResolvedCards(prev => [...prev, pairs[first].value]);
 			setFlippledCards([]);
 		}
 	};
@@ -41,7 +47,13 @@ const Deck = ({ cards, restart }) => {
 		setMoves(0);
 		setFlippledCards([]);
 		setResolvedCards([]);
-		restart();
+		suffleCards();
+	};
+
+	const suffleCards = () => {
+		const result = suffle(pairs);
+
+		setPairs(result);
 	};
 
 	useEffect(() => {
@@ -72,8 +84,9 @@ const Deck = ({ cards, restart }) => {
 			<div className={styles.stats}>
 				<p className={styles.text}>Number of movements: {movs}</p>
 			</div>
+
 			<div className={styles.cards}>
-				{cards.map((pair, index) => (
+				{pairs.map((pair, index) => (
 					<Card
 						key={index}
 						value={pair.value}
@@ -88,6 +101,7 @@ const Deck = ({ cards, restart }) => {
 					</Card>
 				))}
 			</div>
+
 			<div className={styles.actions}>
 				<Button onClick={reset}>Reset</Button>
 			</div>

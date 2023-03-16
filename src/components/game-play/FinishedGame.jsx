@@ -1,9 +1,12 @@
 import confetti from 'canvas-confetti';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../buttons/Button.jsx';
 import styles from './FinishedGame.module.css';
 
 const FinishedGame = ({ numberMovs = 0, closeModal, reset }) => {
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		confetti({
 			particleCount: 250,
@@ -17,6 +20,11 @@ const FinishedGame = ({ numberMovs = 0, closeModal, reset }) => {
 		closeModal();
 	};
 
+	const handleClickGoBack = () => {
+		confetti.reset();
+		navigate(`/games/`);
+	};
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.container}>
@@ -27,7 +35,7 @@ const FinishedGame = ({ numberMovs = 0, closeModal, reset }) => {
 			</div>
 			<div className={styles.actions}>
 				<Button onClick={restart}>Restart Game</Button>
-				<Button kind='secondary' onClick={closeModal}>
+				<Button kind='secondary' onClick={handleClickGoBack}>
 					Go back
 				</Button>
 			</div>
