@@ -2,6 +2,7 @@
 	text-align: center;
 	color: var(--text-color);
 	font-size: var(--title-2);
+	margin: 0;
 }
 
 .actions {
