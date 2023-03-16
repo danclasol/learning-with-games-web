@@ -8,9 +8,9 @@
 </div>
 
 <div>
-  <h1>Finding pairs</h1>
+  <h1>Learning with games</h1>
   <p>    
-    Finding Pairs is a memory game which consists on matching pairs as quickly as possible.
+    Learning with games is platform to create educational games.
   </p>
   <br />
 </div>
@@ -30,6 +30,7 @@ A number of tools have been added to improve the development experience and prov
 - [Vite](https://vitejs.dev/) -> Vite js
 - [React](https://reactjs.org/) -> React
 - [ReactDOM](https://reactjs.org/) -> React DOM
+- [ReactRouter](https://reactrouter.com/) -> React Router
 - [ESLint](https://eslint.org/) -> Statically analyzes your code to quickly find problems
 - [Standard.js](https://standardjs.com/) -> Configuration template for ESLint
 - [Prettier](https://prettier.io/) -> Opinionated code formatter
