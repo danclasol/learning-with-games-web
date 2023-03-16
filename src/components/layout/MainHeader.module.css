@@ -31,7 +31,7 @@
 .link--active {
 	border: 2px solid var(--link-active-border-color-hover);
 	background-color: var(--link-active-color-hover);
-	cursor: default;
+	/* cursor: default; */
 }
 
 .link:hover:not(.link--active) {

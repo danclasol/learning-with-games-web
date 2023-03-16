@@ -12,6 +12,7 @@ const Deck = ({ pairsInit }) => {
 	const [flippedCards, setFlippledCards] = useState([]);
 	const [resolvedCards, setResolvedCards] = useState([]);
 	const [pairs, setPairs] = useState(pairsInit);
+	const [restart, setRestart] = useState();
 
 	const checkIsFlipped = index =>
 		flippedCards.includes(index) || resolvedCards.includes(pairs[index].value);
@@ -47,13 +48,7 @@ const Deck = ({ pairsInit }) => {
 		setMoves(0);
 		setFlippledCards([]);
 		setResolvedCards([]);
-		suffleCards();
-	};
-
-	const suffleCards = () => {
-		const result = suffle(pairs);
-
-		setPairs(result);
+		setRestart(true);
 	};
 
 	useEffect(() => {
@@ -77,6 +72,20 @@ const Deck = ({ pairsInit }) => {
 	useEffect(() => {
 		if (checkDeckFinished()) openModal(movs, reset);
 	}, [resolvedCards]);
+
+	useEffect(() => {
+		if (!restart) return;
+
+		const intervalId = setTimeout(() => {
+			const result = suffle(pairs);
+			setPairs(result);
+			setRestart(false);
+		}, 200);
+
+		return () => {
+			clearInterval(intervalId);
+		};
+	}, [restart]);
 
 	return (
 		<>
