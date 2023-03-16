@@ -6,6 +6,26 @@
 	--secondary-color: #f1f7b5;
 	--text-color: black;
 
+	/* LINK */
+	--link-text-color: white;
+	--link-border-color-hover: black;
+	--link-color-hover: white;
+	--link-active-border-color-hover: white;
+	--link-active-color-hover: #9ea1d4;
+
+	/* USER PANEL */
+	--user-panel-bg: #9ea1d4;
+	--user-panel-bg-hover: #b7baf1;
+	--user-panel-border-radius: 0.6rem;
+	--user-panel-border-color: black;
+	--user-panel-border-color-hover: white;
+
+	--user-panel-dropdown-bg: #b7baf1;
+	--user-panel-dropdown-border-radius: 0.6rem;
+	--user-panel-dropdown-item-border-radius: 0.6rem;
+	--user-panel-dropdown-item-border-color: black;
+	--user-panel-dropdown-item-hover: #9ea1d4;
+
 	/* CARDS */
 	--card-color-front: #ffdca9;
 	--card-border-color-front: #faab78;
@@ -21,6 +41,10 @@
 	/* DROPDOWN*/
 	--border-radius-items: 0.3rem;
 	--border-radius-nav-item: 0.2rem;
+	--dropdown-bg: #a8d1d1;
+	--dropdown-border-radius: 0.6rem;
+	--dropdown-item-radius: 0.6rem;
+	--dropdown-item-hover: #9ea1d4;
 
 	/* BUTTONS */
 	/* Primary */
@@ -51,16 +75,10 @@
 	--item-color-text: black;
 	--item-border-radius: 1rem;
 
-	/* DROPDOWN */
-	--dropdown-bg: #a8d1d1;
-	--dropdown-border-radius: 0.6rem;
-	--dropdown-item-radius: 0.6rem;
-	--dropdown-item-hover: #9ea1d4;
-
 	/* FORMS */
 	/* Inputs */
 	--border-weight: 1px;
-	--border-radius-input: 4px;
+	--border-radius-input: 1.5rem;
 	--border-color: black;
 	--label-color: black;
 	--input-color: white;

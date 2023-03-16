@@ -6,7 +6,7 @@
 	line-height: 0;
 	border: 1px solid black;
 	box-shadow: var(--btn-color-shadow) 3px 3px 0 0;
-	/* width: 100%; */
+	width: 100%;
 	transition: transform;
 }
 
