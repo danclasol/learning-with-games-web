@@ -45,7 +45,14 @@
 
 .primaryFilled,
 .secondaryFilled {
-	box-shadow: #573030 2px 2px 0px;
+	box-shadow: #422800 2px 2px 0 0;
+	transition: transform;
+}
+
+.primaryFilled:active,
+.secondaryFilled:active {
+	box-shadow: #422800 1px 1px 0 0;
+	transform: translate(1px, 1px);
 }
 
 .primaryFilled {

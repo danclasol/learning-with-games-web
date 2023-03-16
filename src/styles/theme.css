@@ -1,6 +1,7 @@
 :root {
 	/* MAIN */
 	--bg-color: #e3f7b5;
+	--bg-header-color: rgb(97, 192, 191);
 	--primary-color: #fd8a8a;
 	--secondary-color: #f1f7b5;
 	--text-color: black;
@@ -15,6 +16,7 @@
 	--card-color-hover: #a8d1d1;
 	--card-color-item: white;
 	--card-color-item-text: #47b8da;
+	--card-border-radius: 1.5rem;
 
 	/* DROPDOWN*/
 	--border-radius-items: 0.3rem;
@@ -46,9 +48,8 @@
 	/* LISTS */
 	--item-color: #fd8a8a;
 	--item-color-hover: rgb(250, 194, 171);
-	--item-color-shadow: #573030;
 	--item-color-text: black;
-	--item-border-radius: 0.3rem;
+	--item-border-radius: 1rem;
 
 	/* DROPDOWN */
 	--dropdown-bg: #a8d1d1;

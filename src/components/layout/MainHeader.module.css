@@ -1,0 +1,12 @@
+.header {
+	position: relative;
+	top: 0;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	column-gap: 1rem;
+	padding: 0.3rem 1rem;
+	background-color: var(--bg-header-color);
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}

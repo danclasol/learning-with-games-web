@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDropdown } from '../../lib/hooks/useDropdown';
 import IconButton from '../buttons/IconButton';
 import GameDeleteForm from '../game-form/GameDeleteForm';
@@ -9,12 +10,22 @@ import Modal from '../shared/Modal';
 import styles from './GameActions.module.css';
 
 const GameActions = ({ game, reset }) => {
+	const navigate = useNavigate();
+
 	const { modalContent, closeModal, openDeleteModal } = useModal({
 		game,
 		reset
 	});
 
 	const { showDropdown, dropdownRef, toggleDropdown } = useDropdown();
+
+	const clickEditHandler = () => {
+		navigate(`/games/${game.id}/edit`);
+	};
+
+	const clickPlayHandler = () => {
+		navigate(`/games/${game.id}/play`);
+	};
 
 	const toggleActionsDropdown = ev => {
 		ev.stopPropagation();
@@ -29,13 +40,13 @@ const GameActions = ({ game, reset }) => {
 					icon={PencilIcon}
 					kind='secondary'
 					filled
-					onClick={toggleActionsDropdown}
+					onClick={clickEditHandler}
 				/>
 				<IconButton
 					icon={PlayIcon}
 					kind='secondary'
 					filled
-					onClick={toggleActionsDropdown}
+					onClick={clickPlayHandler}
 				/>
 				<IconButton
 					icon={DotsIcon}

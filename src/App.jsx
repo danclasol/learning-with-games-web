@@ -1,12 +1,12 @@
-import Game from './components/game/Game.jsx';
-import GAME_DATA from './game_data.json';
+import Layout from './components/layout/Layout.jsx';
+import Navigation from './components/layout/Navigation.jsx';
 
 const App = () => {
-	const games = GAME_DATA;
-
 	return (
 		<main>
-			<Game game={games[0]} />
+			<Layout>
+				<Navigation />
+			</Layout>
 		</main>
 	);
 };

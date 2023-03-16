@@ -4,10 +4,10 @@
 	border-radius: var(--btn-border-radius);
 	font-weight: bold;
 	line-height: 0;
-	transition: transform;
 	border: 1px solid black;
 	box-shadow: var(--btn-color-shadow) 3px 3px 0 0;
-	width: 100%;
+	/* width: 100%; */
+	transition: transform;
 }
 
 .button:hover {
@@ -17,13 +17,6 @@
 .button:active {
 	box-shadow: #422800 2px 2px 0 0;
 	transform: translate(2px, 2px);
-}
-
-@media (min-width: 768px) {
-	.button {
-		min-width: 120px;
-		padding: 0 25px;
-	}
 }
 
 .button:disabled {
