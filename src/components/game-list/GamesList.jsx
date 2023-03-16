@@ -6,15 +6,8 @@ import GamesListRows from './GamesListRows.jsx';
 import PageSelector from './PageSelector.jsx';
 
 const GameList = () => {
-	const {
-		filters,
-		setSearch,
-		setType,
-		setSortBy,
-		setPage,
-		setItemsPerPage,
-		resetFilters
-	} = useFilters();
+	const { filters, setSearch, setType, setSortBy, setPage, resetFilters } =
+		useFilters();
 
 	const { games, count, error, loading } = useGames({
 		filters
@@ -22,7 +15,6 @@ const GameList = () => {
 
 	return (
 		<section className={styles.container}>
-			<h1 className={styles.title}>Game List</h1>
 			<GamesFilters
 				search={filters.search}
 				type={filters.type}
