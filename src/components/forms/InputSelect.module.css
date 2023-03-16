@@ -1,6 +1,9 @@
 .wrapper {
-	position: relative;
 	width: 100%;
+}
+
+.select {
+	position: relative;
 }
 
 .label {
@@ -11,7 +14,7 @@
 	margin-bottom: 0.25rem;
 }
 
-.select {
+.input {
 	position: relative;
 	width: 100%;
 	height: 2.5rem;
@@ -25,7 +28,7 @@
 	background-color: var(--input-color);
 }
 
-.select:focus {
+.input:focus:not(.borderError) {
 	outline: none;
 	place-content: none;
 	padding-left: 1rem;
@@ -44,6 +47,16 @@
 }
 
 .error {
-	border: var(--border-weight) solid var(--input-color-error);
+	display: block;
+	width: 100%;
+	min-height: 1.2rem;
+	font-size: var(--text-sm);
+	color: var(--input-color-error);
+	margin-top: 0.3rem;
+	margin-left: 0.5rem;
+}
+
+.borderError {
 	outline: 1px solid var(--input-color-error);
+	border: var(--border-weight) solid var(--input-color-error);
 }
