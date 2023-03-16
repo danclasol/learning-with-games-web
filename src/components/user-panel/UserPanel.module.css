@@ -1,0 +1,31 @@
+.panel {
+	position: relative;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	column-gap: 0.7rem;
+	background-color: var(--user-panel-bg);
+	border-radius: 1.5rem;
+	border: 1px solid var(--user-panel-border-color);
+	overflow: hidden;
+}
+
+.panel--active,
+.panel:hover {
+	background-color: var(--user-panel-bg-hover);
+}
+
+.panel__actions {
+	display: flex;
+	align-items: center;
+	margin-right: 0.5rem;
+}
+
+.icon {
+	width: 0.8rem;
+	transition: transform 0.5s;
+}
+
+.icon--toggle {
+	transform: rotate(-180deg);
+}

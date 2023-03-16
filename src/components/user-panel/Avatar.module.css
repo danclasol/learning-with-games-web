@@ -1,0 +1,26 @@
+.avatar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: default;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.avatar__image {
+	height: 2rem;
+	width: 2rem;
+	border-radius: 50%;
+	fill: black;
+}
+
+.avatar__name {
+	color: var(--text-color-white);
+	font-weight: bold;
+	font-size: var(--text-sm);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-left: 0.5rem;
+}
