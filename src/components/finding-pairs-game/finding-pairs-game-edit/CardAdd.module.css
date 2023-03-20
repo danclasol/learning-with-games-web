@@ -1,0 +1,40 @@
+.card {
+	display: flex;
+	align-items: center;
+	column-gap: 1.5rem;
+	padding: 1rem;
+	padding-bottom: 1.6rem;
+	border-radius: 1rem;
+	background-color: var(--card-color-back);
+	border: 2px solid black;
+}
+
+.card__image {
+	height: 100%;
+	max-height: 8rem;
+	min-width: 8rem;
+	object-fit: contain;
+	border: 1px solid black;
+	border-radius: 1rem;
+	background-color: white;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	grid-template-columns: 2fr 0.5fr;
+	width: 100%;
+	row-gap: 0.5rem;
+}
+
+.form__field {
+	width: 100%;
+	display: flex;
+}
+
+.actions {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 0.5rem;
+}
