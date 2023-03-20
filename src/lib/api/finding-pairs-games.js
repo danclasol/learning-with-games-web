@@ -20,7 +20,7 @@ export const updateGame = async ({ id, game }) => {
 	}
 };
 
-export const addPairToGame = async ({ id, gameId }) => {
+export const addPairToGame = async ({ id, text, image, gameId }) => {
 	const request = `${API_URL}/${API_VERSION}/games/${gameId}/${path}/pairs`;
 
 	try {
@@ -29,7 +29,7 @@ export const addPairToGame = async ({ id, gameId }) => {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ id })
+			body: JSON.stringify({ id: text, text, image })
 		});
 
 		return res.ok;

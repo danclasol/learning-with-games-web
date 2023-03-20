@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { udpatePairGame } from '../../../lib/api/finding-pairs-games';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
 import CloseIcon from '../../icons/CloseIcon';
@@ -11,12 +12,13 @@ import FindingPairsGameDeleteForm from '../finding-pairs-game-form/FindingPairsG
 import styles from './CardEdit.module.css';
 
 const CardEdit = ({ id, text, image, gameId }) => {
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors }
 	} = useForm({
-		defaultValues: { id, text, gameId }
+		defaultValues: { id, text, image }
 	});
 
 	const { modalContent, closeModal, openDeleteModal } = useModal({
@@ -37,67 +39,87 @@ const CardEdit = ({ id, text, image, gameId }) => {
 			<div className={styles.card}>
 				<img className={styles.card__image} src={image} />
 
-				<form className={styles.form}>
-					<div className={styles.form__field}>
-						<InputText
-							name='text'
-							label='Text'
-							placeholder='Text'
-							register={register}
-							error={errors.title?.message}
-							disabled={!isEditing}
-						/>
+				<form
+					className={styles.form}
+					onSubmit={handleSubmit(data => {
+						handleSubmitForm({ id, data, gameId, setIsSubmitting });
+					})}
+				>
+					<div className={styles.form__fields}>
+						<div className={styles.form__field}>
+							<InputText
+								name='text'
+								label='Text'
+								placeholder='Text'
+								register={register}
+								error={errors.title?.message}
+								disabled={!isEditing}
+							/>
+						</div>
+						<div className={styles.form__field}>
+							<InputText
+								name='image'
+								label='Image'
+								placeholder='Image'
+								register={register}
+								error={errors.title?.message}
+								disabled={!isEditing}
+							/>
+						</div>
 					</div>
-					<div className={styles.form__field}>
-						<InputText
-							name='image'
-							label='Image'
-							placeholder='Image'
-							register={register}
-							error={errors.title?.message}
-							disabled={!isEditing}
-						/>
+					<div className={styles.actions}>
+						{!isEditing && (
+							<>
+								<IconButton
+									icon={PencilIcon}
+									filled
+									size='large'
+									disabled={isSubmitting}
+									onClick={toggleIsEditing}
+								/>
+								<IconButton
+									icon={TrashIcon}
+									filled
+									size='large'
+									kind='secondary'
+									disabled={isSubmitting}
+									onClick={openDeleteModal}
+								/>
+							</>
+						)}
+						{isEditing && (
+							<>
+								<IconButton icon={SaveIcon} filled size='large' type='submit' />
+								<IconButton
+									icon={CloseIcon}
+									filled
+									size='large'
+									kind='secondary'
+									onClick={toggleIsEditing}
+								/>
+							</>
+						)}
 					</div>
 				</form>
-				<div className={styles.actions}>
-					{!isEditing && (
-						<>
-							<IconButton
-								icon={!isEditing ? PencilIcon : SaveIcon}
-								filled
-								size='large'
-								onClick={toggleIsEditing}
-							/>
-							<IconButton
-								icon={TrashIcon}
-								filled
-								size='large'
-								kind='secondary'
-								onClick={openDeleteModal}
-							/>
-						</>
-					)}
-					{isEditing && (
-						<>
-							<IconButton
-								icon={!isEditing ? PencilIcon : SaveIcon}
-								filled
-								size='large'
-								onClick={toggleIsEditing}
-							/>
-							<IconButton
-								icon={CloseIcon}
-								filled
-								size='large'
-								kind='secondary'
-								onClick={toggleIsEditing}
-							/>
-						</>
-					)}
-				</div>
 			</div>
 		</>
 	);
+};
+
+const handleSubmitForm = async ({ id, data, gameId, setIsSubmitting }) => {
+	console.log({ id, data, gameId, setIsSubmitting });
+
+	setIsSubmitting(true);
+
+	const success = await udpatePairGame({
+		id,
+		gameId,
+		...data
+	});
+
+	if (success) {
+		setIsSubmitting(false);
+	}
 };
 
 const useModal = ({ id, text, gameId, reset }) => {

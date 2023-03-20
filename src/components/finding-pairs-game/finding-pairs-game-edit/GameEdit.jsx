@@ -96,7 +96,9 @@ const GameEdit = ({ game }) => {
 					<div className={styles.game__pairs__actions}>
 						<Button onClick={handleAddPairClick}>Add pair</Button>
 					</div>
-					{addPair && <CardAdd closeForm={handleCancelAddPairClick} />}
+					{addPair && (
+						<CardAdd gameId={game.id} closeForm={handleCancelAddPairClick} />
+					)}
 					<div className={styles.cards}>
 						{game?.pairs.map((pair, index) => (
 							<CardEdit

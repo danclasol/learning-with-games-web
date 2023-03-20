@@ -7,6 +7,7 @@
 	font-size: var(--text-sm);
 	font-weight: bold;
 	color: var(--label-color);
+	margin-left: 1rem;
 	margin-bottom: 0.25rem;
 }
 
