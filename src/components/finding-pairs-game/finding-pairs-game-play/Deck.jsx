@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { suffle } from '../../lib/games/findingPairs';
-import Button from '../buttons/Button';
-import Modal from '../shared/Modal';
+import { suffle } from '../../../lib/games/findingPairs';
+import Button from '../../buttons/Button';
+import Modal from '../../shared/Modal';
 import Card from './Card';
 import styles from './Deck.module.css';
 import FinishedGame from './FinishedGame';
@@ -15,9 +15,9 @@ const Deck = ({ pairsInit }) => {
 	const [restart, setRestart] = useState();
 
 	const checkIsFlipped = index =>
-		flippedCards.includes(index) || resolvedCards.includes(pairs[index].value);
+		flippedCards.includes(index) || resolvedCards.includes(pairs[index].id);
 
-	const checkIsResolved = value => resolvedCards.includes(value);
+	const checkIsResolved = id => resolvedCards.includes(id);
 	const checkDeckFinished = () => {
 		if (pairs.length === 0) return;
 
@@ -38,8 +38,8 @@ const Deck = ({ pairsInit }) => {
 
 		setMoves(newMovs);
 
-		if (pairs[first].value === pairs[second].value) {
-			setResolvedCards(prev => [...prev, pairs[first].value]);
+		if (pairs[first].id === pairs[second].id) {
+			setResolvedCards(prev => [...prev, pairs[first].id]);
 			setFlippledCards([]);
 		}
 	};
@@ -98,15 +98,15 @@ const Deck = ({ pairsInit }) => {
 				{pairs.map((pair, index) => (
 					<Card
 						key={index}
-						value={pair.value}
+						id={pair.id}
 						text={pair.text}
 						image={pair.image}
 						index={index}
-						isResolved={checkIsResolved(pair.value)}
+						isResolved={checkIsResolved(pair.id)}
 						isFlipped={checkIsFlipped(index)}
 						onClick={handleCardClick}
 					>
-						{pair.value}
+						{pair.id}
 					</Card>
 				))}
 			</div>

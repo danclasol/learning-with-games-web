@@ -130,23 +130,25 @@ export const createGame = async ({ game }) => {
 	}
 };
 
-export const updateGame = async ({ id, game }) => {
-	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
+// export const updateGame = async ({ id, game }) => {
+// 	console.log('updateGame', { id, game });
 
-	try {
-		const res = await fetch(request, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(game)
-		});
+// 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
 
-		return res.ok;
-	} catch {
-		return false;
-	}
-};
+// 	try {
+// 		const res = await fetch(request, {
+// 			method: 'PUT',
+// 			headers: {
+// 				'Content-Type': 'application/json'
+// 			},
+// 			body: JSON.stringify(game)
+// 		});
+
+// 		return res.ok;
+// 	} catch {
+// 		return false;
+// 	}
+// };
 
 export const deleteGame = async ({ id }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;

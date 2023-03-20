@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import GamePlay from '../components/game-play/GamePlay';
+import GamePlay from '../components/finding-pairs-game/finding-pairs-game-play/GamePlay';
 
 const GamePlayPage = () => {
 	const { id } = useParams();

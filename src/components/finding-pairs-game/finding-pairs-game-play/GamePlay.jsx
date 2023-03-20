@@ -1,6 +1,6 @@
-import { prepareCards } from '../../lib/games/findingPairs';
-import { useGame } from '../../lib/hooks/useGame';
-import Loading from '../shared/Loading';
+import { prepareCards } from '../../../lib/games/findingPairs';
+import { useGame } from '../../../lib/hooks/useGame';
+import Loading from '../../shared/Loading';
 import Deck from './Deck';
 import styles from './GamePlay.module.css';
 

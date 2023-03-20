@@ -1,7 +1,7 @@
 import confetti from 'canvas-confetti';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../buttons/Button.jsx';
+import Button from '../../buttons/Button.jsx';
 import styles from './FinishedGame.module.css';
 
 const FinishedGame = ({ numberMovs = 0, closeModal, reset }) => {

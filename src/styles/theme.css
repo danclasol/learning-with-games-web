@@ -86,5 +86,6 @@
 	--input-text-color: black;
 	--input-focus-color: black;
 	--input-color-error: tomato;
+	--input-color-disabled: rgb(245, 224, 192);
 	--shadow-sm: 0px;
 }
