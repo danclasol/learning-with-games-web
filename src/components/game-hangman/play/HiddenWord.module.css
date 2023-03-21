@@ -1,0 +1,29 @@
+.wrapper {
+	display: flex;
+	justify-content: center;
+	column-gap: 0.5rem;
+}
+
+.card {
+	min-width: 5.5rem;
+	padding: 1.5rem;
+	border-radius: var(--letter-border-radius);
+	border: 2px solid var(--letter-border-color);
+	background-color: var(--letter-color);
+}
+
+.card--hidden {
+	border: 2px solid var(--letter-border-color-hidden);
+	background-color: var(--letter-color-hidden);
+}
+
+.letter {
+	display: block;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: var(--title-2);
+}
+
+.letter--hidden {
+	visibility: hidden;
+}

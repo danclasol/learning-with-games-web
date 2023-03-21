@@ -38,6 +38,18 @@
 	--card-color-item-text: #47b8da;
 	--card-border-radius: 1.5rem;
 
+	/* LETTERS */
+	--letter-color: #ffdca9;
+	--letter-border-color: #faab78;
+	--letter-color-hover: #fff5e6;
+	--letter-pressed: darkgrey;
+	--letter-border-color-pressed: rgb(95, 94, 94);
+	--letter-resolved: #9ea1d4;
+	--letter-border-color-resolved: rgb(75, 110, 156);
+	--letter-color-hidden: #fd8a8a;
+	--letter-border-color-hidden: #fd6767;
+	--letter-border-radius: 1.2rem;
+
 	/* DROPDOWN*/
 	--border-radius-items: 0.3rem;
 	--border-radius-nav-item: 0.2rem;

@@ -1,0 +1,33 @@
+.card {
+	min-width: 6.5rem;
+	padding: 2rem;
+	border-radius: var(--letter-border-radius);
+	border: 2px solid var(--letter-border-color);
+	background-color: var(--letter-color);
+}
+
+.card:hover:not(.pressed):not(.resolved) {
+	background-color: var(--letter-color-hover);
+}
+
+.pressed {
+	background-color: var(--letter-pressed);
+	border: 2px solid var(--letter-border-color-pressed);
+	opacity: 0.4;
+}
+
+.resolved {
+	background-color: var(--letter-resolved);
+	border: 2px solid var(--letter-border-color-resolved);
+}
+
+.letter {
+	display: block;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: var(--title-2);
+}
+
+.letter--hidden {
+	visibility: hidden;
+}
