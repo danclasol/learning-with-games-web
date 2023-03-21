@@ -6,7 +6,7 @@ import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
 import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
 import PlayIcon from '../../icons/PlayIcon';
-import SaveIcon from '../../icons/TrashIcon copy';
+import SaveIcon from '../../icons/SaveIcon';
 import CardAdd from './CardAdd';
 import CardEdit from './CardEdit';
 import styles from './GameEdit.module.css';

@@ -4,7 +4,7 @@ import { addPairToGame } from '../../../lib/api/finding-pairs-games';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
 import CloseIcon from '../../icons/CloseIcon';
-import SaveIcon from '../../icons/TrashIcon copy';
+import SaveIcon from '../../icons/SaveIcon';
 import styles from './CardAdd.module.css';
 
 const CardAdd = ({ gameId, closeForm }) => {
