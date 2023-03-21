@@ -1,7 +1,14 @@
 import { useParams } from 'react-router-dom';
-import GameEdit from '../components/finding-pairs-game/finding-pairs-game-edit/GameEdit';
 import Loading from '../components/shared/Loading';
 import { useGame } from '../lib/hooks/useGame';
+
+import FindingPairsEdit from '../components/game-finding-pairs/edit/GameEdit';
+import HangmanGameEdit from '../components/game-hangman/edit/GameEdit';
+
+const GAMES_TYPE_MAPPER = {
+	'finding-pairs': FindingPairsEdit,
+	hangman: HangmanGameEdit
+};
 
 const GameEditPage = () => {
 	const { id } = useParams();
@@ -16,7 +23,9 @@ const GameEditPage = () => {
 		return <p>No existe juego</p>;
 	}
 
-	return <GameEdit game={game} />;
+	const GameEditComponent = GAMES_TYPE_MAPPER[game.type];
+
+	return <GameEditComponent game={game} />;
 };
 
 export default GameEditPage;

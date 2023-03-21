@@ -8,7 +8,7 @@ import PencilIcon from '../../icons/PencilIcon';
 import TrashIcon from '../../icons/TrashIcon';
 import SaveIcon from '../../icons/TrashIcon copy';
 import Modal from '../../shared/Modal';
-import FindingPairsGameDeleteForm from '../finding-pairs-game-form/FindingPairsGameDeleteForm';
+import DeletePairForm from '../forms/DeletePairForm';
 import styles from './CardEdit.module.css';
 
 const CardEdit = ({ id, text, image, gameId }) => {
@@ -131,7 +131,7 @@ const useModal = ({ id, text, gameId, reset }) => {
 
 	const openDeleteModal = () => {
 		setModalContent(
-			<FindingPairsGameDeleteForm
+			<DeletePairForm
 				id={id}
 				gameId={gameId}
 				text={text}

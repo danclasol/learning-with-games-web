@@ -1,15 +1,9 @@
 import { useState } from 'react';
 import { deletePairFromGame } from '../../../lib/api/finding-pairs-games';
 import Button from '../../buttons/Button';
-import styles from './FindingPairsGameDeleteForm.module.css';
+import styles from './DeletePairForm.module.css';
 
-const FindingPairsGameDeleteForm = ({
-	id,
-	text,
-	gameId,
-	closeModal,
-	onSuccess
-}) => {
+const DeletePairForm = ({ id, text, gameId, closeModal, onSuccess }) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	return (
@@ -59,4 +53,4 @@ const handleSubmitForm = async ({
 	setIsSubmitting(false);
 };
 
-export default FindingPairsGameDeleteForm;
+export default DeletePairForm;

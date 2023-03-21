@@ -100,18 +100,22 @@ const GameEdit = ({ game }) => {
 						<CardAdd gameId={game.id} closeForm={handleCancelAddPairClick} />
 					)}
 					<div className={styles.cards}>
-						{game?.pairs.map((pair, index) => (
-							<CardEdit
-								key={index}
-								id={pair.id}
-								text={pair.text}
-								image={pair.image}
-								index={index}
-								gameId={game.id}
-							>
-								{pair.value}
-							</CardEdit>
-						))}
+						{!game?.pairs ? (
+							<p>No pairs created</p>
+						) : (
+							game?.pairs.map((pair, index) => (
+								<CardEdit
+									key={index}
+									id={pair.id}
+									text={pair.text}
+									image={pair.image}
+									index={index}
+									gameId={game.id}
+								>
+									{pair.value}
+								</CardEdit>
+							))
+						)}
 					</div>
 				</div>
 			</div>
