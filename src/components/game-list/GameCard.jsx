@@ -22,7 +22,7 @@ const GameCard = ({ game, reset }) => {
 			<div className={styles.card__info}>
 				<span className={styles.title}>{game.title}</span>
 				<span className={styles.type}>{text}</span>
-				<span className={styles.text}>{game.userId}</span>
+				<span className={styles.user}>{game.userId}</span>
 				<span className={styles.date}>
 					{formatDateLocale(game.creationDate)}
 				</span>

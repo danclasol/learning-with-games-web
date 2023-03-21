@@ -6,6 +6,8 @@
 	background-color: var(--item-color);
 	border-radius: var(--item-border-radius);
 	border: 1px solid black;
+	outline: 1px solid black;
+	outline-offset: -6px;
 }
 
 .card:hover {
@@ -20,15 +22,31 @@
 	width: 100%;
 	padding: 0.5rem;
 	color: var(--item-color-text);
+	overflow: hidden;
 }
 
 .title {
 	color: var(--text-color);
-	font-size: var(--title-3);
+	font-size: var(--title-4);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .type {
 	font-weight: bold;
+}
+
+.user {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: var(--text-sm);
+	opacity: 0.8;
+}
+
+.date {
+	font-size: var(--text-sm);
 }
 
 .image {
