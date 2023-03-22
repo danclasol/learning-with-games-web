@@ -7,8 +7,8 @@ import styles from './Deck.module.css';
 import FinishedGame from './FinishedGame';
 
 const Deck = ({ pairsInit }) => {
-	const [movs, setMoves] = useState(0);
 	const { modalContent, closeModal, openModal } = useModal();
+	const [movs, setMoves] = useState(0);
 	const [flippedCards, setFlippledCards] = useState([]);
 	const [resolvedCards, setResolvedCards] = useState([]);
 	const [pairs, setPairs] = useState(pairsInit);
