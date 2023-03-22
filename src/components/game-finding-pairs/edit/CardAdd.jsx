@@ -43,7 +43,11 @@ const CardAdd = ({ gameId, closeForm }) => {
 							label='Text'
 							placeholder='Text'
 							register={register}
-							error={errors.title?.message}
+							validate={{
+								required: 'Field required',
+								minLenght: 4
+							}}
+							error={errors.text?.message}
 						/>
 					</div>
 					<div className={styles.form__field}>
@@ -52,7 +56,11 @@ const CardAdd = ({ gameId, closeForm }) => {
 							label='Image'
 							placeholder='Image'
 							register={register}
-							error={errors.title?.message}
+							validate={{
+								required: 'Field required',
+								minLenght: 4
+							}}
+							error={errors.image?.message}
 						/>
 					</div>
 				</div>

@@ -52,7 +52,11 @@ const CardEdit = ({ id, text, image, gameId }) => {
 								label='Text'
 								placeholder='Text'
 								register={register}
-								error={errors.title?.message}
+								validate={{
+									required: 'Field required',
+									minLenght: 4
+								}}
+								error={errors.text?.message}
 								disabled={!isEditing}
 							/>
 						</div>
@@ -62,7 +66,10 @@ const CardEdit = ({ id, text, image, gameId }) => {
 								label='Image'
 								placeholder='Image'
 								register={register}
-								error={errors.title?.message}
+								validate={{
+									required: 'Field required'
+								}}
+								error={errors.image?.message}
 								disabled={!isEditing}
 							/>
 						</div>

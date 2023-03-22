@@ -23,12 +23,18 @@ const GameEdit = ({ game }) => {
 		formState: { errors }
 	} = useForm({ defaultValues: { title: game?.title } });
 
+	const handleClicGoBack = () => {
+		navigate('/games/');
+	};
+
 	const handleClickPlay = () => {
 		navigate(`/games/${game.id}/play`);
 	};
 
-	const handleClicGoBack = () => {
-		navigate('/games/');
+	const handleClickSave = () => {
+		handleSubmit(data => {
+			handleSubmitForm({ id: game.id, data, setIsSubmitting });
+		});
 	};
 
 	const handleAddPairClick = () => {
@@ -40,7 +46,7 @@ const GameEdit = ({ game }) => {
 	};
 
 	return (
-		<section className={styles.content}>
+		<section className={styles.container}>
 			<div className={styles.actions}>
 				<div className={styles.actions__buttons}>
 					<Button onClick={handleClicGoBack} disabled={isSubmitting}>
@@ -51,7 +57,7 @@ const GameEdit = ({ game }) => {
 					</Button>
 				</div>
 				<div className={styles.actions__buttons}>
-					<Button onClick={handleClickPlay} disabled={isSubmitting}>
+					<Button onClick={handleClickSave} disabled={isSubmitting}>
 						<div className={styles.button__content}>
 							<SaveIcon className={styles.icon} />
 							<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
@@ -83,6 +89,10 @@ const GameEdit = ({ game }) => {
 								label='Title'
 								placeholder='Title'
 								register={register}
+								validate={{
+									required: 'Field required',
+									minLenght: 4
+								}}
 								error={errors.title?.message}
 							/>
 						</div>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '../buttons/Button';
 import InputSearch from '../forms/InputSearch';
-import InputSelect from '../forms/InputSelect';
+import SelectSearch from '../forms/SelectSearch';
 import GameCreateForm from '../game-form/GameCreateForm';
 import ArrowSort from '../icons/ArrowSort';
 import FilterIcon from '../icons/FilterIcon';
@@ -50,7 +50,7 @@ const GamesListFilters = ({
 				/>
 				<div className={styles.filter}>
 					<FilterIcon className={styles.icon} />
-					<InputSelect
+					<SelectSearch
 						value={type}
 						className={styles.filter}
 						onChange={handleTypeChange}
@@ -59,11 +59,11 @@ const GamesListFilters = ({
 						<option value='finding-pairs'>Finding Pairs</option>
 						<option value='hangman'>Hangman</option>
 						<option value='quiz'>Quiz</option>
-					</InputSelect>
+					</SelectSearch>
 				</div>
 				<div className={styles.filter}>
 					<ArrowSort className={styles.icon} />
-					<InputSelect
+					<SelectSearch
 						value={sortBy}
 						className={styles.filter}
 						onChange={handleSortByChange}
@@ -72,7 +72,7 @@ const GamesListFilters = ({
 						<option value='1'>By date desc</option>
 						<option value='2'>By name</option>
 						<option value='3'>By game</option>
-					</InputSelect>
+					</SelectSearch>
 				</div>
 			</div>
 			<div className={styles.actions}>

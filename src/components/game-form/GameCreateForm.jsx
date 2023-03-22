@@ -30,6 +30,10 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 						label='Title'
 						placeholder='Title'
 						register={register}
+						validate={{
+							required: 'Field required',
+							minLenght: 4
+						}}
 						error={errors.title?.message}
 					/>
 				</div>
@@ -37,7 +41,10 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 					<InputSelect
 						name='type'
 						label='Game'
-						{...register('type', { required: 'Field required' })}
+						register={register}
+						validate={{
+							required: 'Field required'
+						}}
 						error={errors.type?.message}
 					>
 						<option value=''>Select game...</option>

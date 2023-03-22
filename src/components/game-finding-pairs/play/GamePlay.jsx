@@ -122,26 +122,28 @@ const GamePlay = ({ game }) => {
 					</div>
 				</div>
 
-				<h1 className={styles.title}>{game.title}</h1>
-				<div className={styles.stats}>
-					<p className={styles.text}>Number of movements: {movs}</p>
-				</div>
+				<div className={styles.game}>
+					<h1 className={styles.title}>{game.title}</h1>
+					<div className={styles.stats}>
+						<p className={styles.text}>Number of movements: {movs}</p>
+					</div>
 
-				<div className={styles.cards}>
-					{pairs.map((pair, index) => (
-						<Card
-							key={index}
-							id={pair.id}
-							text={pair.text}
-							image={pair.image}
-							index={index}
-							isResolved={checkIsResolved(pair.id)}
-							isFlipped={checkIsFlipped(index)}
-							onClick={handleCardClick}
-						>
-							{pair.id}
-						</Card>
-					))}
+					<div className={styles.cards}>
+						{pairs.map((pair, index) => (
+							<Card
+								key={index}
+								id={pair.id}
+								text={pair.text}
+								image={pair.image}
+								index={index}
+								isResolved={checkIsResolved(pair.id)}
+								isFlipped={checkIsFlipped(index)}
+								onClick={handleCardClick}
+							>
+								{pair.id}
+							</Card>
+						))}
+					</div>
 				</div>
 			</section>
 		</>

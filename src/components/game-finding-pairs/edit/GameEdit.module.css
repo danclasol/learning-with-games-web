@@ -1,4 +1,4 @@
-.content {
+.container {
 	display: flex;
 	flex-direction: column;
 	row-gap: 1rem;
@@ -31,7 +31,6 @@
 .game {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	row-gap: 2rem;
 }
 
