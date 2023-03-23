@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { addPairToGame } from '../../../lib/api/finding-pairs-games';
+import { isImageValid } from '../../../lib/utils/images';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
 import CloseIcon from '../../icons/CloseIcon';
@@ -12,7 +12,8 @@ const CardAdd = ({ gameId, closeForm }) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors }
+		watch,
+		formState: { errors, isDirty }
 	} = useForm({
 		defaultValues: { text: '', image: '' }
 	});
@@ -21,9 +22,13 @@ const CardAdd = ({ gameId, closeForm }) => {
 		closeForm();
 	};
 
+	const imageSrc = watch('image') || '/images/image.svg';
+
 	return (
 		<div className={styles.card}>
-			<img className={styles.card__image} src={'/images/image.svg'} />
+			<div className={styles.card__image}>
+				<img className={styles.image} src={imageSrc} />
+			</div>
 
 			<form
 				className={styles.form}
@@ -45,7 +50,10 @@ const CardAdd = ({ gameId, closeForm }) => {
 							register={register}
 							validate={{
 								required: 'Field required',
-								minLenght: 4
+								minLength: {
+									value: 2,
+									message: 'At least 2 characters'
+								}
 							}}
 							error={errors.text?.message}
 						/>
@@ -58,7 +66,7 @@ const CardAdd = ({ gameId, closeForm }) => {
 							register={register}
 							validate={{
 								required: 'Field required',
-								minLenght: 4
+								validate: isImageValid
 							}}
 							error={errors.image?.message}
 						/>
@@ -69,7 +77,7 @@ const CardAdd = ({ gameId, closeForm }) => {
 						icon={SaveIcon}
 						filled
 						size='large'
-						disabled={isSubmitting}
+						disabled={isSubmitting || !isDirty}
 					/>
 					<IconButton
 						icon={CloseIcon}
@@ -77,6 +85,7 @@ const CardAdd = ({ gameId, closeForm }) => {
 						size='large'
 						kind='secondary'
 						disabled={isSubmitting}
+						type='button'
 						onClick={handleCancelClick}
 					/>
 				</div>

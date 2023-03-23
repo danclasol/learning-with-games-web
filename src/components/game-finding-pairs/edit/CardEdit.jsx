@@ -16,7 +16,7 @@ const CardEdit = ({ id, text, image, gameId }) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors }
+		formState: { errors, isDirty }
 	} = useForm({
 		defaultValues: { id, text, image }
 	});
@@ -54,7 +54,10 @@ const CardEdit = ({ id, text, image, gameId }) => {
 								register={register}
 								validate={{
 									required: 'Field required',
-									minLenght: 4
+									minLength: {
+										value: 2,
+										message: 'At least 2 characters'
+									}
 								}}
 								error={errors.text?.message}
 								disabled={!isEditing}
@@ -91,18 +94,26 @@ const CardEdit = ({ id, text, image, gameId }) => {
 									kind='secondary'
 									disabled={isSubmitting}
 									onClick={openDeleteModal}
+									type='button'
 								/>
 							</>
 						)}
 						{isEditing && (
 							<>
-								<IconButton icon={SaveIcon} filled size='large' type='submit' />
+								<IconButton
+									icon={SaveIcon}
+									filled
+									size='large'
+									type='submit'
+									disabled={isSubmitting || !isDirty}
+								/>
 								<IconButton
 									icon={CloseIcon}
 									filled
 									size='large'
 									kind='secondary'
 									onClick={toggleIsEditing}
+									type='button'
 								/>
 							</>
 						)}
@@ -114,8 +125,6 @@ const CardEdit = ({ id, text, image, gameId }) => {
 };
 
 const handleSubmitForm = async ({ id, data, gameId, setIsSubmitting }) => {
-	console.log({ id, data, gameId, setIsSubmitting });
-
 	setIsSubmitting(true);
 
 	const success = await udpatePairGame({

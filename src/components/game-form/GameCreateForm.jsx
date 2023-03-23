@@ -11,7 +11,7 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors }
+		formState: { errors, isDirty }
 	} = useForm({ defaultValues: { title: '', type: '' } });
 
 	return (
@@ -32,7 +32,10 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 						register={register}
 						validate={{
 							required: 'Field required',
-							minLenght: 4
+							minLength: {
+								value: 4,
+								message: 'At least 4 characters'
+							}
 						}}
 						error={errors.title?.message}
 					/>
@@ -55,7 +58,7 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 				</div>
 
 				<div className={styles.actions}>
-					<Button disabled={isSubmitting}>
+					<Button disabled={isSubmitting || !isDirty}>
 						{isSubmitting ? 'Creating...' : 'Create'}
 					</Button>
 				</div>
