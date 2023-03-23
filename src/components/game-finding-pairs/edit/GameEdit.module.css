@@ -36,9 +36,11 @@
 
 .game__info {
 	display: flex;
-	align-items: end;
 	justify-content: space-between;
 	column-gap: 1rem;
+	margin: auto;
+	max-width: 500px;
+	width: 100%;
 }
 
 .form {
@@ -49,17 +51,20 @@
 	row-gap: 0.5rem;
 }
 
-.game__pairs {
+.pairs {
 	display: flex;
 	flex-direction: column;
 	row-gap: 1rem;
 }
 
-.game__pairs__actions {
-	width: 200px;
+.pairs__add {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 0.6rem;
 }
 
-.cards {
+.pairs__list {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
 	gap: 1rem;

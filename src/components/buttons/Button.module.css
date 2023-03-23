@@ -23,6 +23,7 @@
 	color: var(--btn-color-disabled);
 	background-color: var(--btn-color-background-disabled);
 	border-color: var(--btn-color-border-disabled);
+	pointer-events: none;
 }
 
 .primary {
