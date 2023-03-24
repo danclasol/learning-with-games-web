@@ -18,12 +18,10 @@ const GamePlay = ({ game }) => {
 	const [pairs, setPairs] = useState(prepareCards(game?.pairs));
 	const [restart, setRestart] = useState();
 
-	const pairsSuffled = prepareCards(game?.pairs);
-
 	const checkIsFlipped = index =>
-		flippedCards.includes(index) || resolvedCards.includes(pairs[index].id);
+		flippedCards.includes(index) || resolvedCards.includes(pairs[index].text);
 
-	const checkIsResolved = id => resolvedCards.includes(id);
+	const checkIsResolved = text => resolvedCards.includes(text);
 	const checkDeckFinished = () => {
 		if (pairs.length === 0) return;
 
@@ -44,13 +42,11 @@ const GamePlay = ({ game }) => {
 
 		setMoves(newMovs);
 
-		if (pairs[first].id === pairs[second].id) {
-			setResolvedCards(prev => [...prev, pairs[first].id]);
+		if (pairs[first].text === pairs[second].text) {
+			setResolvedCards(prev => [...prev, pairs[first].text]);
 			setFlippledCards([]);
 		}
 	};
-
-	const reset = () => {};
 
 	useEffect(() => {
 		if (flippedCards.length !== 2) return;
@@ -71,7 +67,7 @@ const GamePlay = ({ game }) => {
 	}, [flippedCards]);
 
 	useEffect(() => {
-		if (checkDeckFinished()) openModal(movs, reset);
+		if (checkDeckFinished()) openModal(movs, resetGame);
 	}, [resolvedCards]);
 
 	useEffect(() => {
@@ -88,7 +84,7 @@ const GamePlay = ({ game }) => {
 		};
 	}, [restart]);
 
-	const handleClickReset = () => {
+	const resetGame = () => {
 		setMoves(0);
 		setFlippledCards([]);
 		setResolvedCards([]);
@@ -113,7 +109,7 @@ const GamePlay = ({ game }) => {
 						</Button>
 					</div>
 					<div className={styles.actions__buttons}>
-						<Button onClick={handleClickReset} kind='secondary'>
+						<Button onClick={resetGame} kind='secondary'>
 							<div className={styles.button__content}>
 								<RefreshIcon className={styles.icon} />
 								<span>Reset</span>
@@ -136,7 +132,7 @@ const GamePlay = ({ game }) => {
 								text={pair.text}
 								image={pair.image}
 								index={index}
-								isResolved={checkIsResolved(pair.id)}
+								isResolved={checkIsResolved(pair.text)}
 								isFlipped={checkIsFlipped(index)}
 								onClick={handleCardClick}
 							>
