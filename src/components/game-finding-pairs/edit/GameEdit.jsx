@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { updateGame } from '../../../lib/api/finding-pairs-games';
 import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
 import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
+import CloseIcon from '../../icons/CloseIcon';
 import PlayIcon from '../../icons/PlayIcon';
 import SaveIcon from '../../icons/SaveIcon';
 import CardAdd from './CardAdd';
@@ -13,43 +14,53 @@ import styles from './GameEdit.module.css';
 
 const GameEdit = ({ game }) => {
 	const navigate = useNavigate();
-
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [addPair, setAddPair] = useState(false);
+	const [addPairForm, setAddPairForm] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
-		formState: { errors }
-	} = useForm({ defaultValues: { title: game?.title } });
+		formState: { errors, isDirty, dirtyFields, isSubmitting },
+		control,
+		getValues,
+		trigger,
+		watch,
+		reset,
+		resetField
+	} = useForm({ defaultValues: { title: game?.title, pairs: game?.pairs } });
 
-	const handleClicGoBack = () => {
-		navigate('/games/');
-	};
-
-	const handleClickPlay = () => {
-		navigate(`/games/${game.id}/play`);
-	};
-
-	const handleClickSave = () => {
-		handleSubmit(data => {
-			handleSubmitForm({ id: game.id, data, setIsSubmitting });
-		});
-	};
+	const { fields, append, remove } = useFieldArray({
+		name: 'pairs',
+		control
+	});
 
 	const handleAddPairClick = () => {
-		setAddPair(true);
+		setAddPairForm(true);
 	};
 
 	const handleCancelAddPairClick = () => {
-		setAddPair(false);
+		setAddPairForm(false);
 	};
+
+	const addPair = pair => {
+		append({ ...pair });
+	};
+
+	const removePair = index => {
+		remove(index);
+	};
+
+	console.log({ dirtyFields });
 
 	return (
 		<section className={styles.container}>
 			<div className={styles.actions}>
 				<div className={styles.actions__buttons}>
-					<Button onClick={handleClicGoBack} disabled={isSubmitting}>
+					<Button
+						onClick={() => {
+							navigate('/games/');
+						}}
+						disabled={isSubmitting}
+					>
 						<div className={styles.button__content}>
 							<ArrowLeftIcon className={styles.icon} />
 							<span>Go back</span>
@@ -57,7 +68,15 @@ const GameEdit = ({ game }) => {
 					</Button>
 				</div>
 				<div className={styles.actions__buttons}>
-					<Button onClick={handleClickSave} disabled={isSubmitting}>
+					{isDirty && (
+						<Button disabled={isSubmitting || !isDirty} onClick={() => reset()}>
+							<div className={styles.button__content}>
+								<CloseIcon className={styles.icon} />
+								<span>Reset</span>
+							</div>
+						</Button>
+					)}
+					<Button disabled={isSubmitting || !isDirty} type='submit' form='form'>
 						<div className={styles.button__content}>
 							<SaveIcon className={styles.icon} />
 							<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
@@ -65,7 +84,9 @@ const GameEdit = ({ game }) => {
 					</Button>
 					<Button
 						kind='secondary'
-						onClick={handleClickPlay}
+						onClick={() => {
+							navigate(`/games/${game.id}/play`);
+						}}
 						disabled={isSubmitting}
 					>
 						<div className={styles.button__content}>
@@ -75,75 +96,86 @@ const GameEdit = ({ game }) => {
 					</Button>
 				</div>
 			</div>
-			<div className={styles.game}>
+
+			<form
+				id='form'
+				className={styles.form}
+				onSubmit={handleSubmit(async data => {
+					await handleSubmitForm({ id: game.id, data });
+				})}
+			>
 				<div className={styles.game__info}>
-					<form
-						className={styles.form}
-						onSubmit={handleSubmit(data => {
-							handleSubmitForm({ id: game.id, data, setIsSubmitting });
-						})}
-					>
-						<div className={styles.form__field}>
-							<InputText
-								name='title'
-								label='Title'
-								placeholder='Title'
-								register={register}
-								validate={{
-									required: 'Field required',
-									minLenght: 4
-								}}
-								error={errors.title?.message}
-							/>
-						</div>
-						<Button disabled={isSubmitting}>
-							{isSubmitting ? 'Saving...' : 'Save'}
-						</Button>
-					</form>
+					<div className={styles.form__field}>
+						<InputText
+							name='title'
+							label='Title'
+							placeholder='Title'
+							register={register}
+							validate={{
+								required: 'Field required',
+								minLength: {
+									value: 4,
+									message: 'At least 4 characters'
+								}
+							}}
+							error={errors.title?.message}
+						/>
+					</div>
 				</div>
 
-				<div className={styles.game__pairs}>
-					<div className={styles.game__pairs__actions}>
-						<Button onClick={handleAddPairClick}>Add pair</Button>
-					</div>
-					{addPair && (
-						<CardAdd gameId={game.id} closeForm={handleCancelAddPairClick} />
-					)}
-					<div className={styles.cards}>
-						{!game?.pairs ? (
-							<p>No pairs created</p>
-						) : (
-							game?.pairs.map((pair, index) => (
-								<CardEdit
-									key={index}
-									id={pair.id}
-									text={pair.text}
-									image={pair.image}
-									index={index}
-									gameId={game.id}
-								>
-									{pair.value}
-								</CardEdit>
-							))
+				<div className={styles.pairs}>
+					<div className={styles.pairs__add}>
+						<div className={styles.actions}>
+							<Button type='button' onClick={handleAddPairClick}>
+								Add pair
+							</Button>
+						</div>
+						{addPairForm && (
+							<CardAdd
+								closeForm={handleCancelAddPairClick}
+								register={register}
+								getValues={getValues}
+								watch={watch}
+								addPair={addPair}
+								errors={errors.newpair}
+								trigger={trigger}
+								resetField={resetField}
+								dirtyFields={dirtyFields}
+							/>
 						)}
 					</div>
+					<div className={styles.pairs__list}>
+						{fields.map((pair, index) => (
+							<CardEdit
+								key={pair.id}
+								index={index}
+								text={pair.text}
+								image={pair.image}
+								register={register}
+								error={errors.pairs}
+								watch={watch}
+								addPair={addPair}
+								removePair={removePair}
+								errors={errors.pairs}
+								trigger={trigger}
+								resetField={resetField}
+								dirtyFields={dirtyFields}
+							>
+								{pair.value}
+							</CardEdit>
+						))}
+					</div>
 				</div>
-			</div>
+			</form>
 		</section>
 	);
 };
 
-const handleSubmitForm = async ({ id, data, setIsSubmitting }) => {
-	setIsSubmitting(true);
-
+const handleSubmitForm = async ({ id, data }) => {
 	const success = await updateGame({
 		id,
 		game: { ...data, type: 'finding-pairs' }
 	});
-
-	if (success) {
-		setIsSubmitting(false);
-	}
 };
 
 export default GameEdit;

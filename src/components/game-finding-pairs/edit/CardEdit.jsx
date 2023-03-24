@@ -1,167 +1,130 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { udpatePairGame } from '../../../lib/api/finding-pairs-games';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
 import CloseIcon from '../../icons/CloseIcon';
 import PencilIcon from '../../icons/PencilIcon';
 import SaveIcon from '../../icons/SaveIcon';
 import TrashIcon from '../../icons/TrashIcon';
-import Modal from '../../shared/Modal';
-import DeletePairForm from '../forms/DeletePairForm';
 import styles from './CardEdit.module.css';
 
-const CardEdit = ({ id, text, image, gameId }) => {
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, isDirty }
-	} = useForm({
-		defaultValues: { id, text, image }
-	});
-
-	const { modalContent, closeModal, openDeleteModal } = useModal({
-		id,
-		text,
-		gameId
-	});
-
+const CardEdit = ({
+	index,
+	register,
+	errors,
+	trigger,
+	watch,
+	dirtyFields,
+	resetField,
+	removePair
+}) => {
 	const [isEditing, setIsEditing] = useState(false);
 
 	const toggleIsEditing = () => {
 		setIsEditing(!isEditing);
 	};
 
+	const cancelEditing = () => {
+		setIsEditing(!isEditing);
+
+		resetField(`pairs.${index}.text`);
+		resetField(`pairs.${index}.image`);
+	};
+
+	const handleSavePair = async () => {
+		const result = await trigger([
+			`pairs.${index}.text`,
+			`pairs.${index}.image`
+		]);
+
+		if (result) {
+			setIsEditing(!isEditing);
+		}
+	};
+
+	const imageSrc = watch(`pairs.${index}.image`) || '/images/image.svg';
+
+	const isDirty = dirtyFields?.pairs && dirtyFields?.pairs[index];
+
 	return (
-		<>
-			<Modal onClose={closeModal}>{modalContent}</Modal>
-			<div className={styles.card}>
-				<img className={styles.card__image} src={image} />
-
-				<form
-					className={styles.form}
-					onSubmit={handleSubmit(data => {
-						handleSubmitForm({ id, data, gameId, setIsSubmitting });
-					})}
-				>
-					<div className={styles.form__fields}>
-						<div className={styles.form__field}>
-							<InputText
-								name='text'
-								label='Text'
-								placeholder='Text'
-								register={register}
-								validate={{
-									required: 'Field required',
-									minLength: {
-										value: 2,
-										message: 'At least 2 characters'
-									}
-								}}
-								error={errors.text?.message}
-								disabled={!isEditing}
-							/>
-						</div>
-						<div className={styles.form__field}>
-							<InputText
-								name='image'
-								label='Image'
-								placeholder='Image'
-								register={register}
-								validate={{
-									required: 'Field required'
-								}}
-								error={errors.image?.message}
-								disabled={!isEditing}
-							/>
-						</div>
-					</div>
-					<div className={styles.actions}>
-						{!isEditing && (
-							<>
-								<IconButton
-									icon={PencilIcon}
-									filled
-									size='large'
-									disabled={isSubmitting}
-									onClick={toggleIsEditing}
-								/>
-								<IconButton
-									icon={TrashIcon}
-									filled
-									size='large'
-									kind='secondary'
-									disabled={isSubmitting}
-									onClick={openDeleteModal}
-									type='button'
-								/>
-							</>
-						)}
-						{isEditing && (
-							<>
-								<IconButton
-									icon={SaveIcon}
-									filled
-									size='large'
-									type='submit'
-									disabled={isSubmitting || !isDirty}
-								/>
-								<IconButton
-									icon={CloseIcon}
-									filled
-									size='large'
-									kind='secondary'
-									onClick={toggleIsEditing}
-									type='button'
-								/>
-							</>
-						)}
-					</div>
-				</form>
+		<div className={styles.card}>
+			<div className={styles.card__image}>
+				<img className={styles.image} src={imageSrc} />
 			</div>
-		</>
+
+			<div className={styles.form__fields}>
+				<div className={styles.form__field}>
+					<InputText
+						name={`pairs.${index}.text`}
+						label='Text'
+						placeholder='Text'
+						register={register}
+						validate={{
+							required: 'Field required',
+							minLength: {
+								value: 2,
+								message: 'At least 2 characters'
+							}
+						}}
+						error={errors?.[index]?.text?.message}
+						disabled={!isEditing}
+					/>
+				</div>
+				<div className={styles.form__field}>
+					<InputText
+						name={`pairs.${index}.image`}
+						label='Image'
+						placeholder='Image'
+						register={register}
+						validate={{
+							required: 'Field required'
+						}}
+						error={errors?.[index]?.image?.message}
+						disabled={!isEditing}
+					/>
+				</div>
+			</div>
+			<div className={styles.actions}>
+				{!isEditing && (
+					<>
+						<IconButton
+							icon={PencilIcon}
+							filled
+							size='large'
+							onClick={toggleIsEditing}
+						/>
+						<IconButton
+							icon={TrashIcon}
+							filled
+							size='large'
+							kind='secondary'
+							type='button'
+							onClick={() => removePair(index)}
+						/>
+					</>
+				)}
+				{isEditing && (
+					<>
+						<IconButton
+							icon={SaveIcon}
+							filled
+							size='large'
+							type='button'
+							onClick={handleSavePair}
+							disabled={!isDirty}
+						/>
+						<IconButton
+							icon={CloseIcon}
+							filled
+							size='large'
+							kind='secondary'
+							onClick={cancelEditing}
+							type='button'
+						/>
+					</>
+				)}
+			</div>
+		</div>
 	);
-};
-
-const handleSubmitForm = async ({ id, data, gameId, setIsSubmitting }) => {
-	setIsSubmitting(true);
-
-	const success = await udpatePairGame({
-		id,
-		gameId,
-		...data
-	});
-
-	if (success) {
-		setIsSubmitting(false);
-	}
-};
-
-const useModal = ({ id, text, gameId, reset }) => {
-	const [modalContent, setModalContent] = useState();
-
-	const closeModal = () => {
-		setModalContent();
-	};
-
-	const openDeleteModal = () => {
-		setModalContent(
-			<DeletePairForm
-				id={id}
-				gameId={gameId}
-				text={text}
-				closeModal={closeModal}
-				onSuccess={reset}
-			/>
-		);
-	};
-
-	return {
-		modalContent,
-		closeModal,
-		openDeleteModal
-	};
 };
 
 export default CardEdit;

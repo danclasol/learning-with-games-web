@@ -11,13 +11,18 @@
 }
 
 .card__image {
-	height: 100%;
-	min-height: 8rem;
-	max-width: 8rem;
-	object-fit: contain;
+	width: 12rem;
+	height: 8rem;
 	border: 1px solid black;
 	border-radius: 1rem;
 	background-color: white;
+	overflow: hidden;
+}
+
+.image {
+	width: 12rem;
+	height: 8rem;
+	object-fit: contain;
 }
 
 .form {
