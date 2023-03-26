@@ -1,52 +1,33 @@
-import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
-import CloseIcon from '../../icons/CloseIcon';
-import PencilIcon from '../../icons/PencilIcon';
-import SaveIcon from '../../icons/SaveIcon';
 import TrashIcon from '../../icons/TrashIcon';
 import styles from './CardEdit.module.css';
 
-const CardEdit = ({
-	index,
-	register,
-	errors,
-	trigger,
-	watch,
-	dirtyFields,
-	resetField,
-	removePair
-}) => {
-	const [isEditing, setIsEditing] = useState(false);
-
-	const toggleIsEditing = () => {
-		setIsEditing(!isEditing);
-	};
+const CardEdit = ({ index }) => {
+	const { register, watch, trigger, resetField, remove, errors } =
+		useFormContext();
 
 	const cancelEditing = () => {
-		setIsEditing(!isEditing);
+		console.log('cancel', `pairs.${index}.text`, `pairs.${index}.image`);
 
 		resetField(`pairs.${index}.text`);
 		resetField(`pairs.${index}.image`);
 	};
 
 	const handleSavePair = async () => {
-		const result = await trigger([
-			`pairs.${index}.text`,
-			`pairs.${index}.image`
-		]);
-
-		if (result) {
-			setIsEditing(!isEditing);
-		}
+		await trigger([`pairs.${index}.text`, `pairs.${index}.image`]);
 	};
 
 	const imageSrc = watch(`pairs.${index}.image`) || '/images/image.svg';
 
-	const isDirty = dirtyFields?.pairs && dirtyFields?.pairs[index];
+	const errorsEdit = errors?.pairs && errors?.pairs[index];
 
 	return (
 		<div className={styles.card}>
+			{/* <div>
+				<p>{index + 1}</p>
+			</div> */}
 			<div className={styles.card__image}>
 				<img className={styles.image} src={imageSrc} />
 			</div>
@@ -65,8 +46,7 @@ const CardEdit = ({
 								message: 'At least 2 characters'
 							}
 						}}
-						error={errors?.[index]?.text?.message}
-						disabled={!isEditing}
+						error={errorsEdit?.text?.message}
 					/>
 				</div>
 				<div className={styles.form__field}>
@@ -78,50 +58,28 @@ const CardEdit = ({
 						validate={{
 							required: 'Field required'
 						}}
-						error={errors?.[index]?.image?.message}
-						disabled={!isEditing}
+						error={errorsEdit?.image?.message}
 					/>
 				</div>
 			</div>
 			<div className={styles.actions}>
-				{!isEditing && (
-					<>
-						<IconButton
-							icon={PencilIcon}
-							filled
-							size='large'
-							onClick={toggleIsEditing}
-						/>
-						<IconButton
-							icon={TrashIcon}
-							filled
-							size='large'
-							kind='secondary'
-							type='button'
-							onClick={() => removePair(index)}
-						/>
-					</>
-				)}
-				{isEditing && (
-					<>
-						<IconButton
-							icon={SaveIcon}
-							filled
-							size='large'
-							type='button'
-							onClick={handleSavePair}
-							disabled={!isDirty}
-						/>
-						<IconButton
-							icon={CloseIcon}
-							filled
-							size='large'
-							kind='secondary'
-							onClick={cancelEditing}
-							type='button'
-						/>
-					</>
-				)}
+				{/* <IconButton
+					icon={CloseIcon}
+					filled
+					size='large'
+					kind='secondary'
+					// onClick={cancelEditing}
+					type='button'
+				/> */}
+
+				<IconButton
+					icon={TrashIcon}
+					filled
+					size='large'
+					kind='secondary'
+					type='button'
+					onClick={() => remove(index)}
+				/>
 			</div>
 		</div>
 	);
