@@ -10,13 +10,25 @@ import FinishedGame from './FinishedGame';
 import styles from './GamePlay.module.css';
 
 const GamePlay = ({ game }) => {
-	const { modalContent, closeModal, openModal } = useModal();
 	const navigate = useNavigate();
+	const { modalContent, closeModal, openModal } = useModal();
 	const [movs, setMoves] = useState(0);
 	const [flippedCards, setFlippledCards] = useState([]);
 	const [resolvedCards, setResolvedCards] = useState([]);
 	const [pairs, setPairs] = useState(prepareCards(game?.pairs));
 	const [restart, setRestart] = useState();
+
+	const handleCardClick = index => {
+		if (flippedCards.length === 1) {
+			setFlippledCards(prev => [...prev, index]);
+		} else {
+			setFlippledCards([index]);
+		}
+	};
+
+	const handleClicGoBack = () => {
+		navigate('/games/');
+	};
 
 	const checkIsFlipped = index =>
 		flippedCards.includes(index) || resolvedCards.includes(pairs[index].text);
@@ -26,14 +38,6 @@ const GamePlay = ({ game }) => {
 		if (pairs.length === 0) return;
 
 		return resolvedCards.length === pairs.length / 2;
-	};
-
-	const handleCardClick = index => {
-		if (flippedCards.length === 1) {
-			setFlippledCards(prev => [...prev, index]);
-		} else {
-			setFlippledCards([index]);
-		}
 	};
 
 	const evaluate = () => {
@@ -46,6 +50,13 @@ const GamePlay = ({ game }) => {
 			setResolvedCards(prev => [...prev, pairs[first].text]);
 			setFlippledCards([]);
 		}
+	};
+
+	const resetGame = () => {
+		setMoves(0);
+		setFlippledCards([]);
+		setResolvedCards([]);
+		setRestart(true);
 	};
 
 	useEffect(() => {
@@ -83,17 +94,6 @@ const GamePlay = ({ game }) => {
 			clearInterval(intervalId);
 		};
 	}, [restart]);
-
-	const resetGame = () => {
-		setMoves(0);
-		setFlippledCards([]);
-		setResolvedCards([]);
-		setRestart(true);
-	};
-
-	const handleClicGoBack = () => {
-		navigate('/games/');
-	};
 
 	return (
 		<>

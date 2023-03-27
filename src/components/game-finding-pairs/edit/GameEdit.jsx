@@ -1,6 +1,6 @@
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { updateGame } from '../../../lib/api/finding-pairs-games';
+import { updateGame } from '../../../lib/api/game-finding-pairs';
 import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
 import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
