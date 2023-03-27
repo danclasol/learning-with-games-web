@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../buttons/Button';
 import styles from './FinishedGame.module.css';
 
-const FinishedGame = ({ numberMovs = 0, closeModal, reset }) => {
+const FinishedGame = ({ numberMovs = 0, closeModal, nextWord, reset }) => {
 	const navigate = useNavigate();
 
 	const isWinner = numberMovs !== 0;
@@ -17,6 +17,11 @@ const FinishedGame = ({ numberMovs = 0, closeModal, reset }) => {
 			spread: 360
 		});
 	}, []);
+
+	const goToNextWord = () => {
+		nextWord();
+		closeModal();
+	};
 
 	const restart = () => {
 		confetti.reset();
@@ -42,6 +47,7 @@ const FinishedGame = ({ numberMovs = 0, closeModal, reset }) => {
 				)}
 			</div>
 			<div className={styles.actions}>
+				<Button onClick={goToNextWord}>Next Word</Button>
 				<Button onClick={restart}>Restart Game</Button>
 				<Button kind='secondary' onClick={handleClickGoBack}>
 					Go back

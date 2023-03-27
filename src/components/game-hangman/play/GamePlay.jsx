@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../buttons/Button';
+import IconButton from '../../buttons/IconButton';
 import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
+import ArrowRightIcon from '../../icons/ArrowRightIcon';
 import RefreshIcon from '../../icons/RefreshIcon';
 import Modal from '../../shared/Modal';
+
 import FinishedGame from './FinishedGame';
 import styles from './GamePlay.module.css';
 import HiddenWord from './HiddenWord';
@@ -12,61 +15,78 @@ import Letters from './Letters';
 const GamePlay = ({ game }) => {
 	const navigate = useNavigate();
 	const { modalContent, closeModal, openModal } = useModal();
-	const [movs, setMoves] = useState(game?.maxTries || 10);
 	const [resolvedLetters, setResolvedLetters] = useState([]);
 	const [pressedLetters, setPressedLetters] = useState([]);
-	const [isFinished, setIsFinish] = useState(false);
+	const [isFinished, setIsFinished] = useState(false);
+	const [currentWordIndex, setCurrentWordIndex] = useState(0);
+	const [movs, setMoves] = useState(game?.words[currentWordIndex].maxTries);
 
-	const handleClickReset = () => {
-		navigate(`/games/${game.id}/play`);
-	};
+	const isFirstWord = currentWordIndex === 0;
+	const isLastWord = currentWordIndex === game?.words.length - 1;
 
 	const handleClicGoBack = () => {
 		navigate('/games/');
 	};
 
-	const wordRender = game?.words[0];
+	console.log({ game });
+
+	const currentWord = game?.words[currentWordIndex].word;
+	console.log({ currentWord });
 
 	const checkLetter = letter => {
 		if (isFinished) return;
 
 		const newPressedLetter = [...pressedLetters];
 		newPressedLetter.push(letter);
-
-		setMoves(movs - 1);
 		setPressedLetters(newPressedLetter);
 
-		if (wordRender.split('').find(item => item === letter)) {
+		if (currentWord.split('').find(item => item === letter)) {
 			const newResolvedLetter = [...resolvedLetters];
 			newResolvedLetter.push(letter);
 
 			setResolvedLetters(newResolvedLetter);
+		} else {
+			setMoves(movs - 1);
 		}
 	};
 
-	const reset = () => {
-		setMoves(game?.movs || 10);
+	const previousWord = () => {
+		// resetGame();
+		setCurrentWordIndex(currentWordIndex - 1);
+	};
+
+	const nextWord = () => {
+		// resetGame();
+		setCurrentWordIndex(currentWordIndex + 1);
+	};
+
+	const resetGame = () => {
 		setPressedLetters([]);
 		setResolvedLetters([]);
-		setIsFinish(false);
+		setIsFinished(false);
+		setMoves(game?.words[currentWordIndex].maxTries);
 	};
+
+	useEffect(() => {
+		resetGame();
+	}, [currentWordIndex]);
 
 	useEffect(() => {
 		if (movs === 0) {
 			openModal(movs);
-			setIsFinish(true);
+			setIsFinished(true);
 		}
 	}, [movs]);
 
 	useEffect(() => {
-		const lettersArray = wordRender.split('');
+		const lettersArray = currentWord.split('');
 		const finishGame = lettersArray.every(letter =>
 			resolvedLetters.find(item => item === letter)
 		);
 
 		if (finishGame) {
-			openModal(movs, reset);
-			setIsFinish(true);
+			openModal(movs, nextWord, resetGame);
+			setIsFinished(true);
 		}
 	}, [resolvedLetters]);
 
@@ -84,7 +104,7 @@ const GamePlay = ({ game }) => {
 						</Button>
 					</div>
 					<div className={styles.actions__buttons}>
-						<Button onClick={reset} kind='secondary'>
+						<Button onClick={resetGame} kind='secondary'>
 							<div className={styles.button__content}>
 								<RefreshIcon className={styles.icon} />
 								<span>Reset</span>
@@ -92,16 +112,37 @@ const GamePlay = ({ game }) => {
 						</Button>
 					</div>
 				</div>
-				<h1 className={styles.title}>{game.title}</h1>
-				<HiddenWord word={wordRender} resolvedLetters={resolvedLetters} />
-				<div className={styles.stats}>
-					<span className={styles.text}>{`Number of tries left: ${movs}`}</span>
+				<div className={styles.game}>
+					<h1 className={styles.title}>{game.title}</h1>
+					<div className={styles.game__play__actions}>
+						<IconButton
+							icon={ArrowLeftIcon}
+							filled
+							onClick={previousWord}
+							disabled={isFirstWord}
+						/>
+						<span>{`Word: ${currentWordIndex + 1}/${
+							game?.words?.length
+						}`}</span>
+						<IconButton
+							icon={ArrowRightIcon}
+							filled
+							onClick={nextWord}
+							disabled={isLastWord}
+						/>
+					</div>
+					<HiddenWord word={currentWord} resolvedLetters={resolvedLetters} />
+					<div className={styles.stats}>
+						<span
+							className={styles.text}
+						>{`Number of tries left: ${movs}`}</span>
+					</div>
+					<Letters
+						resolvedLetters={resolvedLetters}
+						pressedLetters={pressedLetters}
+						checkLetter={checkLetter}
+					/>
 				</div>
-				<Letters
-					resolvedLetters={resolvedLetters}
-					pressedLetters={pressedLetters}
-					checkLetter={checkLetter}
-				/>
 			</section>
 		</>
 	);
@@ -114,9 +155,14 @@ const useModal = () => {
 		setModalContent();
 	};
 
-	const openModal = (movs, reset) => {
+	const openModal = (movs, nextWord, reset) => {
 		setModalContent(
-			<FinishedGame numberMovs={movs} closeModal={closeModal} reset={reset} />
+			<FinishedGame
+				numberMovs={movs}
+				closeModal={closeModal}
+				nextWord={nextWord}
+				reset={reset}
+			/>
 		);
 	};
 
