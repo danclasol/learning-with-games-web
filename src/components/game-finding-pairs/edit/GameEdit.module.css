@@ -48,7 +48,7 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	row-gap: 0.5rem;
+	row-gap: 1.5rem;
 }
 
 .pairs {

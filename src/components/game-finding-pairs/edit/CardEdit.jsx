@@ -1,36 +1,22 @@
 import { useFormContext } from 'react-hook-form';
+import { isImageValid } from '../../../lib/utils/images';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
 import TrashIcon from '../../icons/TrashIcon';
 import styles from './CardEdit.module.css';
+import PairCardImage from './PairCardImage';
 
 const CardEdit = ({ index }) => {
-	const { register, watch, trigger, resetField, remove, errors } =
-		useFormContext();
-
-	const cancelEditing = () => {
-		console.log('cancel', `pairs.${index}.text`, `pairs.${index}.image`);
-
-		resetField(`pairs.${index}.text`);
-		resetField(`pairs.${index}.image`);
-	};
-
-	const handleSavePair = async () => {
-		await trigger([`pairs.${index}.text`, `pairs.${index}.image`]);
-	};
-
-	const imageSrc = watch(`pairs.${index}.image`) || '/images/image.svg';
+	const { register, watch, remove, errors } = useFormContext();
 
 	const errorsEdit = errors?.pairs && errors?.pairs[index];
 
 	return (
 		<div className={styles.card}>
-			{/* <div>
-				<p>{index + 1}</p>
-			</div> */}
-			<div className={styles.card__image}>
-				<img className={styles.image} src={imageSrc} />
-			</div>
+			<PairCardImage
+				image={watch(`pairs.${index}.image`)}
+				error={errorsEdit?.image?.message}
+			/>
 
 			<div className={styles.form__fields}>
 				<div className={styles.form__field}>
@@ -56,22 +42,17 @@ const CardEdit = ({ index }) => {
 						placeholder='Image'
 						register={register}
 						validate={{
-							required: 'Field required'
+							required: 'Field required',
+							validate: async value => {
+								const result = await isImageValid(value);
+								return result || 'Invalid image';
+							}
 						}}
 						error={errorsEdit?.image?.message}
 					/>
 				</div>
 			</div>
 			<div className={styles.actions}>
-				{/* <IconButton
-					icon={CloseIcon}
-					filled
-					size='large'
-					kind='secondary'
-					// onClick={cancelEditing}
-					type='button'
-				/> */}
-
 				<IconButton
 					icon={TrashIcon}
 					filled

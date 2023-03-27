@@ -18,10 +18,7 @@ const GameEdit = ({ game }) => {
 		handleSubmit,
 		control,
 		watch,
-		getValues,
-		trigger,
 		reset,
-		resetField,
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({ defaultValues: { title: game?.title, pairs: game?.pairs } });
 
@@ -38,9 +35,6 @@ const GameEdit = ({ game }) => {
 		<FormProvider
 			register={register}
 			watch={watch}
-			getValues={getValues}
-			trigger={trigger}
-			resetField={resetField}
 			errors={errors}
 			remove={remove}
 		>

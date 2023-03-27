@@ -2,12 +2,8 @@ export const isImageValid = async src => {
 	const img = new Image();
 	img.src = src;
 
-	const res = await new Promise(resolve => {
-		img.onerror = () => resolve('Invalid image');
+	return await new Promise((resolve, reject) => {
 		img.onload = () => resolve(true);
+		img.onerror = () => resolve(false);
 	});
-
-	console.log({ res });
-
-	return res;
 };
