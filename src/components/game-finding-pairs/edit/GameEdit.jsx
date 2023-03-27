@@ -7,8 +7,9 @@ import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
 import CloseIcon from '../../icons/CloseIcon';
 import PlayIcon from '../../icons/PlayIcon';
 import SaveIcon from '../../icons/SaveIcon';
-import CardEdit from './CardEdit';
+
 import styles from './GameEdit.module.css';
+import PairCardEdit from './PairCardEdit';
 
 const GameEdit = ({ game }) => {
 	const navigate = useNavigate();
@@ -130,7 +131,7 @@ const GameEdit = ({ game }) => {
 						</div>
 						<div className={styles.pairs__list}>
 							{fields.map((field, index) => (
-								<CardEdit key={field.id} index={index} control={control} />
+								<PairCardEdit key={field.id} index={index} control={control} />
 							))}
 						</div>
 					</div>

@@ -3,10 +3,10 @@ import { isImageValid } from '../../../lib/utils/images';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
 import TrashIcon from '../../icons/TrashIcon';
-import styles from './CardEdit.module.css';
+import styles from './PairCardEdit.module.css';
 import PairCardImage from './PairCardImage';
 
-const CardEdit = ({ index }) => {
+const PairCardEdit = ({ index }) => {
 	const { register, watch, remove, errors } = useFormContext();
 
 	const errorsEdit = errors?.pairs && errors?.pairs[index];
@@ -66,4 +66,4 @@ const CardEdit = ({ index }) => {
 	);
 };
 
-export default CardEdit;
+export default PairCardEdit;
