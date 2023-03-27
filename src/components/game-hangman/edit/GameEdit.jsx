@@ -31,8 +31,6 @@ const GameEdit = ({ game }) => {
 		prepend({ word: '', maxTries: 10 });
 	};
 
-	console.log({ game });
-
 	return (
 		<FormProvider
 			register={register}

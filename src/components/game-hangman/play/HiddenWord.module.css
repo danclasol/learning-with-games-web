@@ -1,6 +1,9 @@
 .wrapper {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
+	align-items: center;
+	row-gap: 0.5rem;
 	column-gap: 0.5rem;
 }
 
@@ -10,6 +13,12 @@
 	border-radius: var(--letter-border-radius);
 	border: 2px solid var(--letter-border-color);
 	background-color: var(--letter-color);
+}
+
+.card__shown {
+	min-width: 5rem;
+	padding: 1rem;
+	border-radius: var(--letter-border-radius);
 }
 
 .card--hidden {

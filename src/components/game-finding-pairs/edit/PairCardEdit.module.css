@@ -1,6 +1,6 @@
 .card {
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	column-gap: 1.5rem;
 	padding: 1rem;
 	padding-bottom: 1.6rem;

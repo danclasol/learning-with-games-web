@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { isValidWord } from '../../../lib/utils/regex';
 import IconButton from '../../buttons/IconButton';
 import InputNumber from '../../forms/InputNumber';
 import InputText from '../../forms/InputText';
@@ -23,7 +24,8 @@ const WordCardEdit = ({ index }) => {
 							minLength: {
 								value: 2,
 								message: 'At least 2 characters'
-							}
+							},
+							pattern: { value: isValidWord, message: 'Invalid characters' }
 						}}
 						error={errorsEdit?.word?.message}
 					/>
@@ -33,14 +35,14 @@ const WordCardEdit = ({ index }) => {
 						name={`words.${index}.maxTries`}
 						label='Max tries'
 						placeholder='Max tries'
-						min='1'
+						min={1}
 						register={register}
 						validate={{
 							required: 'Field required',
 							valueAsNumber: true,
-							minLength: { value: 1, message: 'At least 1' }
+							min: { value: 1, message: 'Min value 1' }
 						}}
-						error={errorsEdit?.image?.message}
+						error={errorsEdit?.maxTries?.message}
 					/>
 				</div>
 			</div>

@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../buttons/Button';
 import styles from './FinishedGame.module.css';
 
-const FinishedGame = ({ numberMovs = 0, closeModal, nextWord, reset }) => {
+const FinishedGame = ({
+	numberMovs = 0,
+	closeModal,
+	isLastWord,
+	nextWord,
+	reset
+}) => {
 	const navigate = useNavigate();
 
 	const isWinner = numberMovs !== 0;
@@ -47,7 +53,7 @@ const FinishedGame = ({ numberMovs = 0, closeModal, nextWord, reset }) => {
 				)}
 			</div>
 			<div className={styles.actions}>
-				<Button onClick={goToNextWord}>Next Word</Button>
+				{!isLastWord && <Button onClick={goToNextWord}>Next Word</Button>}
 				<Button onClick={restart}>Restart Game</Button>
 				<Button kind='secondary' onClick={handleClickGoBack}>
 					Go back

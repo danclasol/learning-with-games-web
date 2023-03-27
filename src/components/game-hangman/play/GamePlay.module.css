@@ -38,7 +38,7 @@
 .game {
 	display: flex;
 	flex-direction: column;
-	row-gap: 0.8rem;
+	row-gap: 1.5rem;
 }
 
 .game__play__actions {

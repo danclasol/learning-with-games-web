@@ -10,7 +10,7 @@ const InputNumber = ({
 	...props
 }) => {
 	return (
-		<label className={`${styles.container} ${className}`}>
+		<label className={`${styles.wrapper} ${className}`}>
 			<span className={styles.label}>{label}</span>
 			<input
 				{...props}

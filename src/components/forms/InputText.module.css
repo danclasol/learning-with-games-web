@@ -15,7 +15,7 @@
 	width: 100%;
 	height: 2.5rem;
 	padding: 0.5rem 1rem;
-	border: var(--border-weight) solid black;
+	border: var(--border-weight) solid var(--border-color);
 	border-radius: var(--border-radius-input);
 	color: var(--input-text-color);
 	background-color: var(--input-color);

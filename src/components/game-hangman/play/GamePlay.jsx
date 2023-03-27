@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { isSpecialValidChar } from '../../../lib/utils/regex';
 import Button from '../../buttons/Button';
 import IconButton from '../../buttons/IconButton';
 import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
@@ -28,13 +29,12 @@ const GamePlay = ({ game }) => {
 		navigate('/games/');
 	};
 
-	console.log({ game });
-
 	const currentWord = game?.words[currentWordIndex].word;
-	console.log({ currentWord });
 
 	const checkLetter = letter => {
 		if (isFinished) return;
+
+		if (pressedLetters.find(item => item.letter)) return;
 
 		const newPressedLetter = [...pressedLetters];
 		newPressedLetter.push(letter);
@@ -51,12 +51,10 @@ const GamePlay = ({ game }) => {
 	};
 
 	const previousWord = () => {
-		// resetGame();
 		setCurrentWordIndex(currentWordIndex - 1);
 	};
 
 	const nextWord = () => {
-		// resetGame();
 		setCurrentWordIndex(currentWordIndex + 1);
 	};
 
@@ -79,13 +77,15 @@ const GamePlay = ({ game }) => {
 	}, [movs]);
 
 	useEffect(() => {
-		const lettersArray = currentWord.split('');
+		const letter = currentWord.replace(isSpecialValidChar, '');
+		const lettersArray = letter.split('');
+
 		const finishGame = lettersArray.every(letter =>
 			resolvedLetters.find(item => item === letter)
 		);
 
 		if (finishGame) {
-			openModal(movs, nextWord, resetGame);
+			openModal(movs, isLastWord, nextWord, resetGame);
 			setIsFinished(true);
 		}
 	}, [resolvedLetters]);
@@ -155,11 +155,12 @@ const useModal = () => {
 		setModalContent();
 	};
 
-	const openModal = (movs, nextWord, reset) => {
+	const openModal = (movs, isLastWord, nextWord, reset) => {
 		setModalContent(
 			<FinishedGame
 				numberMovs={movs}
 				closeModal={closeModal}
+				isLastWord={isLastWord}
 				nextWord={nextWord}
 				reset={reset}
 			/>

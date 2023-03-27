@@ -1,16 +1,24 @@
-.container {
+.wrapper {
 	width: 100%;
+}
+
+.label {
+	display: block;
+	font-size: var(--text-sm);
+	font-weight: bold;
+	color: var(--label-color);
+	margin-left: 1rem;
+	margin-bottom: 0.25rem;
 }
 
 .input {
 	width: 100%;
 	height: 2.5rem;
 	padding: 0.5rem 1rem;
-	margin: 0.25rem 0;
 	border: var(--border-weight) solid var(--border-color);
 	border-radius: var(--border-radius-input);
-	background-color: var(--input-color);
 	color: var(--input-text-color);
+	background-color: var(--input-color);
 	font-size: var(--text-sm);
 }
 
@@ -18,7 +26,7 @@
 	outline: none;
 	place-content: none;
 	padding: 0.5rem 1rem;
-	outline: 0.1rrem solid var(--input-focus-color);
+	outline: 1px solid var(--input-focus-color);
 }
 
 .input::placeholder {
@@ -31,18 +39,17 @@
 	display: none;
 }
 
-.label {
-	font-size: var(--text-sm);
-	font-weight: bold;
-	color: var(--label-color);
-}
-
 .error {
+	display: block;
+	width: 100%;
+	min-height: 1.2rem;
 	font-size: var(--text-sm);
 	color: var(--input-color-error);
+	margin-top: 0.3rem;
 	margin-left: 0.5rem;
 }
 
 .borderError {
 	outline: 1px solid var(--input-color-error);
+	border: var(--border-weight) solid var(--input-color-error);
 }

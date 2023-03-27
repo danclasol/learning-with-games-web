@@ -1,3 +1,4 @@
+import { isSpecialValidChar } from '../../../lib/utils/regex';
 import styles from './HiddenWord.module.css';
 
 const HiddenWord = ({ word = '', resolvedLetters }) => {
@@ -9,22 +10,31 @@ const HiddenWord = ({ word = '', resolvedLetters }) => {
 
 	return (
 		<div className={styles.wrapper}>
-			{letters.map((letter, index) => (
-				<div
-					key={index}
-					className={`${styles.card} ${
-						isResolved(letter) ? '' : styles['card--hidden']
-					}`}
-				>
-					<span
-						className={`${styles.letter} ${
-							isResolved(letter) ? '' : styles['letter--hidden']
+			{letters.map((letter, index) => {
+				if (letter.match(isSpecialValidChar))
+					return (
+						<div className={`${styles.card__shown} ${styles['card--show']}`}>
+							<span className={styles.letter}>{letter}</span>
+						</div>
+					);
+
+				return (
+					<div
+						key={index}
+						className={`${styles.card} ${
+							isResolved(letter) ? '' : styles['card--hidden']
 						}`}
 					>
-						{letter}
-					</span>
-				</div>
-			))}
+						<span
+							className={`${styles.letter} ${
+								isResolved(letter) ? '' : styles['letter--hidden']
+							}`}
+						>
+							{letter}
+						</span>
+					</div>
+				);
+			})}
 		</div>
 	);
 };
