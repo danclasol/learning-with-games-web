@@ -8,11 +8,19 @@
 }
 
 .card {
+	perspective: 1000px;
+	position: relative;
 	min-width: 5.5rem;
+	height: 6rem;
 	padding: 1.5rem;
-	border-radius: var(--letter-border-radius);
-	border: 2px solid var(--letter-border-color);
-	background-color: var(--letter-color);
+
+	transform-style: preserve-3d;
+	transform-origin: center;
+	transition: transform 0.3s ease-in;
+}
+
+.card__resolved {
+	transform: rotateY(180deg);
 }
 
 .card__shown {
@@ -21,7 +29,34 @@
 	border-radius: var(--letter-border-radius);
 }
 
-.card--hidden {
+.front,
+.back {
+	height: 100%;
+	width: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: var(--letter-border-radius);
+	border: 2px solid var(--letter-border-color);
+	background-color: var(--letter-color);
+
+	backface-visibility: hidden;
+}
+
+.front {
+	min-width: 5rem;
+	padding: 1rem;
+	border-radius: var(--letter-border-radius);
+}
+
+.back {
+	transform: rotateY(180deg);
 	border: 2px solid var(--letter-border-color-hidden);
 	background-color: var(--letter-color-hidden);
 }
@@ -31,8 +66,4 @@
 	text-align: center;
 	text-transform: uppercase;
 	font-size: var(--title-2);
-}
-
-.letter--hidden {
-	visibility: hidden;
 }

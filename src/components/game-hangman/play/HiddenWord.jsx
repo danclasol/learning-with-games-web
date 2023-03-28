@@ -23,19 +23,17 @@ const HiddenWord = ({ word = '', resolvedLetters }) => {
 
 				return (
 					<div
-						key={index}
 						className={`${styles.card} ${
-							isResolved(letter) ? '' : styles['card--hidden']
+							isResolved(letter) ? '' : styles.card__resolved
 						}`}
+						key={index}
 					>
-						<span
-							className={`${styles.letter} ${
-								isResolved(letter) ? '' : styles['letter--hidden']
-							}`}
-						>
-							{letter}
-						</span>
+						<div className={styles.front}>
+							<span className={styles.letter}>{letter}</span>
+						</div>
+						<div className={styles.back}></div>
 					</div>
+					// </div>
 				);
 			})}
 		</div>
