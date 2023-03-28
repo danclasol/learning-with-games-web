@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { LIST_GAMES } from '../../constants/games';
 import Button from '../buttons/Button';
 import InputSearch from '../forms/InputSearch';
 import SelectSearch from '../forms/SelectSearch';
@@ -56,9 +57,11 @@ const GamesListFilters = ({
 						onChange={handleTypeChange}
 					>
 						<option value=''>Filter by game...</option>
-						<option value='finding-pairs'>Finding Pairs</option>
-						<option value='hangman'>Hangman</option>
-						<option value='quiz'>Quiz</option>
+						{LIST_GAMES.map(item => (
+							<option key={item.type} value={item.type}>
+								{item.name}
+							</option>
+						))}
 					</SelectSearch>
 				</div>
 				<div className={styles.filter}>
