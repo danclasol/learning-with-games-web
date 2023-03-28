@@ -1,0 +1,6 @@
+.game__play__actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	column-gap: 1.5rem;
+}

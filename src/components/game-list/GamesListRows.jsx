@@ -3,12 +3,17 @@ import GameCard from './GameCard';
 import styles from './GamesListRows.module.css';
 
 const GamesListRows = ({ games, error, loading, reset }) => {
-	if (error) return <p className={styles.text}>Ha ocurrido un error</p>;
+	if (error)
+		return (
+			<p className={styles.text}>
+				Something went wrong. Please try again later.
+			</p>
+		);
 
 	if (loading) return <Loading label='Loading' />;
 
 	if (games.length === 0)
-		return <p className={styles.text}>No hay ningun juego.</p>;
+		return <p className={styles.text}>There are no games to display</p>;
 
 	return (
 		<div className={styles.rows}>

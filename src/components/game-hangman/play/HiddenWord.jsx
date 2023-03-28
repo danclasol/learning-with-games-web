@@ -13,7 +13,10 @@ const HiddenWord = ({ word = '', resolvedLetters }) => {
 			{letters.map((letter, index) => {
 				if (letter.match(isSpecialValidChar))
 					return (
-						<div className={`${styles.card__shown} ${styles['card--show']}`}>
+						<div
+							key={index}
+							className={`${styles.card__shown} ${styles['card--show']}`}
+						>
 							<span className={styles.letter}>{letter}</span>
 						</div>
 					);

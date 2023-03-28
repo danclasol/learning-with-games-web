@@ -3,10 +3,13 @@ import LeftIcon from '../icons/ArrowLeftIcon';
 import RightIcon from '../icons/ArrowRightIcon';
 import styles from './PageSelector.module.css';
 
-const PageSelector = ({ page, setPage, totalPages }) => {
-	const isFirstPage = page === 1;
-	const isLastPage = page === totalPages || totalPages === 0;
-
+const PageSelector = ({
+	page,
+	setPage,
+	totalPages,
+	isFirstPage,
+	isLastPage
+}) => {
 	const handleLeftClick = () => {
 		setPage(page - 1);
 	};

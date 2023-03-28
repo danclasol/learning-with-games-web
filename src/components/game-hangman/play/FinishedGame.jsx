@@ -5,15 +5,14 @@ import Button from '../../buttons/Button';
 import styles from './FinishedGame.module.css';
 
 const FinishedGame = ({
-	numberMovs = 0,
+	numberMovs,
+	isWinner,
 	closeModal,
 	isLastWord,
 	nextWord,
-	reset
+	resetGame
 }) => {
 	const navigate = useNavigate();
-
-	const isWinner = numberMovs !== 0;
 
 	useEffect(() => {
 		if (!isWinner) return;
@@ -31,7 +30,7 @@ const FinishedGame = ({
 
 	const restart = () => {
 		confetti.reset();
-		reset();
+		resetGame();
 		closeModal();
 	};
 
@@ -48,7 +47,7 @@ const FinishedGame = ({
 				}`}</h3>
 				{isWinner && (
 					<div className={styles.stats}>
-						<p className={styles.text}>Tries left: {numberMovs}</p>
+						<p className={styles.text}>Number misses: {numberMovs}</p>
 					</div>
 				)}
 			</div>
