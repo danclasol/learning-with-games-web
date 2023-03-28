@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../../buttons/Button';
-import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
-import RefreshIcon from '../../icons/RefreshIcon';
+import Button from '../buttons/Button';
+import ArrowLeftIcon from '../icons/ArrowLeftIcon';
+import RefreshIcon from '../icons/RefreshIcon';
 import styles from './GamePlayActions.module.css';
 
 const GamePlayActions = ({ resetGame }) => {
 	const navigate = useNavigate();
 
 	const handleClicGoBack = () => {
-		navigate('/games/');
+		navigate(-1);
 	};
 
 	return (

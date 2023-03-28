@@ -27,7 +27,7 @@ const GamePlay = ({ game }) => {
 	};
 
 	const handleClicGoBack = () => {
-		navigate('/games/');
+		navigate(-1);
 	};
 
 	const checkIsFlipped = index =>

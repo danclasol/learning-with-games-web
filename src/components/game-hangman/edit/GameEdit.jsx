@@ -1,18 +1,12 @@
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { updateGame } from '../../../lib/api/game-hangman';
 import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
-import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
-import CloseIcon from '../../icons/CloseIcon';
-import PlayIcon from '../../icons/PlayIcon';
-import SaveIcon from '../../icons/SaveIcon';
+import GameEditActions from '../../games/GameEditActions';
 import styles from './GameEdit.module.css';
 import WordCardEdit from './WordCardEdit';
 
 const GameEdit = ({ game }) => {
-	const navigate = useNavigate();
-
 	const {
 		register,
 		handleSubmit,
@@ -39,56 +33,12 @@ const GameEdit = ({ game }) => {
 			remove={remove}
 		>
 			<section className={styles.container}>
-				<div className={styles.actions}>
-					<div className={styles.actions__buttons}>
-						<Button
-							onClick={() => {
-								navigate('/games/');
-							}}
-							disabled={isSubmitting}
-						>
-							<div className={styles.button__content}>
-								<ArrowLeftIcon className={styles.icon} />
-								<span>Go back</span>
-							</div>
-						</Button>
-					</div>
-					<div className={styles.actions__buttons}>
-						{isDirty && (
-							<Button
-								disabled={isSubmitting || !isDirty}
-								onClick={() => reset()}
-							>
-								<div className={styles.button__content}>
-									<CloseIcon className={styles.icon} />
-									<span>Reset</span>
-								</div>
-							</Button>
-						)}
-						<Button
-							disabled={isSubmitting || !isDirty}
-							type='submit'
-							form='form'
-						>
-							<div className={styles.button__content}>
-								<SaveIcon className={styles.icon} />
-								<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
-							</div>
-						</Button>
-						<Button
-							kind='secondary'
-							onClick={() => {
-								navigate(`/games/${game.id}/play`);
-							}}
-							disabled={isSubmitting}
-						>
-							<div className={styles.button__content}>
-								<PlayIcon className={styles.icon} />
-								<span>Play</span>
-							</div>
-						</Button>
-					</div>
-				</div>
+				<GameEditActions
+					gameId={game.id}
+					isDirty={isDirty}
+					isSubmitting={isSubmitting}
+					clearForm={reset}
+				/>
 
 				<form
 					id='form'

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { isSpecialValidChar } from '../../../lib/utils/regex';
+import GamePlayActions from '../../games/GamePlayActions';
 import Modal from '../../shared/Modal';
 import CounterTries from './CounterTries';
-
 import FinishedGame from './FinishedGame';
 import styles from './GamePlay.module.css';
-import GamePlayActions from './GamePlayActions';
 import HiddenWord from './HiddenWord';
 import Letters from './Letters';
 import WordSelector from './WordSelector';
