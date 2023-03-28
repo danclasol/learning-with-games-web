@@ -44,8 +44,8 @@
 	--letter-color-hover: #fff5e6;
 	--letter-pressed: darkgrey;
 	--letter-border-color-pressed: rgb(95, 94, 94);
-	--letter-resolved: #9ea1d4;
-	--letter-border-color-resolved: rgb(75, 110, 156);
+	--letter-resolved: #76da8f;
+	--letter-border-color-resolved: rgb(75, 156, 86);
 	--letter-color-hidden: #fd8a8a;
 	--letter-border-color-hidden: #fd6767;
 	--letter-border-radius: 1.2rem;
