@@ -1,13 +1,14 @@
 import Layout from './components/layout/Layout.jsx';
 import Navigation from './components/layout/Navigation.jsx';
+import { AuthContextProvider } from './lib/context/AuthContext.jsx';
 
 const App = () => {
 	return (
-		<main>
+		<AuthContextProvider>
 			<Layout>
 				<Navigation />
 			</Layout>
-		</main>
+		</AuthContextProvider>
 	);
 };
 

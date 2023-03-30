@@ -1,8 +1,11 @@
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../lib/context/AuthContext';
 import styles from './UserPanelDropdown.module.css';
 
 const UserPanelDropdown = forwardRef(({ hideDropdown }, ref) => {
+	const { logout } = useContext(AuthContext);
+
 	const handleToggle = () => {
 		hideDropdown();
 	};
@@ -29,7 +32,7 @@ const UserPanelDropdown = forwardRef(({ hideDropdown }, ref) => {
 					</NavLink>
 				</li>
 				<li className={styles.dropdown__item}>
-					<NavLink className={styles.dropdown__link} to='#'>
+					<NavLink className={styles.dropdown__link} to='#' onClick={logout}>
 						Sign out
 					</NavLink>
 				</li>

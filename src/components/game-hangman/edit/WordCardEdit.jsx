@@ -10,6 +10,7 @@ const WordCardEdit = ({ index }) => {
 	const { register, remove, errors } = useFormContext();
 
 	const errorsEdit = errors?.words && errors?.words[index];
+
 	return (
 		<div className={styles.card}>
 			<div className={styles.form__fields}>

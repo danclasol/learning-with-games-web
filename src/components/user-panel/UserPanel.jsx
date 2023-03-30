@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { AuthContext } from '../../lib/context/AuthContext';
 import DropdownIcon from '../icons/DropdownIcon';
 import Avatar from '../user-panel/Avatar';
 import styles from './UserPanel.module.css';
 import UserPanelDropdown from './UserPanelDropdown';
 
 const UserPanel = () => {
+	const { user } = useContext(AuthContext);
 	const [showDropdown, setShownDropdown] = useState(false);
 	const dropdownRef = useRef(null);
 	const panelRef = useRef(null);
@@ -45,17 +47,13 @@ const UserPanel = () => {
 		showDropdown ? styles['icon--toggle'] : ''
 	}`;
 
-	const { name, avatar } = {};
+	const { name, avatar } = user;
 	const usernameRender = !name ? 'Invitado' : name;
 
 	return (
 		<>
 			<div className={panelStyle} onClick={onClickHandler} ref={panelRef}>
-				<Avatar
-					kind='photo_and_name'
-					image={avatar?.url}
-					name={usernameRender}
-				/>
+				<Avatar kind='photo_and_name' image={avatar} name={usernameRender} />
 
 				<div className={styles.panel__actions}>
 					<DropdownIcon className={toggleStyle} />
