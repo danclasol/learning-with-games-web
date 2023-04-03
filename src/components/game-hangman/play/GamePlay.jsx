@@ -20,7 +20,7 @@ const GamePlay = ({ game }) => {
 	const isFirstWord = currentWordIndex === 0;
 	const isLastWord = currentWordIndex === game?.words.length - 1;
 
-	const currentWord = game?.words[currentWordIndex].word;
+	const currentWord = game?.words[currentWordIndex].word.toLowerCase();
 	const maxTries = game?.words[currentWordIndex].maxTries;
 
 	const nextWord = () => {
