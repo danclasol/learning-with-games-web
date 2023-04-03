@@ -1,28 +1,58 @@
-import { useState } from 'react';
-
-const fakeUser = {
-	id: 'f868159d-45f5-4c57-b53b-11f8a8e45aa6',
-	username: 'daniel@gmail.com',
-	name: 'Daniel',
-	avatar: 'https://www.w3schools.com/howto/img_avatar.png'
-};
-
-const fakeToken = 'FAKE_TOKEN';
+import { useEffect, useState } from 'react';
+import { getCurrentUser } from '../api/users';
+import {
+	deleteStoredAccessToken,
+	deleteStoredExpiresIn,
+	deleteStoredRefreshToken,
+	retrieveStoredAccessToken,
+	retrieveStoredExpiresIn,
+	retrieveStoredRefreshToken,
+	storeAccessToken
+} from '../auth/tokenStorage';
 
 export const useAuth = () => {
-	const [user, setUser] = useState(fakeUser);
-	const [accessToken, setAccessToken] = useState();
-	const [refreshToken, setRefreshToken] = useState();
-	const [expiresIn, setExpiresIn] = useState();
+	const [user, setUser] = useState({});
+	const [accessToken, setAccessToken] = useState(retrieveStoredAccessToken);
+	const [refreshToken, setRefreshToken] = useState(retrieveStoredRefreshToken);
+	const [expiresIn, setExpiresIn] = useState(retrieveStoredExpiresIn);
 
-	const login = () => {
-		setAccessToken('TOKEN');
-		setUser(fakeUser);
+	const login = ({ auth }) => {
+		const { accessToken, user } = auth;
+
+		setAccessToken(accessToken);
+		storeAccessToken(accessToken);
+
+		setUser(user);
 	};
 
 	const logout = () => {
 		setAccessToken(null);
+		deleteStoredAccessToken();
+		deleteStoredRefreshToken();
+		deleteStoredExpiresIn();
 	};
 
+	useEffect(() => {
+		if (!accessToken) return;
+
+		const controller = new AbortController();
+
+		loadCurrentUser({ accessToken, setUser, signal: controller.signal });
+
+		return () => {
+			controller.abort();
+		};
+	}, [accessToken]);
+
 	return [accessToken, user, login, logout];
+};
+
+const loadCurrentUser = async ({ accessToken, setUser, signal }) => {
+	const { user, aborted } = await getCurrentUser({ accessToken, signal });
+
+	if (aborted) return;
+
+	if (user) {
+		setUser(user);
+	}
 };

@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getGame } from '../api/games';
+import { AuthContext } from '../context/AuthContext';
 
 export const useGame = ({ id }) => {
+	const { accessToken } = useContext(AuthContext);
+
 	const [game, setGame] = useState({
 		data: undefined,
 		error: false,
@@ -25,7 +28,13 @@ export const useGame = ({ id }) => {
 		const controller = new AbortController();
 
 		try {
-			loadGame({ id, setData, setError, signal: controller.signal });
+			loadGame({
+				accessToken,
+				id,
+				setData,
+				setError,
+				signal: controller.signal
+			});
 
 			return () => controller.abort();
 		} catch (error) {
@@ -41,8 +50,8 @@ export const useGame = ({ id }) => {
 	};
 };
 
-const loadGame = async ({ id, setData, setError, signal }) => {
-	const { game, aborted } = await getGame({ id, signal });
+const loadGame = async ({ accessToken, id, setData, setError, signal }) => {
+	const { game, aborted } = await getGame({ accessToken, id, signal });
 
 	if (aborted) return;
 

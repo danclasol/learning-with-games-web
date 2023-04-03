@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { login } from '../../lib/api/auth';
 import { AuthContext } from '../../lib/context/AuthContext';
 import Button from '../buttons/Button';
 import InputText from '../forms/InputText';
@@ -12,14 +13,24 @@ function Login() {
 
 	const {
 		register,
+		handleSubmit,
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({ defaultValues: { email: '', password: '' } });
+
+	const onSuccess = ({ auth }) => {
+		login({ auth });
+	};
 
 	return (
 		<section className={styles.login}>
 			<h2 className={styles.title}>Welcome</h2>
 			<p className={styles.subtitle}>Enter your credentials</p>
-			<form className={styles.form}>
+			<form
+				className={styles.form}
+				onSubmit={handleSubmit(async data => {
+					await handleSubmitForm({ data, onSuccess });
+				})}
+			>
 				<div className={styles.form__field}>
 					<InputText
 						name='email'
@@ -55,7 +66,7 @@ function Login() {
 				</div>
 
 				<div className={styles.actions}>
-					<Button disabled={isSubmitting || !isDirty} onClick={login}>
+					<Button disabled={isSubmitting || !isDirty}>
 						{isSubmitting ? 'Login...' : 'Login'}
 					</Button>
 
@@ -70,5 +81,13 @@ function Login() {
 		</section>
 	);
 }
+
+const handleSubmitForm = async ({ data, onSuccess }) => {
+	const res = await login({ ...data });
+
+	if (res) {
+		onSuccess({ auth: res.auth });
+	}
+};
 
 export default Login;

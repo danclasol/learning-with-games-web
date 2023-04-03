@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { createGame } from '../../lib/api/games';
+import { AuthContext } from '../../lib/context/AuthContext';
 import Button from '../buttons/Button';
 import InputSelect from '../forms/InputSelect';
 import InputText from '../forms/InputText';
 import styles from './GameCreateForm.module.css';
 
 const GameCreateForm = ({ closeModal, onSuccess }) => {
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	const { accessToken } = useContext(AuthContext);
+
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isDirty }
+		formState: { errors, isDirty, isSubmitting }
 	} = useForm({ defaultValues: { title: '', type: '' } });
 
 	return (
@@ -20,8 +22,13 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 
 			<form
 				className={styles.form}
-				onSubmit={handleSubmit(data => {
-					handleSubmitForm({ data, setIsSubmitting, closeModal, onSuccess });
+				onSubmit={handleSubmit(async data => {
+					await handleSubmitForm({
+						accessToken,
+						data,
+						closeModal,
+						onSuccess
+					});
 				})}
 			>
 				<div className={styles.form__field}>
@@ -68,21 +75,17 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 };
 
 const handleSubmitForm = async ({
+	accessToken,
 	data,
-	setIsSubmitting,
 	closeModal,
 	onSuccess
 }) => {
-	setIsSubmitting(true);
-
-	const success = await createGame({ game: data });
+	const success = await createGame({ accessToken, game: data });
 
 	if (success) {
 		onSuccess();
 		closeModal();
 	}
-
-	setIsSubmitting(false);
 };
 
 export default GameCreateForm;

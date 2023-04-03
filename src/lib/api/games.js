@@ -10,7 +10,7 @@ const SORT_MAPPER = {
 	[SORT_GAMES_OPTIONS.BY_TYPE]: ['type', 'asc']
 };
 
-export const getUserGames = async ({ filters, signal }) => {
+export const getUserGames = async ({ accessToken, filters, signal }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}`;
 	const url = new URL(request);
 
@@ -42,7 +42,8 @@ export const getUserGames = async ({ filters, signal }) => {
 			url,
 			{
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + accessToken
 				}
 			},
 			{ signal }
@@ -70,7 +71,7 @@ export const getUserGames = async ({ filters, signal }) => {
 	}
 };
 
-export const getGame = async ({ id, signal }) => {
+export const getGame = async ({ accessToken, id, signal }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
 
 	let game;
@@ -80,7 +81,8 @@ export const getGame = async ({ id, signal }) => {
 			request,
 			{
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + accessToken
 				}
 			},
 			{ signal }
@@ -106,7 +108,7 @@ export const getGame = async ({ id, signal }) => {
 	}
 };
 
-export const createGame = async ({ game }) => {
+export const createGame = async ({ accessToken, game }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/`;
 
 	let gameCreated;
@@ -115,7 +117,8 @@ export const createGame = async ({ game }) => {
 		const res = await fetch(request, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + accessToken
 			},
 			body: JSON.stringify({ id: crypto.randomUUID(), ...game })
 		});
@@ -150,12 +153,15 @@ export const createGame = async ({ game }) => {
 // 	}
 // };
 
-export const deleteGame = async ({ id }) => {
+export const deleteGame = async ({ accessToken, id }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
 
 	try {
 		const res = await fetch(request, {
-			method: 'DELETE'
+			method: 'DELETE',
+			headers: {
+				Authorization: 'Bearer ' + accessToken
+			}
 		});
 
 		return res.ok;

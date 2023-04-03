@@ -8,7 +8,7 @@ import GamePlayPage from '../../pages/GamePlayPage';
 import GamesListPage from '../../pages/GamesListPage';
 import HomePage from '../../pages/HomePage';
 
-const Navigation = ({ authenticated }) => {
+const Navigation = () => {
 	const { accessToken } = useContext(AuthContext);
 
 	if (!accessToken)

@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { updateGame } from '../../../lib/api/game-hangman';
+import { AuthContext } from '../../../lib/context/AuthContext';
 import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
 import GameEditActions from '../../games/GameEditActions';
@@ -7,6 +9,7 @@ import styles from './GameEdit.module.css';
 import WordCardEdit from './WordCardEdit';
 
 const GameEdit = ({ game }) => {
+	const { accessToken } = useContext(AuthContext);
 	const {
 		register,
 		handleSubmit,
@@ -45,6 +48,7 @@ const GameEdit = ({ game }) => {
 					className={styles.form}
 					onSubmit={handleSubmit(async data => {
 						await handleSubmitForm({
+							accessToken,
 							id: game.id,
 							data,
 							reset
@@ -90,8 +94,9 @@ const GameEdit = ({ game }) => {
 	);
 };
 
-const handleSubmitForm = async ({ id, data, reset }) => {
+const handleSubmitForm = async ({ accessToken, id, data, reset }) => {
 	const success = await updateGame({
+		accessToken,
 		id,
 		game: { ...data, type: 'hangman' }
 	});
