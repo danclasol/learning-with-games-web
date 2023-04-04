@@ -5,18 +5,18 @@ import {
 	deleteStoredExpiresIn,
 	deleteStoredRefreshToken,
 	retrieveStoredAccessToken,
-	retrieveStoredExpiresIn,
-	retrieveStoredRefreshToken,
 	storeAccessToken
 } from '../auth/tokenStorage';
 
 export const useAuth = () => {
 	const [user, setUser] = useState({});
 	const [accessToken, setAccessToken] = useState(retrieveStoredAccessToken);
-	const [refreshToken, setRefreshToken] = useState(retrieveStoredRefreshToken);
-	const [expiresIn, setExpiresIn] = useState(retrieveStoredExpiresIn);
+	// const [refreshToken, setRefreshToken] = useState(retrieveStoredRefreshToken);
+	// const [expiresIn, setExpiresIn] = useState(retrieveStoredExpiresIn);
 
 	const login = ({ auth }) => {
+		if (!auth) return;
+
 		const { accessToken, user } = auth;
 
 		setAccessToken(accessToken);
@@ -35,9 +35,16 @@ export const useAuth = () => {
 	useEffect(() => {
 		if (!accessToken) return;
 
+		if (user?.id) return;
+
 		const controller = new AbortController();
 
-		loadCurrentUser({ accessToken, setUser, signal: controller.signal });
+		loadCurrentUser({
+			accessToken,
+			logout,
+			setUser,
+			signal: controller.signal
+		});
 
 		return () => {
 			controller.abort();
@@ -47,8 +54,13 @@ export const useAuth = () => {
 	return [accessToken, user, login, logout];
 };
 
-const loadCurrentUser = async ({ accessToken, setUser, signal }) => {
-	const { user, aborted } = await getCurrentUser({ accessToken, signal });
+const loadCurrentUser = async ({ accessToken, logout, setUser, signal }) => {
+	const { user, aborted, error } = await getCurrentUser({
+		accessToken,
+		signal
+	});
+
+	if (error) logout();
 
 	if (aborted) return;
 
