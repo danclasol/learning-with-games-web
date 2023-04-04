@@ -7,7 +7,7 @@
 	column-gap: 1rem;
 	padding: 0.3rem 1rem;
 	background-color: var(--bg-header-color);
-	border-top: 1px solid black;
+	/* border-top: 2px solid black; */
 	border-bottom: 1px solid black;
 }
 

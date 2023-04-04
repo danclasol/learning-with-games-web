@@ -26,6 +26,12 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	row-gap: 0.3rem;
+}
+
+.form__fields {
+	display: flex;
+	flex-direction: column;
 	row-gap: 0.8rem;
 }
 
@@ -44,9 +50,18 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 1rem;
-	padding-top: 0.5rem;
 }
 
 .link {
 	text-align: center;
+}
+
+.error {
+	display: block;
+	width: 100%;
+	min-height: 1.2rem;
+	font-size: var(--text-sm);
+	color: var(--input-color-error);
+	margin: 0rem;
+	padding-left: 0.5rem;
 }

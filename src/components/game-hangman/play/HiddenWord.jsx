@@ -33,7 +33,6 @@ const HiddenWord = ({ word = '', resolvedLetters }) => {
 						</div>
 						<div className={styles.back}></div>
 					</div>
-					// </div>
 				);
 			})}
 		</div>

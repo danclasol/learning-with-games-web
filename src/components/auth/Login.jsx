@@ -31,38 +31,40 @@ function Login() {
 					await handleSubmitForm({ data, onSuccess });
 				})}
 			>
-				<div className={styles.form__field}>
-					<InputText
-						name='email'
-						label='Email'
-						placeholder='Email'
-						register={register}
-						validate={{
-							required: 'Field required',
-							minLength: {
-								value: 4,
-								message: 'At least 4 characters'
-							}
-						}}
-						error={errors.email?.message}
-					/>
-				</div>
+				<div className={styles.form__fields}>
+					<div className={styles.form__field}>
+						<InputText
+							name='email'
+							label='Email'
+							placeholder='Email'
+							register={register}
+							validate={{
+								required: 'Field required',
+								minLength: {
+									value: 4,
+									message: 'At least 4 characters'
+								}
+							}}
+							error={errors.email?.message}
+						/>
+					</div>
 
-				<div className={styles.form__field}>
-					<InputText
-						name='password'
-						label='Password'
-						placeholder='Password'
-						register={register}
-						validate={{
-							required: 'Field required',
-							minLength: {
-								value: 4,
-								message: 'At least 4 characters'
-							}
-						}}
-						error={errors.password?.message}
-					/>
+					<div className={styles.form__field}>
+						<InputText
+							name='password'
+							label='Password'
+							placeholder='Password'
+							register={register}
+							validate={{
+								required: 'Field required',
+								minLength: {
+									value: 4,
+									message: 'At least 4 characters'
+								}
+							}}
+							error={errors.password?.message}
+						/>
+					</div>
 				</div>
 
 				<div className={styles.actions}>
@@ -83,11 +85,11 @@ function Login() {
 }
 
 const handleSubmitForm = async ({ data, onSuccess }) => {
-	const res = await login({ ...data });
+	const { auth, aborted } = await login({ ...data });
 
-	if (res) {
-		onSuccess({ auth: res.auth });
-	}
+	if (aborted) return;
+
+	onSuccess({ auth });
 };
 
 export default Login;
