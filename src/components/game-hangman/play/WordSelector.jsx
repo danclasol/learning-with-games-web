@@ -3,7 +3,7 @@ import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
 import ArrowRightIcon from '../../icons/ArrowRightIcon';
 import styles from './WordSelector.module.css';
 
-const WordSelector = ({ currentWordIndex, setCurrentWordIndex, total }) => {
+const WordSelector = ({ currentWordIndex, previousWord, nextWord, total }) => {
 	const isFirstWord = currentWordIndex === 0;
 	const isLastWord = currentWordIndex === total - 1;
 
@@ -12,14 +12,14 @@ const WordSelector = ({ currentWordIndex, setCurrentWordIndex, total }) => {
 			<IconButton
 				icon={ArrowLeftIcon}
 				filled
-				onClick={() => setCurrentWordIndex(currentWordIndex - 1)}
+				onClick={previousWord}
 				disabled={isFirstWord}
 			/>
 			<span>{`Word: ${currentWordIndex + 1}/${total}`}</span>
 			<IconButton
 				icon={ArrowRightIcon}
 				filled
-				onClick={() => setCurrentWordIndex(currentWordIndex + 1)}
+				onClick={nextWord}
 				disabled={isLastWord}
 			/>
 		</div>
