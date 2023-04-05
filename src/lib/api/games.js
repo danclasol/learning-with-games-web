@@ -65,7 +65,7 @@ export const getUserGames = async ({ accessToken, filters, signal }) => {
 		return {
 			games: undefined,
 			count: 0,
-			error: !isAborted,
+			error: !isAborted ? undefined : { code: 500, message: 'Error server' },
 			aborted: isAborted
 		};
 	}
@@ -102,7 +102,7 @@ export const getGame = async ({ accessToken, id, signal }) => {
 
 		return {
 			game: undefined,
-			error: !isAborted,
+			error: !isAborted ? undefined : { code: 500, message: 'Error server' },
 			aborted: isAborted
 		};
 	}

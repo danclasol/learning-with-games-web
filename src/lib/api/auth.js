@@ -2,10 +2,10 @@ import { API_URL, API_VERSION } from './api-settings';
 
 const path = 'auth';
 
-export const login = async ({ email, password }) => {
+export const loginRequest = async ({ email, password }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/login`;
 
-	let auth;
+	let auth, error;
 
 	try {
 		const res = await fetch(request, {
@@ -16,30 +16,36 @@ export const login = async ({ email, password }) => {
 			body: JSON.stringify({ email, password })
 		});
 
-		if (res.ok) {
-			auth = await res.json();
+		auth = await res.json();
+
+		if (!res.ok) {
+			error = { code: res.status, message: auth.error };
 		}
 
 		return {
 			auth,
-			error: !res.ok,
+			error,
 			aborted: false
 		};
 	} catch (err) {
 		const isAborted = err.name === 'AbortError';
+		const error = isAborted
+			? undefined
+			: { code: 500, message: 'Error server' };
 
 		return {
 			auth: undefined,
-			error: !isAborted,
+			error,
 			aborted: isAborted
 		};
 	}
 };
 
-export const register = async ({ name, email, password }) => {
-	const request = `${API_URL}/${API_VERSION}/${path}/login`;
+export const registerRequest = async ({ name, email, password }) => {
+	const request = `${API_URL}/${API_VERSION}/${path}/register`;
 
 	let auth;
+	let error;
 
 	try {
 		const res = await fetch(request, {
@@ -50,21 +56,26 @@ export const register = async ({ name, email, password }) => {
 			body: JSON.stringify({ name, email, password })
 		});
 
-		if (res.ok) {
-			auth = await res.json();
+		auth = await res.json();
+
+		if (!res.ok) {
+			error = { code: res.status, message: auth.error };
 		}
 
 		return {
 			auth,
-			error: !res.ok,
+			error,
 			aborted: false
 		};
 	} catch (err) {
 		const isAborted = err.name === 'AbortError';
+		const error = isAborted
+			? undefined
+			: { code: 500, message: 'Error server' };
 
 		return {
 			auth: undefined,
-			error: !isAborted,
+			error,
 			aborted: isAborted
 		};
 	}

@@ -33,7 +33,7 @@ export const getCurrentUser = async ({ accessToken, signal }) => {
 
 		return {
 			game: undefined,
-			error: !isAborted,
+			error: !isAborted ? undefined : { code: 500, message: 'Error server' },
 			aborted: isAborted
 		};
 	}

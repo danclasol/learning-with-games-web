@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { login as loginRequest } from '../../lib/api/auth';
+import { loginRequest } from '../../lib/api/auth';
 import { AuthContext } from '../../lib/context/AuthContext';
 import Button from '../buttons/Button';
+import InputPassword from '../forms/InputPassword';
 import InputText from '../forms/InputText';
 import styles from './Login.module.css';
 
@@ -17,7 +18,6 @@ function Login() {
 		clearErrors,
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({
-		criteriaMode: 'all',
 		defaultValues: { email: '', password: '' }
 	});
 
@@ -62,7 +62,7 @@ function Login() {
 				</div>
 
 				<div className={styles.form__field}>
-					<InputText
+					<InputPassword
 						name='password'
 						label='Password'
 						placeholder='Password'
@@ -88,10 +88,10 @@ function Login() {
 
 					<div className={styles.links}>
 						<Link to={'/forgot-password'} className={styles.link}>
-							Recordar contraseña
+							Forgot password?
 						</Link>
 						<Link to={'/register'} className={styles.link}>
-							Crear cuenta
+							Create account
 						</Link>
 					</div>
 				</div>
@@ -99,15 +99,5 @@ function Login() {
 		</section>
 	);
 }
-
-const handleSubmitForm = async ({ data, setError, login }) => {
-	const { auth, error, aborted } = await loginService({ ...data });
-
-	if (error) setError('login', { type: 'server', message: 'Bad credentials' });
-
-	if (aborted) return;
-
-	login({ auth });
-};
 
 export default Login;

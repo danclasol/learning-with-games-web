@@ -1,28 +1,56 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { registerRequest } from '../../lib/api/auth';
 import Button from '../buttons/Button';
+import InputPassword from '../forms/InputPassword';
 import InputText from '../forms/InputText';
 import styles from './Register.module.css';
 
 function Register() {
+	const navigate = useNavigate();
+
 	const {
 		register,
+		handleSubmit,
+		setError,
+		clearErrors,
+		watch,
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({
 		defaultValues: {
 			name: '',
-			username: '',
+			email: '',
 			password: '',
 			repeat_password: ''
 		}
 	});
+
+	const onSubmit = async data => {
+		const { error, aborted } = await registerRequest({ ...data });
+
+		if (error) {
+			setError('register', { type: error.code, message: error.message });
+			return;
+		}
+
+		if (aborted) return;
+
+		navigate('/login');
+	};
+
+	const onError = errors => {
+		if (errors.register) {
+			clearErrors('register');
+			handleSubmit(onSubmit)();
+		}
+	};
 
 	return (
 		<section className={styles.register}>
 			<h2 className={styles.title}>Create account</h2>
 			<p className={styles.subtitle}>Fill up the form info</p>
 
-			<form className={styles.form}>
+			<form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
 				<div className={styles.form__field}>
 					<InputText
 						name='name'
@@ -58,7 +86,7 @@ function Register() {
 				</div>
 
 				<div className={styles.form__field}>
-					<InputText
+					<InputPassword
 						name='password'
 						label='Password'
 						placeholder='Password'
@@ -75,7 +103,7 @@ function Register() {
 				</div>
 
 				<div className={styles.form__field}>
-					<InputText
+					<InputPassword
 						name='repeat_password'
 						label='Repeat password'
 						placeholder='Repeat password'
@@ -85,6 +113,11 @@ function Register() {
 							minLength: {
 								value: 4,
 								message: 'At least 4 characters'
+							},
+							validate: value => {
+								if (watch('password') !== value) {
+									return 'Password dont match';
+								}
 							}
 						}}
 						error={errors.repeat_password?.message}
@@ -93,11 +126,16 @@ function Register() {
 
 				<div className={styles.actions}>
 					<Button disabled={isSubmitting || !isDirty}>
-						{isSubmitting ? 'Login...' : 'Login'}
+						{isSubmitting ? 'Submitting...' : 'Sign in'}
 					</Button>
-					<Link to={'/login'} className={styles.link}>
-						¿Ya tienes usuario?
-					</Link>
+					{errors.register && (
+						<span className={styles.error}>{errors.register?.message}</span>
+					)}
+					<div className={styles.links}>
+						<Link to={'/login'} className={styles.link}>
+							Already have an account?
+						</Link>
+					</div>
 				</div>
 			</form>
 		</section>
