@@ -4,7 +4,7 @@ import {
 	correctWord,
 	restart,
 	wrongWord
-} from '../../../lib/actions/gameplayHangmanActions';
+} from '../../../lib/actions/gamePlayHangmanActions';
 import {
 	GAMEPLAY_INITIAL_STATE,
 	gameplayHangmanReducer
