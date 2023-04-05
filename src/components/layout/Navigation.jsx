@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from '../../lib/context/AuthContext';
-import LoginPage from '../../pages/auth/LoginPage';
-import RegisterPage from '../../pages/auth/RegisterPage';
 import GameEditPage from '../../pages/GameEditPage';
 import GamePlayPage from '../../pages/GamePlayPage';
 import GamesListPage from '../../pages/GamesListPage';
-import HomePage from '../../pages/HomePage';
+import LoginPage from '../../pages/auth/LoginPage';
+import RegisterPage from '../../pages/auth/RegisterPage';
 
 const Navigation = () => {
 	const { accessToken } = useContext(AuthContext);
@@ -23,7 +22,7 @@ const Navigation = () => {
 	if (accessToken) {
 		return (
 			<Routes>
-				<Route path='/' element={<HomePage />} />
+				<Route path='/' element={<Navigate to='/games' />} />
 				<Route path='/games' element={<GamesListPage />} />
 				<Route path='/games/:id/edit' element={<GameEditPage />} />
 				<Route path='/games/:id/play' element={<GamePlayPage />} />

@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../lib/context/AuthContext';
 import GameIcon from '../icons/GameIcon';
-import HomeIcon from '../icons/HomeIcon';
 import UserPanel from '../user-panel/UserPanel';
 import styles from './MainHeader.module.css';
 
@@ -14,7 +13,7 @@ const MainHeader = () => {
 	return (
 		<header className={styles.header}>
 			<div className={styles.header__links}>
-				<NavLink
+				{/* <NavLink
 					to=''
 					className={({ isActive }) =>
 						`${styles.link} ${isActive ? styles['link--active'] : ''}`
@@ -22,7 +21,7 @@ const MainHeader = () => {
 				>
 					<HomeIcon className={styles.icon}></HomeIcon>
 					Home
-				</NavLink>
+				</NavLink> */}
 				<NavLink
 					to='games'
 					className={({ isActive }) =>
