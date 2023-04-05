@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { LIST_GAMES } from '../../constants/games';
 import { createGame } from '../../lib/api/games';
 import { AuthContext } from '../../lib/context/AuthContext';
 import Button from '../buttons/Button';
@@ -58,9 +59,11 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 						error={errors.type?.message}
 					>
 						<option value=''>Select game...</option>
-						<option value='finding-pairs'>Finding Pairs</option>
-						<option value='hangman'>Hangman</option>
-						<option value='quiz'>Quiz</option>
+						{LIST_GAMES.map(item => (
+							<option key={item.type} value={item.type}>
+								{item.name}
+							</option>
+						))}
 					</InputSelect>
 				</div>
 
