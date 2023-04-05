@@ -46,24 +46,18 @@
 	row-gap: 1rem;
 }
 
+.buttons {
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.5rem;
+}
+
 .links {
 	display: flex;
 	flex-direction: column;
-	row-gap: 1rem;
+	row-gap: 0.5rem;
 }
 
 .link {
 	text-align: center;
-}
-
-.error {
-	display: block;
-	margin: auto;
-	text-align: center;
-	width: 100%;
-	min-height: 1.2rem;
-	font-size: var(--text-sm);
-	color: var(--input-color-error);
-	margin: 0rem;
-	padding-left: 0.5rem;
 }

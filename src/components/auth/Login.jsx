@@ -6,6 +6,7 @@ import { AuthContext } from '../../lib/context/AuthContext';
 import Button from '../buttons/Button';
 import InputPassword from '../forms/InputPassword';
 import InputText from '../forms/InputText';
+import ErrorMessage from './ErrorMessage';
 import styles from './Login.module.css';
 
 function Login() {
@@ -16,7 +17,7 @@ function Login() {
 		handleSubmit,
 		setError,
 		clearErrors,
-		formState: { errors, isDirty, isSubmitting }
+		formState: { errors, isSubmitting }
 	} = useForm({
 		defaultValues: { email: '', password: '' }
 	});
@@ -25,7 +26,7 @@ function Login() {
 		const { auth, error, aborted } = await loginRequest({ ...data });
 
 		if (error)
-			setError('login', { type: 'server', message: 'Bad credentials' });
+			setError('error_login', { type: 'server', message: 'Bad credentials' });
 
 		if (aborted) return;
 
@@ -33,8 +34,8 @@ function Login() {
 	};
 
 	const onError = errors => {
-		if (errors.login) {
-			clearErrors('login');
+		if (errors.error_login) {
+			clearErrors('error_login');
 			handleSubmit(onSubmit)();
 		}
 	};
@@ -79,13 +80,14 @@ function Login() {
 				</div>
 
 				<div className={styles.actions}>
-					<Button disabled={isSubmitting || !isDirty}>
-						{isSubmitting ? 'Login...' : 'Login'}
-					</Button>
-					{errors.login && (
-						<span className={styles.error}>{errors.login?.message}</span>
-					)}
-
+					<div className={styles.buttons}>
+						<Button disabled={isSubmitting}>
+							{isSubmitting ? 'Logging...' : 'Login'}
+						</Button>
+						{errors.error_login && (
+							<ErrorMessage error={errors.error_login?.message} />
+						)}
+					</div>
 					<div className={styles.links}>
 						<Link to={'/forgot-password'} className={styles.link}>
 							Forgot password?

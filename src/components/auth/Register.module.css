@@ -44,13 +44,18 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 1rem;
-	padding-top: 0.5rem;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.5rem;
 }
 
 .links {
 	display: flex;
 	flex-direction: column;
-	row-gap: 1rem;
+	row-gap: 0.5rem;
 }
 
 .link {
@@ -58,13 +63,21 @@
 }
 
 .error {
-	display: block;
-	margin: auto;
-	text-align: center;
-	width: 100%;
+	display: flex;
+	justify-content: center;
+	column-gap: 0.3rem;
 	min-height: 1.2rem;
 	font-size: var(--text-sm);
-	color: var(--input-color-error);
+	font-weight: bold;
 	margin: 0rem;
-	padding-left: 0.5rem;
+	padding: 0.3rem;
+	border-radius: 1rem;
+	border: 1px solid tomato;
+	color: tomato;
+	background-color: lightpink;
+}
+
+.icon {
+	height: 1rem;
+	vertical-align: middle;
 }

@@ -61,11 +61,14 @@ export const getUserGames = async ({ accessToken, filters, signal }) => {
 		};
 	} catch (err) {
 		const isAborted = err.name === 'AbortError';
+		const error = isAborted
+			? undefined
+			: { code: 500, message: 'Error server' };
 
 		return {
 			games: undefined,
 			count: 0,
-			error: !isAborted ? undefined : { code: 500, message: 'Error server' },
+			error,
 			aborted: isAborted
 		};
 	}
@@ -99,10 +102,13 @@ export const getGame = async ({ accessToken, id, signal }) => {
 		};
 	} catch (err) {
 		const isAborted = err.name === 'AbortError';
+		const error = isAborted
+			? undefined
+			: { code: 500, message: 'Error server' };
 
 		return {
 			game: undefined,
-			error: !isAborted ? undefined : { code: 500, message: 'Error server' },
+			error,
 			aborted: isAborted
 		};
 	}

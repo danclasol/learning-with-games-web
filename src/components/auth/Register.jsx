@@ -4,6 +4,7 @@ import { registerRequest } from '../../lib/api/auth';
 import Button from '../buttons/Button';
 import InputPassword from '../forms/InputPassword';
 import InputText from '../forms/InputText';
+import ErrorMessage from './ErrorMessage';
 import styles from './Register.module.css';
 
 function Register() {
@@ -29,7 +30,7 @@ function Register() {
 		const { error, aborted } = await registerRequest({ ...data });
 
 		if (error) {
-			setError('register', { type: error.code, message: error.message });
+			setError('error_register', { type: error.code, message: error.message });
 			return;
 		}
 
@@ -39,8 +40,8 @@ function Register() {
 	};
 
 	const onError = errors => {
-		if (errors.register) {
-			clearErrors('register');
+		if (errors.error_register) {
+			clearErrors('error_register');
 			handleSubmit(onSubmit)();
 		}
 	};
@@ -125,12 +126,14 @@ function Register() {
 				</div>
 
 				<div className={styles.actions}>
-					<Button disabled={isSubmitting || !isDirty}>
-						{isSubmitting ? 'Submitting...' : 'Sign in'}
-					</Button>
-					{errors.register && (
-						<span className={styles.error}>{errors.register?.message}</span>
-					)}
+					<div className={styles.buttons}>
+						<Button disabled={isSubmitting || !isDirty}>
+							{isSubmitting ? 'Submitting...' : 'Sign in'}
+						</Button>
+						{errors.error_register && (
+							<ErrorMessage error={errors.error_register?.message} />
+						)}
+					</div>
 					<div className={styles.links}>
 						<Link to={'/login'} className={styles.link}>
 							Already have an account?
