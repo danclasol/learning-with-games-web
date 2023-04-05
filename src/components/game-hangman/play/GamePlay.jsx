@@ -8,7 +8,7 @@ import {
 import {
 	GAMEPLAY_INITIAL_STATE,
 	gameplayHangmanReducer
-} from '../../../lib/reducers/gameplayHangmanReducer';
+} from '../../../lib/reducers/gamePlayHangmanReducer';
 import { isSpecialValidChar } from '../../../lib/utils/regex';
 import GamePlayActions from '../../games/GamePlayActions';
 import Modal from '../../shared/Modal';
