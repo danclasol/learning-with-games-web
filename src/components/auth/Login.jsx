@@ -25,8 +25,10 @@ function Login() {
 	const onSubmit = async data => {
 		const { auth, error, aborted } = await loginRequest({ ...data });
 
-		if (error)
-			setError('error_login', { type: 'server', message: 'Bad credentials' });
+		if (error) {
+			setError('error_login', { type: error.code, message: error.message });
+			return;
+		}
 
 		if (aborted) return;
 
