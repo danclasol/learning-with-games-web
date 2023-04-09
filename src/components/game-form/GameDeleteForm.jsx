@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { deleteGame } from '../../lib/api/games';
+import { AuthContext } from '../../lib/context/AuthContext';
 import Button from '../buttons/Button';
 import styles from './GameDeleteForm.module.css';
 
 const GameDeleteForm = ({ id, title, closeModal, onSuccess }) => {
+	const { accessToken } = useContext(AuthContext);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	return (
@@ -18,7 +20,13 @@ const GameDeleteForm = ({ id, title, closeModal, onSuccess }) => {
 				<Button
 					disabled={isSubmitting}
 					onClick={() =>
-						handleSubmitForm({ id, setIsSubmitting, closeModal, onSuccess })
+						handleSubmitForm({
+							accessToken,
+							id,
+							setIsSubmitting,
+							closeModal,
+							onSuccess
+						})
 					}
 				>
 					{isSubmitting ? 'Deleting...' : 'Delete'}
@@ -29,6 +37,7 @@ const GameDeleteForm = ({ id, title, closeModal, onSuccess }) => {
 };
 
 const handleSubmitForm = async ({
+	accessToken,
 	id,
 	setIsSubmitting,
 	closeModal,
@@ -36,7 +45,7 @@ const handleSubmitForm = async ({
 }) => {
 	setIsSubmitting(true);
 
-	const success = await deleteGame({ id });
+	const success = await deleteGame({ accessToken, id });
 
 	if (success) {
 		onSuccess();
