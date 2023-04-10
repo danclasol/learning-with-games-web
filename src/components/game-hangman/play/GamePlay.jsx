@@ -30,14 +30,19 @@ const GamePlay = ({ game }) => {
 	const isFirstWord = state.currentWordIndex === 0;
 	const isLastWord = state.currentWordIndex === game?.words.length - 1;
 
-	const currentWord = game?.words[state.currentWordIndex].word.toLowerCase();
-	const maxTries = game?.words[state.currentWordIndex].maxTries;
+	const currentWord =
+		totalWords === 0
+			? ''
+			: game?.words[state.currentWordIndex].word?.toLowerCase();
+	const maxTries =
+		totalWords === 0 ? '' : game?.words[state.currentWordIndex].maxTries;
 
 	const nextWord = () => {
 		dispatchFilters(changeWord(state.currentWordIndex + 1));
 	};
 
 	const checkLetter = letter => {
+		if (totalWords === 0) return;
 		if (state.isFinished) return;
 		if (state.pressedLetters.find(item => item === letter)) return;
 
@@ -65,16 +70,14 @@ const GamePlay = ({ game }) => {
 	}, [state.moves]);
 
 	useEffect(() => {
+		if (totalWords === 0) return;
+
 		const letter = currentWord.replaceAll(isSpecialValidChar, '');
 		const lettersArray = letter.split('');
-
-		console.log({ letter, lettersArray });
 
 		const finishGame = lettersArray.every(letter =>
 			state.resolvedLetters.find(item => item === letter)
 		);
-
-		console.log({ finishGame });
 
 		if (finishGame) {
 			openModal({
@@ -94,18 +97,20 @@ const GamePlay = ({ game }) => {
 				<GamePlayActions resetGame={resetGame} />
 				<div className={styles.game}>
 					<h1 className={styles.title}>{game.title}</h1>
-					<WordSelector
-						currentWordIndex={state.currentWordIndex}
-						isFirstWord={isFirstWord}
-						isLastWord={isLastWord}
-						previousWord={() =>
-							dispatchFilters(changeWord(state.currentWordIndex - 1))
-						}
-						nextWord={() =>
-							dispatchFilters(changeWord(state.currentWordIndex + 1))
-						}
-						total={totalWords}
-					/>
+					{totalWords !== 0 && (
+						<WordSelector
+							currentWordIndex={state.currentWordIndex}
+							isFirstWord={isFirstWord}
+							isLastWord={isLastWord}
+							previousWord={() =>
+								dispatchFilters(changeWord(state.currentWordIndex - 1))
+							}
+							nextWord={() =>
+								dispatchFilters(changeWord(state.currentWordIndex + 1))
+							}
+							total={totalWords}
+						/>
+					)}
 					<HiddenWord
 						word={currentWord}
 						resolvedLetters={state.resolvedLetters}

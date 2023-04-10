@@ -1,6 +1,6 @@
-import styles from './Card.module.css';
+import styles from './PairCard.module.css';
 
-const Card = ({ text, image, index, isResolved, isFlipped, onClick }) => {
+const PairCard = ({ text, image, index, isResolved, isFlipped, onClick }) => {
 	const handleClick = () => {
 		!isFlipped && !isResolved && onClick(index);
 	};
@@ -25,4 +25,4 @@ const Card = ({ text, image, index, isResolved, isFlipped, onClick }) => {
 	);
 };
 
-export default Card;
+export default PairCard;

@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { prepareCards, suffle } from '../../../lib/games/findingPairs';
-import Button from '../../buttons/Button';
-import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
-import RefreshIcon from '../../icons/RefreshIcon';
+import GamePlayActions from '../../games/GamePlayActions';
 import Modal from '../../shared/Modal';
-import Card from './Card';
 import FinishedGame from './FinishedGame';
 import styles from './GamePlay.module.css';
+import PairCardList from './PairCardList';
 
 const GamePlay = ({ game }) => {
 	const navigate = useNavigate();
@@ -18,22 +16,10 @@ const GamePlay = ({ game }) => {
 	const [pairs, setPairs] = useState(prepareCards(game?.pairs));
 	const [restart, setRestart] = useState();
 
-	const handleCardClick = index => {
-		if (flippedCards.length === 1) {
-			setFlippledCards(prev => [...prev, index]);
-		} else {
-			setFlippledCards([index]);
-		}
-	};
-
 	const handleClicGoBack = () => {
 		navigate(-1);
 	};
 
-	const checkIsFlipped = index =>
-		flippedCards.includes(index) || resolvedCards.includes(pairs[index].text);
-
-	const checkIsResolved = text => resolvedCards.includes(text);
 	const checkDeckFinished = () => {
 		if (pairs.length === 0) return;
 
@@ -99,47 +85,19 @@ const GamePlay = ({ game }) => {
 		<>
 			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<section className={styles.container}>
-				<div className={styles.actions}>
-					<div className={styles.actions__buttons}>
-						<Button onClick={handleClicGoBack}>
-							<div className={styles.button__content}>
-								<ArrowLeftIcon className={styles.icon} />
-								<span>Go back</span>
-							</div>
-						</Button>
-					</div>
-					<div className={styles.actions__buttons}>
-						<Button onClick={resetGame} kind='secondary'>
-							<div className={styles.button__content}>
-								<RefreshIcon className={styles.icon} />
-								<span>Reset</span>
-							</div>
-						</Button>
-					</div>
-				</div>
+				<GamePlayActions resetGame={resetGame} />
 
 				<div className={styles.game}>
 					<h1 className={styles.title}>{game.title}</h1>
 					<div className={styles.stats}>
 						<p className={styles.text}>Number of movements: {movs}</p>
 					</div>
-
-					<div className={styles.cards}>
-						{pairs.map((pair, index) => (
-							<Card
-								key={index}
-								id={pair.id}
-								text={pair.text}
-								image={pair.image}
-								index={index}
-								isResolved={checkIsResolved(pair.text)}
-								isFlipped={checkIsFlipped(index)}
-								onClick={handleCardClick}
-							>
-								{pair.id}
-							</Card>
-						))}
-					</div>
+					<PairCardList
+						pairs={pairs}
+						resolvedCards={resolvedCards}
+						flippedCards={flippedCards}
+						setFlippledCards={setFlippledCards}
+					/>
 				</div>
 			</section>
 		</>

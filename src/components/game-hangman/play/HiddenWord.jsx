@@ -8,6 +8,9 @@ const HiddenWord = ({ word = '', resolvedLetters }) => {
 		return resolvedLetters.find(item => item === letter);
 	};
 
+	if (word === '')
+		return <p className={styles.text}>The game doesn't have any words.</p>;
+
 	return (
 		<div className={styles.wrapper}>
 			{letters.map((letter, index) => {

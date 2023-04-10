@@ -44,11 +44,3 @@
 .stats {
 	text-align: center;
 }
-
-.cards {
-	margin: 0;
-	padding: 1rem 0rem;
-	display: grid;
-	grid-template-columns: repeat(6, 1fr);
-	grid-gap: 2rem;
-}
