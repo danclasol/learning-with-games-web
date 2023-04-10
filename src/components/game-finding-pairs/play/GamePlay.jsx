@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { prepareCards, suffle } from '../../../lib/games/findingPairs';
 import GamePlayActions from '../../games/GamePlayActions';
 import Modal from '../../shared/Modal';
@@ -8,17 +7,12 @@ import styles from './GamePlay.module.css';
 import PairCardList from './PairCardList';
 
 const GamePlay = ({ game }) => {
-	const navigate = useNavigate();
 	const { modalContent, closeModal, openModal } = useModal();
 	const [movs, setMoves] = useState(0);
 	const [flippedCards, setFlippledCards] = useState([]);
 	const [resolvedCards, setResolvedCards] = useState([]);
 	const [pairs, setPairs] = useState(prepareCards(game?.pairs));
 	const [restart, setRestart] = useState();
-
-	const handleClicGoBack = () => {
-		navigate(-1);
-	};
 
 	const checkDeckFinished = () => {
 		if (pairs.length === 0) return;
