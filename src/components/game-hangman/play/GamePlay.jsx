@@ -65,12 +65,16 @@ const GamePlay = ({ game }) => {
 	}, [state.moves]);
 
 	useEffect(() => {
-		const letter = currentWord.replace(isSpecialValidChar, '');
+		const letter = currentWord.replaceAll(isSpecialValidChar, '');
 		const lettersArray = letter.split('');
+
+		console.log({ letter, lettersArray });
 
 		const finishGame = lettersArray.every(letter =>
 			state.resolvedLetters.find(item => item === letter)
 		);
+
+		console.log({ finishGame });
 
 		if (finishGame) {
 			openModal({
