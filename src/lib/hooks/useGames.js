@@ -35,7 +35,7 @@ export const useGames = ({ filters }) => {
 		});
 
 		return () => controller.abort();
-	}, [filters]);
+	}, [accessToken, filters]);
 
 	return {
 		games: games.data,

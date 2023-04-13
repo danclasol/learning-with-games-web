@@ -49,7 +49,7 @@ export const useAuth = () => {
 		return () => {
 			controller.abort();
 		};
-	}, [accessToken]);
+	}, [accessToken, user?.id]);
 
 	return [accessToken, user, login, logout];
 };

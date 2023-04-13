@@ -40,7 +40,7 @@ export const useGame = ({ id }) => {
 		} catch (error) {
 			setError();
 		}
-	}, [id, game.loading]);
+	}, [accessToken, id, game.loading]);
 
 	return {
 		game: game.data,
