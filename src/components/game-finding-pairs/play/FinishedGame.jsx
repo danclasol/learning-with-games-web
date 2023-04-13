@@ -4,19 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../buttons/Button.jsx';
 import styles from './FinishedGame.module.css';
 
-const FinishedGame = ({ numberMovs = 0, closeModal, reset }) => {
+const FinishedGame = ({ numberMovs = 0, closeModal, resetGame }) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		confetti({
 			particleCount: 250,
-			spread: 360
+			spread: 150
 		});
 	}, []);
 
 	const restart = () => {
 		confetti.reset();
-		reset();
+		resetGame();
 		closeModal();
 	};
 

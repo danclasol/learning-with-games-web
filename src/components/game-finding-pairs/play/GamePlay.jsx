@@ -8,27 +8,44 @@ import PairCardList from './PairCardList';
 
 const GamePlay = ({ game }) => {
 	const { modalContent, closeModal, openModal } = useModal();
-	const [movs, setMoves] = useState(0);
+	const [moves, setMoves] = useState(0);
 	const [flippedCards, setFlippledCards] = useState([]);
 	const [resolvedCards, setResolvedCards] = useState([]);
 	const [pairs, setPairs] = useState(prepareCards(game?.pairs));
 	const [restart, setRestart] = useState();
 
-	const checkDeckFinished = () => {
-		if (pairs.length === 0) return;
+	const pairsNumber = pairs.length;
 
-		return resolvedCards.length === pairs.length / 2;
-	};
+	const handleCardClick = index => {
+		const flippedArray = [...flippedCards];
+		const resolvedArray = [...resolvedCards];
+		let movesNew;
 
-	const evaluate = () => {
-		const [first, second] = flippedCards;
-		const newMovs = movs + 1;
+		// flipped cards
+		if (flippedArray.length === 1) {
+			movesNew = moves + 1;
+			setMoves(movesNew);
 
-		setMoves(newMovs);
+			flippedArray.push(index);
+			setFlippledCards(flippedArray);
+		} else {
+			setFlippledCards([index]);
+		}
+
+		// check card match
+		if (flippedArray.length !== 2) return;
+
+		const [first, second] = flippedArray;
 
 		if (pairs[first].text === pairs[second].text) {
-			setResolvedCards(prev => [...prev, pairs[first].text]);
+			resolvedArray.push(pairs[first].text);
+			setResolvedCards(resolvedArray);
 			setFlippledCards([]);
+
+			// check end game
+			if (resolvedArray.length === pairsNumber / 2) {
+				openModal({ moves: movesNew, resetGame });
+			}
 		}
 	};
 
@@ -38,12 +55,6 @@ const GamePlay = ({ game }) => {
 		setResolvedCards([]);
 		setRestart(true);
 	};
-
-	useEffect(() => {
-		if (flippedCards.length !== 2) return;
-
-		evaluate();
-	}, [flippedCards]);
 
 	useEffect(() => {
 		if (flippedCards.length !== 2) return;
@@ -58,10 +69,6 @@ const GamePlay = ({ game }) => {
 	}, [flippedCards]);
 
 	useEffect(() => {
-		if (checkDeckFinished()) openModal(movs, resetGame);
-	}, [resolvedCards]);
-
-	useEffect(() => {
 		if (!restart) return;
 
 		const intervalId = setTimeout(() => {
@@ -73,7 +80,7 @@ const GamePlay = ({ game }) => {
 		return () => {
 			clearInterval(intervalId);
 		};
-	}, [restart]);
+	}, [restart, pairs]);
 
 	return (
 		<>
@@ -84,13 +91,14 @@ const GamePlay = ({ game }) => {
 				<div className={styles.game}>
 					<h1 className={styles.title}>{game.title}</h1>
 					<div className={styles.stats}>
-						<p className={styles.text}>Number of movements: {movs}</p>
+						<p className={styles.text}>Number of movements: {moves}</p>
 					</div>
+
 					<PairCardList
 						pairs={pairs}
 						resolvedCards={resolvedCards}
 						flippedCards={flippedCards}
-						setFlippledCards={setFlippledCards}
+						onClickCard={handleCardClick}
 					/>
 				</div>
 			</section>
@@ -105,9 +113,13 @@ const useModal = () => {
 		setModalContent();
 	};
 
-	const openModal = (movs, reset) => {
+	const openModal = ({ moves, resetGame }) => {
 		setModalContent(
-			<FinishedGame numberMovs={movs} closeModal={closeModal} reset={reset} />
+			<FinishedGame
+				numberMovs={moves}
+				resetGame={resetGame}
+				closeModal={closeModal}
+			/>
 		);
 	};
 
