@@ -1,9 +1,8 @@
+import { generateAlphabet } from '../../../lib/games/hangman';
 import Letter from './Letter';
 import styles from './Letters.module.css';
 
-const LETTERS = String.fromCharCode(...Array(123).keys())
-	.slice(97)
-	.split('');
+const LETTERS = generateAlphabet();
 
 const Letters = ({ resolvedLetters, pressedLetters, checkLetter }) => {
 	const isResolved = letter => {

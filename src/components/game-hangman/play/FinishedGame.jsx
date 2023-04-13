@@ -21,7 +21,7 @@ const FinishedGame = ({
 			particleCount: 250,
 			spread: 360
 		});
-	}, []);
+	}, [isWinner]);
 
 	const goToNextWord = () => {
 		nextWord();
