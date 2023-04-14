@@ -97,7 +97,7 @@ const GamePlay = ({ game }) => {
 						sentence={currentWord}
 						resolvedLetters={resolvedLetters}
 					/>
-					{totalWords > 1 && <CounterTries maxTries={maxTries} tries={moves} />}
+					{totalWords > 0 && <CounterTries maxTries={maxTries} tries={moves} />}
 					<Letters
 						resolvedLetters={resolvedLetters}
 						pressedLetters={pressedLetters}
