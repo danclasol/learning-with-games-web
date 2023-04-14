@@ -65,14 +65,14 @@ const GamePlay = ({ game }) => {
 			setResolvedLetters(newResolvedLetter);
 
 			if (checkFinishGame(currentWord, newResolvedLetter)) {
-				finishGame(true, newMoves);
+				finishGame({ isWinner: true, moves: newMoves });
 			}
 		} else {
 			setMoves(++newMoves);
 		}
 
 		if (newMoves === maxTries) {
-			finishGame(false, newMoves);
+			finishGame({ isWinner: false, moves: newMoves });
 		}
 	};
 
@@ -117,6 +117,8 @@ const useModal = () => {
 	};
 
 	const openModal = ({ moves, isWinner, isLastWord, nextWord, resetGame }) => {
+		console.log({ moves, isWinner, isLastWord, nextWord, resetGame });
+
 		setModalContent(
 			<FinishedGame
 				numberMovs={moves}
