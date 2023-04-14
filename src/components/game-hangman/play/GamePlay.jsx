@@ -117,8 +117,6 @@ const useModal = () => {
 	};
 
 	const openModal = ({ moves, isWinner, isLastWord, nextWord, resetGame }) => {
-		console.log({ moves, isWinner, isLastWord, nextWord, resetGame });
-
 		setModalContent(
 			<FinishedGame
 				numberMovs={moves}
