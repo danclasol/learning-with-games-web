@@ -1,18 +1,15 @@
 import { isSpecialValidChar } from '../../../lib/utils/regex';
-import styles from './HiddenWord.module.css';
+import styles from './Word.module.css';
 
-const HiddenWord = ({ word = '', resolvedLetters }) => {
+const Word = ({ word, resolvedLetters }) => {
 	const letters = word.split('');
 
 	const isResolved = letter => {
 		return resolvedLetters.find(item => item === letter);
 	};
 
-	if (word === '')
-		return <p className={styles.text}>The game doesn't have any words.</p>;
-
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.word}>
 			{letters.map((letter, index) => {
 				if (letter.match(isSpecialValidChar))
 					return (
@@ -26,9 +23,8 @@ const HiddenWord = ({ word = '', resolvedLetters }) => {
 
 				return (
 					<div
-						className={`${styles.card} ${
-							isResolved(letter) ? '' : styles.card__resolved
-						}`}
+						className={`${styles.card}
+						 ${isResolved(letter) ? '' : styles.card__resolved}`}
 						key={index}
 					>
 						<div className={styles.front}>
@@ -37,9 +33,9 @@ const HiddenWord = ({ word = '', resolvedLetters }) => {
 						<div className={styles.back}></div>
 					</div>
 				);
-			})}
+			})}{' '}
 		</div>
 	);
 };
 
-export default HiddenWord;
+export default Word;

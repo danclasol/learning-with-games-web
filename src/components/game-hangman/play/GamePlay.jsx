@@ -9,7 +9,7 @@ import Modal from '../../shared/Modal';
 import CounterTries from './CounterTries';
 import FinishedGame from './FinishedGame';
 import styles from './GamePlay.module.css';
-import HiddenWord from './HiddenWord';
+import HiddenSentence from './HiddenSentence';
 import Letters from './Letters';
 import WordSelector from './WordSelector';
 
@@ -29,7 +29,7 @@ const GamePlay = ({ game }) => {
 	const currentWord = words[currentWordIndex]?.word?.toLowerCase();
 	const maxTries = words[currentWordIndex]?.maxTries;
 
-	const resetGame = currentIndex => {
+	const moveToWord = currentIndex => {
 		setResolvedLetters([]);
 		setPressedLetters([]);
 		setIsFinished(false);
@@ -37,12 +37,16 @@ const GamePlay = ({ game }) => {
 		setMoves(0);
 	};
 
-	const moveToWord = currentIndex => {
-		setResolvedLetters([]);
-		setPressedLetters([]);
-		setIsFinished(false);
-		setCurrentWordIndex(currentIndex);
-		setMoves(0);
+	const finishGame = ({ isWinner, moves }) => {
+		setIsFinished(true);
+
+		openModal({
+			moves,
+			isWinner,
+			isLastWord,
+			nextWord: () => moveToWord(currentWordIndex + 1),
+			resetGame: () => moveToWord(currentWordIndex)
+		});
 	};
 
 	const checkLetter = letter => {
@@ -61,30 +65,14 @@ const GamePlay = ({ game }) => {
 			setResolvedLetters(newResolvedLetter);
 
 			if (checkFinishGame(currentWord, newResolvedLetter)) {
-				setIsFinished(true);
-
-				openModal({
-					moves: newMoves,
-					isWinner: true,
-					isLastWord,
-					nextWord: () => moveToWord(currentWordIndex + 1),
-					resetGame: () => resetGame(currentWordIndex)
-				});
+				finishGame(true, newMoves);
 			}
 		} else {
 			setMoves(++newMoves);
 		}
 
 		if (newMoves === maxTries) {
-			setIsFinished(true);
-
-			openModal({
-				moves: newMoves,
-				isWinner: false,
-				isLastWord,
-				nextWord: () => moveToWord(currentWordIndex + 1),
-				resetGame: () => resetGame(currentWordIndex)
-			});
+			finishGame(false, newMoves);
 		}
 	};
 
@@ -92,7 +80,7 @@ const GamePlay = ({ game }) => {
 		<>
 			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<section className={styles.container}>
-				<GamePlayActions resetGame={() => resetGame(currentWordIndex)} />
+				<GamePlayActions resetGame={() => moveToWord(currentWordIndex)} />
 				<div className={styles.game}>
 					<h1 className={styles.title}>{game.title}</h1>
 					{totalWords > 1 && (
@@ -105,8 +93,11 @@ const GamePlay = ({ game }) => {
 							total={totalWords}
 						/>
 					)}
-					<HiddenWord word={currentWord} resolvedLetters={resolvedLetters} />
-					<CounterTries maxTries={maxTries} tries={moves} />
+					<HiddenSentence
+						sentence={currentWord}
+						resolvedLetters={resolvedLetters}
+					/>
+					{totalWords > 1 && <CounterTries maxTries={maxTries} tries={moves} />}
 					<Letters
 						resolvedLetters={resolvedLetters}
 						pressedLetters={pressedLetters}

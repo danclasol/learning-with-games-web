@@ -1,0 +1,12 @@
+.wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	row-gap: 0.5rem;
+	column-gap: 2rem;
+}
+
+.text {
+	margin: auto;
+}
