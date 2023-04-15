@@ -13,8 +13,13 @@
 
 .button__content {
 	display: flex;
+	width: 100%;
 	align-items: center;
 	column-gap: 0.5rem;
+}
+
+.button__text {
+	display: block;
 }
 
 .icon {
