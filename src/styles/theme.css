@@ -50,6 +50,21 @@
 	--letter-border-color-hidden: #fd6767;
 	--letter-border-radius: 1.2rem;
 
+	/* QUESTIONS */
+	--question-color-bg: #ffdca9;
+	--question-color-header: #faab78;
+	--option-color: white;
+	--option-bg-correct: #76da8f;
+	--option-color-correct: green;
+	--option-border-color-correct: green;
+	--option-bg-wrong: rgb(252, 177, 164);
+	--option-color-wrong: tomato;
+	--option-border-color-wrong: tomato;
+	--option-bg-answered: #9ea1d4;
+	--option-color-answered: #5458b4;
+	--option-border-color-answered: rgb(75, 110, 156);
+	--option-color-hover: #a8d1d1;
+
 	/* DROPDOWN*/
 	--border-radius-items: 0.3rem;
 	--border-radius-nav-item: 0.2rem;

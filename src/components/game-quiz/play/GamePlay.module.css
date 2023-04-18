@@ -1,0 +1,29 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+}
+
+.game {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1.5rem;
+}
+
+.title {
+	text-align: center;
+	color: var(--text-color);
+	font-size: var(--title-2);
+	margin: 0;
+}
+
+.stats {
+	display: flex;
+	justify-content: center;
+	column-gap: 2.5rem;
+	font-size: var(--title-3);
+}
+
+.questions {
+	margin: auto;
+}

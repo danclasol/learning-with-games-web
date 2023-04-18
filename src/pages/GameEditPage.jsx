@@ -22,7 +22,7 @@ const GameEditPage = () => {
 	}
 
 	if (error) {
-		return <p>No existe juego</p>;
+		return <p>Something went wrong. Please try again later.</p>;
 	}
 
 	const GameEditComponent = GAMES_TYPE_MAPPER[game.type];

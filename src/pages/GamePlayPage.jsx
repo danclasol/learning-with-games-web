@@ -1,12 +1,14 @@
 import { useParams } from 'react-router-dom';
 import FindingPairsGamePlay from '../components/game-finding-pairs/play/GamePlay';
 import HangmanGamePlay from '../components/game-hangman/play/GamePlay';
+import QuizPlay from '../components/game-quiz/play/GamePlay';
 import Loading from '../components/shared/Loading';
 import { useGame } from '../lib/hooks/useGame';
 
 const GAMES_TYPE_MAPPER = {
 	'finding-pairs': FindingPairsGamePlay,
-	hangman: HangmanGamePlay
+	hangman: HangmanGamePlay,
+	quiz: QuizPlay
 };
 
 const GamePlayPage = () => {
@@ -19,7 +21,7 @@ const GamePlayPage = () => {
 	}
 
 	if (error) {
-		return <p>No existe juego</p>;
+		return <p>Something went wrong. Please try again later.</p>;
 	}
 
 	const GamePlayComponent = GAMES_TYPE_MAPPER[game.type];

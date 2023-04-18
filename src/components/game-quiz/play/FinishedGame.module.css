@@ -1,0 +1,39 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	row-gap: 3rem;
+	padding: 2.5rem 4rem;
+	background-color: var(--modal-background);
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.3rem;
+}
+
+.title {
+	font-size: var(--title-3);
+	font-weight: bold;
+	margin: 0.3rem auto 1rem;
+}
+
+.stats {
+	display: flex;
+	flex-direction: column;
+	padding: 0rem 2rem;
+	row-gap: 1rem;
+}
+
+.text {
+	text-align: center;
+	margin: 0px;
+}
+
+.actions {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+	justify-content: flex-end;
+}

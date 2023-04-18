@@ -1,0 +1,30 @@
+.option {
+	font-size: var(--text-sm);
+	padding: 0.7rem;
+	border: 1px solid black;
+	border-radius: 2rem;
+	background-color: var(--option-color);
+}
+
+.option:hover:not(.userAnswer, .option--resolved) {
+	background-color: var(--option-color-hover);
+}
+
+.userAnswer {
+	color: var(--option-color-answered);
+	background-color: var(--option-bg-answered);
+	border: 1px solid var(--option-border-color-answered);
+}
+
+.correctAnswer {
+	color: var(--option-color-correct);
+	background-color: var(--option-bg-correct);
+	border: 2px solid var(--option-border-color-correct);
+}
+
+.incorrectAnswer {
+	font-weight: bold;
+	color: var(--option-color-wrong);
+	background-color: var(--option-bg-wrong);
+	border: 1px solid var(--option-border-color-wrong);
+}
