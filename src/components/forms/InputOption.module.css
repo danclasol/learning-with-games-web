@@ -1,0 +1,69 @@
+.option {
+	position: relative;
+	width: 100%;
+	font-size: var(--text-sm);
+	font-weight: bold;
+	color: var(--label-color);
+}
+
+.index {
+	position: absolute;
+	top: 7.5px;
+	left: 5px;
+	width: 100%;
+	height: 2.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 1.5rem;
+	height: 1.5rem;
+	background-color: var(--card-color-item);
+	border-radius: 50%;
+	border: 1px solid black;
+}
+
+.index--correct {
+	color: lightgreen;
+	background-color: green;
+	border: 1px solid var(--option-border-color-correct);
+}
+
+.input {
+	width: 100%;
+	height: 2.5rem;
+	padding: 0.5rem 2.3rem;
+	border: var(--border-weight) solid var(--border-color);
+	border-radius: var(--border-radius-input);
+	color: var(--input-text-color);
+	background-color: var(--input-color);
+	font-size: var(--text-sm);
+}
+
+.input--correct {
+	color: var(--option-color-correct);
+	background-color: var(--option-bg-correct);
+	border: 2px solid var(--option-border-color-correct);
+}
+
+.input:focus:not(.borderError) {
+	outline: none;
+	place-content: none;
+	padding: 0.5rem 2.3rem;
+	outline: 1px solid var(--input-focus-color);
+}
+
+.input::placeholder {
+	color: var(--input-text-color);
+	font-size: var(--text-sm);
+	opacity: var(--placeholder-opacity);
+}
+
+.input:not(:empty) {
+	display: none;
+}
+
+.borderError {
+	outline: 1px solid var(--input-color-error);
+	border: var(--border-weight) solid var(--input-color-error);
+}

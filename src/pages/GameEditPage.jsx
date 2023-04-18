@@ -4,10 +4,12 @@ import { useGame } from '../lib/hooks/useGame';
 
 import FindingPairsEdit from '../components/game-finding-pairs/edit/GameEdit';
 import HangmanGameEdit from '../components/game-hangman/edit/GameEdit';
+import QuizGameEdit from '../components/game-quiz/edit/GameEdit';
 
 const GAMES_TYPE_MAPPER = {
 	'finding-pairs': FindingPairsEdit,
-	hangman: HangmanGameEdit
+	hangman: HangmanGameEdit,
+	quiz: QuizGameEdit
 };
 
 const GameEditPage = () => {

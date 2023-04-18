@@ -1,4 +1,5 @@
 export const LIST_GAMES = [
 	{ type: 'finding-pairs', name: 'Finding Pairs' },
-	{ type: 'hangman', name: 'Hangman' }
+	{ type: 'hangman', name: 'Hangman' },
+	{ type: 'quiz', name: 'Quiz' }
 ];
