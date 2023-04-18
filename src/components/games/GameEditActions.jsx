@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
 import Button from '../buttons/Button';
+import LinkButton from '../buttons/LinkButton';
 import ArrowLeftIcon from '../icons/ArrowLeftIcon';
 import CloseIcon from '../icons/CloseIcon';
 import PlayIcon from '../icons/PlayIcon';
@@ -7,22 +7,15 @@ import SaveIcon from '../icons/SaveIcon';
 import styles from './GameEditActions.module.css';
 
 const GameEditActions = ({ gameId, isDirty, isSubmitting, clearForm }) => {
-	const navigate = useNavigate();
-
 	return (
 		<div className={styles.actions}>
 			<div className={styles.actions__buttons}>
-				<Button
-					onClick={() => {
-						navigate(-1);
-					}}
-					disabled={isSubmitting}
-				>
+				<LinkButton to={-1} disabled={isSubmitting}>
 					<div className={styles.button__content}>
 						<ArrowLeftIcon className={styles.icon} />
 						<span>Go back</span>
 					</div>
-				</Button>
+				</LinkButton>
 			</div>
 			<div className={styles.actions__buttons}>
 				{isDirty && (
@@ -42,16 +35,12 @@ const GameEditActions = ({ gameId, isDirty, isSubmitting, clearForm }) => {
 						<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
 					</div>
 				</Button>
-				<Button
-					kind='secondary'
-					onClick={() => navigate(`/games/${gameId}/play`)}
-					disabled={isSubmitting}
-				>
+				<LinkButton to={`/games/${gameId}/play`} kind='secondary'>
 					<div className={styles.button__content}>
 						<PlayIcon className={styles.icon} />
 						<span>Play</span>
 					</div>
-				</Button>
+				</LinkButton>
 			</div>
 		</div>
 	);

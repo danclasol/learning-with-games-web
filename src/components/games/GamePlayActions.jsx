@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from '../buttons/Button';
+import LinkButton from '../buttons/LinkButton';
 import ArrowLeftIcon from '../icons/ArrowLeftIcon';
 import MaximamizeIcon from '../icons/MaximizeIcon';
 import MinimizeIcon from '../icons/MinimizeIcon';
@@ -8,12 +8,7 @@ import RefreshIcon from '../icons/RefreshIcon';
 import styles from './GamePlayActions.module.css';
 
 const GamePlayActions = ({ resetGame }) => {
-	const navigate = useNavigate();
 	const [isFullScreen, setIsFullScreen] = useState(false);
-
-	const handleClicGoBack = () => {
-		navigate(-1);
-	};
 
 	const toggleFullScreen = () => {
 		if (!document.fullscreenElement) {
@@ -24,13 +19,13 @@ const GamePlayActions = ({ resetGame }) => {
 	};
 
 	const exitFullScreen = () => {
-		if (document.exitFullscreen) {
+		if (document.fullscreenElement) {
 			document.exitFullscreen();
 		}
 	};
 
 	useEffect(() => {
-		const fullScreenChanged = ev => {
+		const fullScreenChanged = () => {
 			setIsFullScreen(prevState => !prevState);
 		};
 
@@ -45,12 +40,12 @@ const GamePlayActions = ({ resetGame }) => {
 	return (
 		<div className={styles.actions}>
 			<div className={styles.actions__buttons}>
-				<Button onClick={handleClicGoBack}>
+				<LinkButton to={-1}>
 					<div className={styles.button__content}>
 						<ArrowLeftIcon className={styles.icon} />
 						<span className={styles.button__text}>Go back</span>
 					</div>
-				</Button>
+				</LinkButton>
 			</div>
 			<div className={styles.actions__buttons}>
 				<Button onClick={toggleFullScreen}>
