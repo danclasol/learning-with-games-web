@@ -46,28 +46,38 @@ const GamePlay = ({ game }) => {
 				<div className={styles.game}>
 					<h1 className={styles.title}>{game.title}</h1>
 
-					<div className={styles.stats}>
-						<span>{`Question: ${
-							currentQuestionIndex + 1
-						} / ${totalQuestions}`}</span>
-						<span
-							className={styles.stat}
-						>{`Points: ${points} / ${totalPoints}`}</span>
-					</div>
+					{totalQuestions === 0 && (
+						<p className={styles.text}>
+							The game doesn&apos;t have any questions.
+						</p>
+					)}
 
-					<div className={styles.questions}>
-						<Question
-							index={currentQuestionIndex}
-							question={currentQuestion}
-							userAnswer={userAnswer}
-							setUserAnswer={setUserAnswer}
-							setPoints={setPoints}
-							isResolved={isResolved}
-							setIsResolved={setIsResolved}
-							nextQuestion={() => moveToQuestion(currentQuestionIndex + 1)}
-							isLastQuestion={isLastQuestion}
-						/>
-					</div>
+					{totalQuestions !== 0 && (
+						<>
+							<div className={styles.stats}>
+								<span>{`Question: ${
+									currentQuestionIndex + 1
+								} / ${totalQuestions}`}</span>
+								<span
+									className={styles.stat}
+								>{`Points: ${points} / ${totalPoints}`}</span>
+							</div>
+
+							<div className={styles.questions}>
+								<Question
+									index={currentQuestionIndex}
+									question={currentQuestion}
+									userAnswer={userAnswer}
+									setUserAnswer={setUserAnswer}
+									setPoints={setPoints}
+									isResolved={isResolved}
+									setIsResolved={setIsResolved}
+									nextQuestion={() => moveToQuestion(currentQuestionIndex + 1)}
+									isLastQuestion={isLastQuestion}
+								/>
+							</div>
+						</>
+					)}
 				</div>
 			</section>
 		</>
