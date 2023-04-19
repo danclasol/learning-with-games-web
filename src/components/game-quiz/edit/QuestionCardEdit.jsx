@@ -97,7 +97,10 @@ const QuestionCardEdit = ({ index }) => {
 										validate={{
 											required: 'Field required'
 										}}
-										error={errorsEdit?.options[i]?.text?.message}
+										error={
+											errorsEdit?.options &&
+											errorsEdit?.options[i]?.text?.message
+										}
 										isCorrectOption={i === watchAnswer}
 									/>
 									<div className={styles.option__actions}>

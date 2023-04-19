@@ -60,9 +60,9 @@
 	--option-bg-wrong: rgb(252, 177, 164);
 	--option-color-wrong: tomato;
 	--option-border-color-wrong: tomato;
-	--option-bg-answered: #9ea1d4;
-	--option-color-answered: #5458b4;
-	--option-border-color-answered: rgb(75, 110, 156);
+	--option-bg-selected: #9ea1d4;
+	--option-color-selected: #5458b4;
+	--option-border-color-selected: rgb(75, 110, 156);
 	--option-color-hover: #a8d1d1;
 
 	/* DROPDOWN*/

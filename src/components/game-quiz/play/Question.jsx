@@ -10,7 +10,8 @@ const Question = ({
 	setPoints,
 	isResolved,
 	setIsResolved,
-	nextQuestion
+	nextQuestion,
+	isLastQuestion
 }) => {
 	const onClickAnswerHandler = () => {
 		if (userAnswer === question.answer) {
@@ -40,7 +41,7 @@ const Question = ({
 							option={option}
 							isSelected={userAnswer === index}
 							isResolved={isResolved}
-							correctAnswer={question.answer}
+							isCorrect={question.answer === index}
 							setUserAnswer={setUserAnswer}
 						/>
 					))}
@@ -52,7 +53,11 @@ const Question = ({
 						Check
 					</Button>
 				)}
-				{isResolved && <Button onClick={onClickNextHandler}>Next</Button>}
+				{isResolved && (
+					<Button onClick={onClickNextHandler}>
+						{isLastQuestion ? 'Finish' : 'Next'}
+					</Button>
+				)}
 			</footer>
 		</article>
 	);

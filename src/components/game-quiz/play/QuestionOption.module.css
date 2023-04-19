@@ -1,30 +1,72 @@
 .option {
+	position: relative;
 	font-size: var(--text-sm);
 	padding: 0.7rem;
+	/* padding: 0.5rem 2.3rem; */
 	border: 1px solid black;
 	border-radius: 2rem;
 	background-color: var(--option-color);
 }
 
-.option:hover:not(.userAnswer, .option--resolved) {
+.option:hover:not(.option--resolved, .option--selected) {
 	background-color: var(--option-color-hover);
 }
 
-.userAnswer {
-	color: var(--option-color-answered);
-	background-color: var(--option-bg-answered);
-	border: 1px solid var(--option-border-color-answered);
+.option--selected {
+	color: var(--option-color-selected);
+	background-color: var(--option-bg-selected);
+	border: 1px solid var(--option-border-color-selected);
 }
 
-.correctAnswer {
+.option--correct {
+	font-weight: bold;
 	color: var(--option-color-correct);
 	background-color: var(--option-bg-correct);
 	border: 2px solid var(--option-border-color-correct);
 }
 
-.incorrectAnswer {
-	font-weight: bold;
+.option--wrong {
 	color: var(--option-color-wrong);
 	background-color: var(--option-bg-wrong);
 	border: 1px solid var(--option-border-color-wrong);
+}
+
+.index {
+	position: absolute;
+	top: 7.5px;
+	left: 7px;
+	width: 100%;
+	height: 2.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 1.5rem;
+	height: 1.5rem;
+	background-color: var(--card-color-item);
+	border-radius: 50%;
+	border: 1px solid black;
+	font-weight: bold;
+}
+
+.index--correct {
+	color: var(--option-bg-correct);
+	background-color: var(--option-color-correct);
+	border: 1px solid var(--option-border-color-correct);
+}
+
+.index--wrong {
+	color: var(--option-bg-wrong);
+	background-color: var(--option-color-wrong);
+	border: 1px solid var(--option-border-color-wrong);
+}
+
+.index--selected {
+	color: var(--option-bg-selected);
+	background-color: var(--option-color-selected);
+	border: 1px solid var(--option-border-color-selected);
+}
+
+.text {
+	margin-left: 1.8rem;
 }
