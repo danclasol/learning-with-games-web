@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { isImageValid } from '../../../lib/utils/images';
-import styles from './PairCardImage.module.css';
+import styles from './ImagePreview.module.css';
 
-const PairCardImage = ({ image, error }) => {
+const ImagePreview = ({ image, error }) => {
 	const [imageSrc, setImageSrc] = useState('');
 
 	useEffect(() => {
@@ -19,10 +19,10 @@ const PairCardImage = ({ image, error }) => {
 	}, [image]);
 
 	return (
-		<div className={`${styles.card__image} ${error ? styles.borderError : ''}`}>
+		<div className={`${styles.wrapper} ${error ? styles.borderError : ''}`}>
 			<img className={styles.image} src={imageSrc} />
 		</div>
 	);
 };
 
-export default PairCardImage;
+export default ImagePreview;

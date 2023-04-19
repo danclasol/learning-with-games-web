@@ -3,17 +3,17 @@ import { isImageValid } from '../../../lib/utils/images';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
 import TrashIcon from '../../icons/TrashIcon';
-import styles from './PairCardEdit.module.css';
-import PairCardImage from './PairCardImage';
+import ImagePreview from './ImagePreview';
+import styles from './PairImageCardEdit.module.css';
 
-const PairCardEdit = ({ index }) => {
+const PairImageCardEdit = ({ index }) => {
 	const { register, watch, remove, errors } = useFormContext();
 
 	const errorsEdit = errors?.pairs && errors?.pairs[index];
 
 	return (
 		<div className={styles.card}>
-			<PairCardImage
+			<ImagePreview
 				image={watch(`pairs.${index}.image`)}
 				error={errorsEdit?.image?.message}
 			/>
@@ -66,4 +66,4 @@ const PairCardEdit = ({ index }) => {
 	);
 };
 
-export default PairCardEdit;
+export default PairImageCardEdit;
