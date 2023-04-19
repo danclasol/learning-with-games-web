@@ -53,8 +53,15 @@
 	row-gap: 0.3rem;
 	border: 1px solid black;
 	border-radius: 1rem;
-	padding: 1rem;
+	padding: 1rem 1rem 1.5rem;
 	background-color: var(--card-color-front);
+}
+
+.form__fields {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.7rem;
 }
 
 .form__field {
