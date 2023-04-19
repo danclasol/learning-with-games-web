@@ -19,13 +19,13 @@ const GameEdit = ({ game }) => {
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({ defaultValues: { title: game?.title, words: game?.words } });
 
-	const { fields, prepend, remove } = useFieldArray({
+	const { fields, append, remove } = useFieldArray({
 		name: 'words',
 		control
 	});
 
 	const handleAddWordClick = () => {
-		prepend({ word: '', maxTries: 10 });
+		append({ word: '', maxTries: 10 });
 	};
 
 	return (
