@@ -4,9 +4,9 @@ import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
 import TrashIcon from '../../icons/TrashIcon';
 import ImagePreview from './ImagePreview';
-import styles from './PairImageCardEdit.module.css';
+import styles from './PairCardEdit.module.css';
 
-const PairImageCardEdit = ({ index }) => {
+const PairCardEdit = ({ index }) => {
 	const { register, watch, remove, errors } = useFormContext();
 
 	const errorsEdit = errors?.pairs && errors?.pairs[index];
@@ -66,4 +66,4 @@ const PairImageCardEdit = ({ index }) => {
 	);
 };
 
-export default PairImageCardEdit;
+export default PairCardEdit;

@@ -9,7 +9,7 @@ import { FINDING_PAIRS_MODES } from '../../../constants/findingPairsModes';
 import { AuthContext } from '../../../lib/context/AuthContext';
 import InputSelect from '../../forms/InputSelect';
 import styles from './GameEdit.module.css';
-import PairImageCardEdit from './PairImageCardEdit';
+import PairCardEdit from './PairCardEdit';
 
 const GameEdit = ({ game }) => {
 	const { accessToken } = useContext(AuthContext);
@@ -108,11 +108,7 @@ const GameEdit = ({ game }) => {
 						</div>
 						<div className={styles.pairs__list}>
 							{fields.map((field, index) => (
-								<PairImageCardEdit
-									key={field.id}
-									index={index}
-									control={control}
-								/>
+								<PairCardEdit key={field.id} index={index} control={control} />
 							))}
 						</div>
 					</div>
