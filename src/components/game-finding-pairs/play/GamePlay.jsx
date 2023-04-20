@@ -11,7 +11,9 @@ const GamePlay = ({ game }) => {
 	const [moves, setMoves] = useState(0);
 	const [flippedCards, setFlippledCards] = useState([]);
 	const [resolvedCards, setResolvedCards] = useState([]);
-	const [pairs, setPairs] = useState(prepareCards(game?.pairs));
+	const [pairs, setPairs] = useState(
+		prepareCards({ pairs: game?.pairs, mode: game?.mode })
+	);
 	const [restart, setRestart] = useState();
 
 	const pairsNumber = pairs.length;
@@ -90,16 +92,25 @@ const GamePlay = ({ game }) => {
 
 				<div className={styles.game}>
 					<h1 className={styles.title}>{game.title}</h1>
-					<div className={styles.stats}>
-						<p className={styles.text}>Number of movements: {moves}</p>
-					</div>
 
-					<PairCardList
-						pairs={pairs}
-						resolvedCards={resolvedCards}
-						flippedCards={flippedCards}
-						onClickCard={handleCardClick}
-					/>
+					{pairs.length === 0 && (
+						<p className={styles.text}>The game doesn&apos;t have any pairs.</p>
+					)}
+					{pairs.length !== 0 && (
+						<>
+							<div className={styles.stats}>
+								<p className={styles.text}>Number of movements: {moves}</p>
+							</div>
+
+							<PairCardList
+								mode={game.mode}
+								pairs={pairs}
+								resolvedCards={resolvedCards}
+								flippedCards={flippedCards}
+								onClickCard={handleCardClick}
+							/>
+						</>
+					)}
 				</div>
 			</section>
 		</>

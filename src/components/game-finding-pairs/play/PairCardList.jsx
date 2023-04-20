@@ -1,7 +1,13 @@
 import PairCard from './PairCard';
 import styles from './PairCardList.module.css';
 
-const PairCardList = ({ pairs, resolvedCards, flippedCards, onClickCard }) => {
+const PairCardList = ({
+	mode,
+	pairs,
+	resolvedCards,
+	flippedCards,
+	onClickCard
+}) => {
 	const checkIsFlipped = index =>
 		flippedCards.includes(index) || resolvedCards.includes(pairs[index].text);
 
@@ -12,6 +18,7 @@ const PairCardList = ({ pairs, resolvedCards, flippedCards, onClickCard }) => {
 			{pairs.map((pair, index) => (
 				<PairCard
 					key={index}
+					mode={mode}
 					id={pair.id}
 					text={pair.text}
 					image={pair.image}
