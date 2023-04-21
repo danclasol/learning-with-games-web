@@ -1,13 +1,12 @@
+import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
 import { prepareCards, suffle } from '../../../lib/games/findingPairs';
+import Button from '../../buttons/Button';
 import GamePlayActions from '../../games/GamePlayActions';
-import Modal from '../../shared/Modal';
-import FinishedGame from './FinishedGame';
 import styles from './GamePlay.module.css';
 import PairCardList from './PairCardList';
 
 const GamePlay = ({ game }) => {
-	const { modalContent, closeModal, openModal } = useModal();
 	const [moves, setMoves] = useState(0);
 	const [flippedCards, setFlippledCards] = useState([]);
 	const [resolvedCards, setResolvedCards] = useState([]);
@@ -15,6 +14,7 @@ const GamePlay = ({ game }) => {
 		prepareCards({ pairs: game?.pairs, mode: game?.mode })
 	);
 	const [restart, setRestart] = useState();
+	const [isFinished, setIsFinished] = useState(false);
 
 	const pairsNumber = pairs.length;
 
@@ -46,16 +46,27 @@ const GamePlay = ({ game }) => {
 
 			// check end game
 			if (resolvedArray.length === pairsNumber / 2) {
-				openModal({ moves: movesNew, resetGame });
+				finishGame();
 			}
 		}
 	};
 
+	const finishGame = () => {
+		setIsFinished(true);
+
+		confetti({
+			particleCount: 250,
+			spread: 150
+		});
+	};
+
 	const resetGame = () => {
+		confetti.reset();
 		setMoves(0);
 		setFlippledCards([]);
 		setResolvedCards([]);
 		setRestart(true);
+		setIsFinished(false);
 	};
 
 	useEffect(() => {
@@ -86,7 +97,6 @@ const GamePlay = ({ game }) => {
 
 	return (
 		<>
-			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<section className={styles.container}>
 				<GamePlayActions resetGame={resetGame} />
 
@@ -107,38 +117,25 @@ const GamePlay = ({ game }) => {
 								pairs={pairs}
 								resolvedCards={resolvedCards}
 								flippedCards={flippedCards}
+								isFinish={isFinished}
 								onClickCard={handleCardClick}
 							/>
 						</>
+					)}
+					{isFinished && (
+						<div className={styles.finish}>
+							<h2 className={styles.finish__title}>You win!!</h2>
+							<div className={styles.finish__actions}>
+								<Button kind='secondary' onClick={resetGame}>
+									Reset
+								</Button>
+							</div>
+						</div>
 					)}
 				</div>
 			</section>
 		</>
 	);
-};
-
-const useModal = () => {
-	const [modalContent, setModalContent] = useState();
-
-	const closeModal = () => {
-		setModalContent();
-	};
-
-	const openModal = ({ moves, resetGame }) => {
-		setModalContent(
-			<FinishedGame
-				numberMovs={moves}
-				resetGame={resetGame}
-				closeModal={closeModal}
-			/>
-		);
-	};
-
-	return {
-		modalContent,
-		closeModal,
-		openModal
-	};
 };
 
 export default GamePlay;

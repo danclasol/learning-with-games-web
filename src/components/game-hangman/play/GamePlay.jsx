@@ -1,25 +1,25 @@
+import confetti from 'canvas-confetti';
 import { useState } from 'react';
 import {
 	checkFinishGame,
 	checkLetterExists,
 	checkLetterPressed
 } from '../../../lib/games/hangman';
+import Button from '../../buttons/Button';
 import GamePlayActions from '../../games/GamePlayActions';
-import Modal from '../../shared/Modal';
 import CounterTries from './CounterTries';
-import FinishedGame from './FinishedGame';
 import styles from './GamePlay.module.css';
 import HiddenSentence from './HiddenSentence';
 import Letters from './Letters';
 import WordSelector from './WordSelector';
 
 const GamePlay = ({ game }) => {
-	const { modalContent, closeModal, openModal } = useModal();
 	const [resolvedLetters, setResolvedLetters] = useState([]);
 	const [pressedLetters, setPressedLetters] = useState([]);
 	const [isFinished, setIsFinished] = useState(false);
 	const [currentWordIndex, setCurrentWordIndex] = useState(0);
 	const [moves, setMoves] = useState(0);
+	const [isWinner, setIsWinner] = useState(false);
 
 	const words = game?.words;
 	const totalWords = words.length;
@@ -37,16 +37,18 @@ const GamePlay = ({ game }) => {
 		setMoves(0);
 	};
 
-	const finishGame = ({ isWinner, moves }) => {
+	const finishGame = ({ isWinner }) => {
 		setIsFinished(true);
+		setIsWinner(isWinner);
 
-		openModal({
-			moves,
-			isWinner,
-			isLastWord,
-			nextWord: () => moveToWord(currentWordIndex + 1),
-			resetGame: () => moveToWord(currentWordIndex)
-		});
+		if (isWinner) {
+			confetti({
+				particleCount: 250,
+				spread: 150
+			});
+		} else {
+			setResolvedLetters(currentWord.split(''));
+		}
 	};
 
 	const checkLetter = letter => {
@@ -78,7 +80,6 @@ const GamePlay = ({ game }) => {
 
 	return (
 		<>
-			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<section className={styles.container}>
 				<GamePlayActions resetGame={() => moveToWord(currentWordIndex)} />
 				<div className={styles.game}>
@@ -96,8 +97,30 @@ const GamePlay = ({ game }) => {
 					<HiddenSentence
 						sentence={currentWord}
 						resolvedLetters={resolvedLetters}
+						isFinished={isFinished}
+						isWinner={isWinner}
 					/>
 					{totalWords > 0 && <CounterTries maxTries={maxTries} tries={moves} />}
+					{isFinished && (
+						<div className={styles.finish}>
+							<h2 className={styles.finish__title}>
+								{isWinner ? 'You win!!' : 'You loose'}
+							</h2>
+							<div className={styles.finish__actions}>
+								{!isLastWord && (
+									<Button onClick={() => moveToWord(currentWordIndex + 1)}>
+										Next word
+									</Button>
+								)}
+								<Button
+									kind='secondary'
+									onClick={() => moveToWord(currentWordIndex)}
+								>
+									Reset
+								</Button>
+							</div>
+						</div>
+					)}
 					<Letters
 						resolvedLetters={resolvedLetters}
 						pressedLetters={pressedLetters}
@@ -107,33 +130,6 @@ const GamePlay = ({ game }) => {
 			</section>
 		</>
 	);
-};
-
-const useModal = () => {
-	const [modalContent, setModalContent] = useState();
-
-	const closeModal = () => {
-		setModalContent();
-	};
-
-	const openModal = ({ moves, isWinner, isLastWord, nextWord, resetGame }) => {
-		setModalContent(
-			<FinishedGame
-				numberMovs={moves}
-				isWinner={isWinner}
-				isLastWord={isLastWord}
-				nextWord={nextWord}
-				resetGame={resetGame}
-				closeModal={closeModal}
-			/>
-		);
-	};
-
-	return {
-		modalContent,
-		closeModal,
-		openModal
-	};
 };
 
 export default GamePlay;

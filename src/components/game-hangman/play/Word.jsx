@@ -1,7 +1,7 @@
 import { isSpecialValidChar } from '../../../lib/utils/regex';
 import styles from './Word.module.css';
 
-const Word = ({ word, resolvedLetters }) => {
+const Word = ({ word, resolvedLetters, isFinished, isWinner }) => {
 	const letters = word.split('');
 
 	const isResolved = letter => {
@@ -24,10 +24,15 @@ const Word = ({ word, resolvedLetters }) => {
 				return (
 					<div
 						className={`${styles.card}
-						 ${isResolved(letter) ? '' : styles.card__resolved}`}
+						 ${isResolved(letter) ? '' : styles.card__resolved}
+						`}
 						key={index}
 					>
-						<div className={styles.front}>
+						<div
+							className={`${styles.front}  ${
+								isFinished ? (isWinner ? styles.winner : styles.loser) : ''
+							}`}
+						>
 							<span className={styles.letter}>{letter}</span>
 						</div>
 						<div className={styles.back}></div>

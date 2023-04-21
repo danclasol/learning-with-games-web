@@ -48,6 +48,11 @@
 	border: 5px solid var(--card-border-color-resolved);
 }
 
+.finish {
+	background-color: var(--card-color-finished);
+	border: 3px solid var(--card-border-color-finished);
+}
+
 .back:hover {
 	background-color: var(--card-color-hover);
 }

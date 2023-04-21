@@ -6,7 +6,7 @@
 	background-color: var(--letter-color);
 }
 
-.card:hover:not(.pressed):not(.resolved) {
+.card:hover:not(.pressed, .resolved, .lose) {
 	background-color: var(--letter-color-hover);
 }
 
@@ -19,6 +19,11 @@
 .resolved {
 	background-color: var(--letter-resolved);
 	border: 2px solid var(--letter-border-color-resolved);
+}
+
+.lose {
+	background-color: var(--letter-lose);
+	border: 2px solid var(--letter-border-color-lose);
 }
 
 .letter {

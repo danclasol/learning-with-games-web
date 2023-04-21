@@ -55,6 +55,16 @@
 	backface-visibility: hidden;
 }
 
+.winner {
+	background-color: var(--letter-resolved);
+	border: 3px solid var(--letter-border-color-resolved);
+}
+
+.loser {
+	background-color: var(--letter-lose);
+	border: 3px solid var(--letter-border-color-lose);
+}
+
 .letter {
 	display: block;
 	text-align: center;

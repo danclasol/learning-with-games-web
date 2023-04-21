@@ -8,12 +8,17 @@ const PairCard = ({
 	mode,
 	isResolved,
 	isFlipped,
+	isFinish,
 	onClick
 }) => {
 	const showText =
 		!image || mode !== FINDING_PAIRS_MODES.NO_DUPLICATE_IMAGES.type;
 
 	const styleCard = `${styles.card} ${isFlipped ? styles.flipped : ''} `;
+
+	const styleFrontCard = `${styles.front} ${
+		isResolved ? styles.resolved : ''
+	} ${isFinish ? styles.finish : ''}`;
 
 	const handleClick = () => {
 		!isFlipped && !isResolved && onClick(index);
@@ -22,7 +27,7 @@ const PairCard = ({
 	return (
 		<div className={styles.wrapper}>
 			<div className={styleCard} onClick={handleClick}>
-				<div className={`${styles.front} ${isResolved ? styles.resolved : ''}`}>
+				<div className={styleFrontCard}>
 					{image && <img className={styles.image} src={image} />}
 					{showText && <span className={styles.text}>{text}</span>}
 				</div>

@@ -1,7 +1,12 @@
 import styles from './HiddenSentence.module.css';
 import Word from './Word';
 
-const HiddenSentence = ({ sentence = '', resolvedLetters }) => {
+const HiddenSentence = ({
+	sentence = '',
+	resolvedLetters,
+	isFinished,
+	isWinner
+}) => {
 	const worldList = sentence?.split(' ');
 
 	if (sentence === '')
@@ -11,7 +16,13 @@ const HiddenSentence = ({ sentence = '', resolvedLetters }) => {
 		<div className={styles.wrapper}>
 			{worldList.map((word, index) => {
 				return (
-					<Word key={index} word={word} resolvedLetters={resolvedLetters} />
+					<Word
+						key={index}
+						word={word}
+						resolvedLetters={resolvedLetters}
+						isFinished={isFinished}
+						isWinner={isWinner}
+					/>
 				);
 			})}
 		</div>

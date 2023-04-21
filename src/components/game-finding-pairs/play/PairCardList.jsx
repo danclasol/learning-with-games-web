@@ -3,6 +3,7 @@ import styles from './PairCardList.module.css';
 
 const PairCardList = ({
 	mode,
+	isFinish,
 	pairs,
 	resolvedCards,
 	flippedCards,
@@ -25,6 +26,7 @@ const PairCardList = ({
 					index={index}
 					isResolved={checkIsResolved(pair.text)}
 					isFlipped={checkIsFlipped(index)}
+					isFinish={isFinish}
 					onClick={() => onClickCard(index)}
 				>
 					{pair.id}

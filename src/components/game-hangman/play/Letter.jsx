@@ -8,8 +8,8 @@ const Letter = ({ letter, isResolved, isPressed, checkLetter }) => {
 	return (
 		<div
 			className={`${styles.card} ${isPressed ? styles.pressed : ''} ${
-				isResolved ? styles.resolved : ''
-			}`}
+				isResolved && isPressed ? styles.resolved : ''
+			} ${isResolved && !isPressed ? styles.lose : ''}`}
 			onClick={handleClick}
 		>
 			<span className={styles.letter}>{letter}</span>

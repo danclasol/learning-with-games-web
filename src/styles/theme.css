@@ -31,6 +31,8 @@
 	--card-border-color-front: #faab78;
 	--card-color-resolved: #fd8a8a;
 	--card-border-color-resolved: #fd6767;
+	--card-color-finished: lightgreen;
+	--card-border-color-finished: green;
 	--card-color-back: #9ea1d4;
 	--card-border-color-back: rgb(75, 110, 156);
 	--card-color-hover: #a8d1d1;
@@ -48,6 +50,8 @@
 	--letter-border-color-resolved: rgb(75, 156, 86);
 	--letter-color-hidden: #fd8a8a;
 	--letter-border-color-hidden: #fd6767;
+	--letter-lose: lightsalmon;
+	--letter-border-color-lose: tomato;
 	--letter-border-radius: 1.2rem;
 
 	/* QUESTIONS */
