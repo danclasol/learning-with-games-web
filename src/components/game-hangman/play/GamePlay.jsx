@@ -5,7 +5,6 @@ import {
 	checkLetterExists,
 	checkLetterPressed
 } from '../../../lib/games/hangman';
-import Button from '../../buttons/Button';
 import GamePlayActions from '../../games/GamePlayActions';
 import CounterTries from './CounterTries';
 import styles from './GamePlay.module.css';
@@ -23,7 +22,6 @@ const GamePlay = ({ game }) => {
 
 	const words = game?.words;
 	const totalWords = words.length;
-	const isFirstWord = currentWordIndex === 0;
 	const isLastWord = currentWordIndex === words.length - 1;
 
 	const currentWord = words[currentWordIndex]?.word?.toLowerCase();
@@ -81,51 +79,38 @@ const GamePlay = ({ game }) => {
 	return (
 		<>
 			<section className={styles.container}>
-				<GamePlayActions resetGame={() => moveToWord(currentWordIndex)} />
+				<GamePlayActions resetGame={() => moveToWord(0)} />
 				<div className={styles.game}>
-					<h1 className={styles.title}>{game.title}</h1>
-					{totalWords > 1 && (
-						<WordSelector
-							currentWordIndex={currentWordIndex}
-							isFirstWord={isFirstWord}
-							isLastWord={isLastWord}
-							previousWord={() => moveToWord(currentWordIndex - 1)}
-							nextWord={() => moveToWord(currentWordIndex + 1)}
-							total={totalWords}
-						/>
-					)}
-					<HiddenSentence
-						sentence={currentWord}
-						resolvedLetters={resolvedLetters}
-						isFinished={isFinished}
-						isWinner={isWinner}
-					/>
-					{totalWords > 0 && <CounterTries maxTries={maxTries} tries={moves} />}
-					{isFinished && (
-						<div className={styles.finish}>
-							<h2 className={styles.finish__title}>
-								{isWinner ? 'You win!!' : 'You loose'}
-							</h2>
-							<div className={styles.finish__actions}>
-								{!isLastWord && (
-									<Button onClick={() => moveToWord(currentWordIndex + 1)}>
-										Next word
-									</Button>
-								)}
-								<Button
-									kind='secondary'
-									onClick={() => moveToWord(currentWordIndex)}
-								>
-									Reset
-								</Button>
-							</div>
+					<div className={styles.game__panel}>
+						<h1 className={styles.game__panel__header}>{game.title}</h1>
+						<div className={styles.game__panel_content}>
+							<WordSelector
+								currentWordIndex={currentWordIndex}
+								isLastWord={isLastWord}
+								isFinished={isFinished}
+								retryWord={() => moveToWord(currentWordIndex)}
+								nextWord={() => moveToWord(currentWordIndex + 1)}
+								total={totalWords}
+							/>
+							<HiddenSentence
+								sentence={currentWord}
+								resolvedLetters={resolvedLetters}
+								isFinished={isFinished}
+								isWinner={isWinner}
+							/>
+							{totalWords > 0 && (
+								<CounterTries maxTries={maxTries} tries={moves} />
+							)}
 						</div>
-					)}
-					<Letters
-						resolvedLetters={resolvedLetters}
-						pressedLetters={pressedLetters}
-						checkLetter={checkLetter}
-					/>
+					</div>
+
+					<div className={styles.game__letters}>
+						<Letters
+							resolvedLetters={resolvedLetters}
+							pressedLetters={pressedLetters}
+							checkLetter={checkLetter}
+						/>
+					</div>
 				</div>
 			</section>
 		</>

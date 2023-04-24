@@ -1,26 +1,33 @@
 import IconButton from '../../buttons/IconButton';
-import ArrowLeftIcon from '../../icons/ArrowLeftIcon';
 import ArrowRightIcon from '../../icons/ArrowRightIcon';
+import RefreshIcon from '../../icons/RefreshIcon';
 import styles from './WordSelector.module.css';
 
-const WordSelector = ({ currentWordIndex, previousWord, nextWord, total }) => {
-	const isFirstWord = currentWordIndex === 0;
+const WordSelector = ({
+	currentWordIndex,
+	retryWord,
+	nextWord,
+	total,
+	isFinished
+}) => {
 	const isLastWord = currentWordIndex === total - 1;
 
 	return (
-		<div className={styles.game__play__actions}>
+		<div className={styles.selector}>
 			<IconButton
-				icon={ArrowLeftIcon}
+				icon={RefreshIcon}
 				filled
-				onClick={previousWord}
-				disabled={isFirstWord}
+				onClick={retryWord}
+				disabled={!isFinished}
 			/>
-			<span>{`Word: ${currentWordIndex + 1}/${total}`}</span>
+			<span className={styles.selector__text}>{`Word ${
+				currentWordIndex + 1
+			} of ${total}`}</span>
 			<IconButton
 				icon={ArrowRightIcon}
 				filled
 				onClick={nextWord}
-				disabled={isLastWord}
+				disabled={isLastWord || !isFinished}
 			/>
 		</div>
 	);

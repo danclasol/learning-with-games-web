@@ -40,7 +40,9 @@
 	--card-color-item-text: #47b8da;
 	--card-border-radius: 1.5rem;
 
-	/* LETTERS */
+	/* HANGMAN */
+	--selector-bg: tomato;
+	--selector-text: white;
 	--letter-color: #ffdca9;
 	--letter-border-color: #faab78;
 	--letter-color-hover: #fff5e6;

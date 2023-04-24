@@ -1,6 +1,15 @@
-.game__play__actions {
+.selector {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	column-gap: 1.5rem;
+}
+
+.selector__text {
+	border: 1px solid black;
+	border-radius: 2rem;
+	padding: 0.5rem 1.5rem;
+	background-color: var(--selector-bg);
+	color: var(--selector-text);
+	font-size: var(--title-4);
 }
