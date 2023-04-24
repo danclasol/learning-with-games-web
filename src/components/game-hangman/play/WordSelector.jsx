@@ -20,7 +20,7 @@ const WordSelector = ({
 				onClick={retryWord}
 				disabled={!isFinished}
 			/>
-			<span className={styles.selector__text}>{`Word ${
+			<span className={styles.selector__text}>{`${
 				currentWordIndex + 1
 			} of ${total}`}</span>
 			<IconButton

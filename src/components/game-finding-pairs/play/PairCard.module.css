@@ -5,6 +5,7 @@
 .card {
 	position: relative;
 	height: 12rem;
+	width: 12rem;
 	transform-style: preserve-3d;
 	transform-origin: center;
 	transition: transform 0.3s ease-in;
@@ -45,7 +46,7 @@
 
 .resolved {
 	background-color: var(--card-color-resolved);
-	border: 5px solid var(--card-border-color-resolved);
+	border: 3px solid var(--card-border-color-resolved);
 }
 
 .finish {
@@ -60,15 +61,16 @@
 .text {
 	color: var(--text-color);
 	font-weight: bold;
+	text-align: center;
 }
 
 .image {
-	max-width: 8rem;
 	height: 100%;
+	width: 100%;
 	object-fit: contain;
-	border: 1px solid black;
-	border-radius: 0.5rem;
+	border-radius: 1.2rem;
 	background-color: white;
+	overflow: hidden;
 }
 
 .index {

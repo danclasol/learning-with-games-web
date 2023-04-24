@@ -1,7 +1,6 @@
 import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
 import { prepareCards, suffle } from '../../../lib/games/findingPairs';
-import Button from '../../buttons/Button';
 import GamePlayActions from '../../games/GamePlayActions';
 import styles from './GamePlay.module.css';
 import PairCardList from './PairCardList';
@@ -99,18 +98,19 @@ const GamePlay = ({ game }) => {
 		<>
 			<section className={styles.container}>
 				<GamePlayActions resetGame={resetGame} />
-
 				<div className={styles.game}>
-					<h1 className={styles.title}>{game.title}</h1>
+					<div className={styles.game__panel}>
+						<h1 className={styles.game__panel__header}>{game.title}</h1>
 
-					{pairs.length === 0 && (
-						<p className={styles.text}>The game doesn&apos;t have any pairs.</p>
-					)}
-					{pairs.length !== 0 && (
-						<>
-							<div className={styles.stats}>
+						<div className={styles.game__panel__content}>
+							{pairs.length === 0 && (
+								<p className={styles.text}>
+									The game doesn&apos;t have any pairs.
+								</p>
+							)}
+							{pairs.length !== 0 && (
 								<p className={styles.text}>Number of movements: {moves}</p>
-							</div>
+							)}
 
 							<PairCardList
 								mode={game.mode}
@@ -120,18 +120,8 @@ const GamePlay = ({ game }) => {
 								isFinish={isFinished}
 								onClickCard={handleCardClick}
 							/>
-						</>
-					)}
-					{isFinished && (
-						<div className={styles.finish}>
-							<h2 className={styles.finish__title}>You win!!</h2>
-							<div className={styles.finish__actions}>
-								<Button kind='secondary' onClick={resetGame}>
-									Reset
-								</Button>
-							</div>
 						</div>
-					)}
+					</div>
 				</div>
 			</section>
 		</>
