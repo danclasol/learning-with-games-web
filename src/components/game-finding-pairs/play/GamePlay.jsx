@@ -105,23 +105,27 @@ const GamePlay = ({ game }) => {
 						<h1 className={styles.game__panel__header}>{game.title}</h1>
 
 						<div className={styles.game__panel__content}>
-							{pairs.length === 0 && (
-								<div className={styles.message}>
-									<p className={styles.message__text}>
-										The game doesn&apos;t have any pairs.
-									</p>
+							<div className={styles.message}>
+								{pairs.length === 0 && (
+									<>
+										<p className={styles.message__text}>
+											The game doesn&apos;t have any pairs.
+										</p>
 
-									<LinkButton to={`/games/${game.id}/edit`}>
-										<div className={styles.button__content}>
-											<PencilIcon className={styles.button__icon} />
-											<span className={styles.button__text}>Add pair</span>
-										</div>
-									</LinkButton>
-								</div>
-							)}
-							{pairs.length !== 0 && (
-								<p className={styles.text}>Number of movements: {moves}</p>
-							)}
+										<LinkButton to={`/games/${game.id}/edit`}>
+											<div className={styles.button__content}>
+												<PencilIcon className={styles.button__icon} />
+												<span className={styles.button__text}>Add pair</span>
+											</div>
+										</LinkButton>
+									</>
+								)}
+								{pairs.length !== 0 && (
+									<p className={styles.message__text}>
+										Number of movements: {moves}
+									</p>
+								)}
+							</div>
 
 							<PairCardList
 								mode={game.mode}

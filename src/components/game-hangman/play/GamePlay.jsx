@@ -77,8 +77,6 @@ const GamePlay = ({ game }) => {
 		}
 	};
 
-	console.log({ totalWords });
-
 	return (
 		<>
 			<section className={styles.container}>
