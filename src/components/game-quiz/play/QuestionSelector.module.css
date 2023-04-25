@@ -1,0 +1,23 @@
+.selector {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	column-gap: 1.5rem;
+}
+
+.selector__content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 0.3rem;
+	border: 3px solid rgb(255, 160, 143);
+	border-radius: 1.8rem;
+	padding: 0.5rem 3.5rem;
+	background-color: var(--selector-bg);
+	color: var(--selector-text);
+}
+
+.selector__text {
+	font-size: var(--title-4);
+}

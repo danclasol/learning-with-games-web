@@ -1,0 +1,50 @@
+.selector {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	column-gap: 0.3rem;
+}
+
+.selector__content {
+	border-radius: 1.8rem;
+	padding: 0.5rem 1.5rem;
+	background-color: #ffef73;
+	color: #faa940;
+	display: flex;
+	align-items: center;
+	column-gap: 0.3rem;
+	line-height: normal;
+}
+
+.selector__text {
+	font-size: var(--title-4);
+	font-weight: bold;
+}
+
+.icon {
+	height: 1.2rem;
+}
+
+.mark--perfect {
+	color: green;
+	background-color: lightgreen;
+	border: 3px solid green;
+}
+
+.mark--very-good {
+	color: blue;
+	background-color: lightblue;
+	border: 3px solid blue;
+}
+
+.mark--good {
+	color: orange;
+	background-color: lightyellow;
+	border: 3px solid orange;
+}
+
+.mark--bad {
+	color: tomato;
+	background-color: lightsalmon;
+	border: 3px solid tomato;
+}

@@ -3,7 +3,6 @@ import styles from './Question.module.css';
 import QuestionOption from './QuestionOption';
 
 const Question = ({
-	index,
 	question,
 	userAnswer,
 	setUserAnswer,
@@ -28,9 +27,7 @@ const Question = ({
 	return (
 		<article className={styles.question}>
 			<header className={styles.question__header}>
-				<h3 className={styles.question__title}>{`${index + 1}) ${
-					question.question
-				}`}</h3>
+				<h3 className={styles.question__title}>{question.question}</h3>
 			</header>
 			<main className={styles.question__body}>
 				<ul className={styles.options}>
@@ -54,8 +51,8 @@ const Question = ({
 					</Button>
 				)}
 				{isResolved && (
-					<Button onClick={onClickNextHandler}>
-						{isLastQuestion ? 'Finish' : 'Next'}
+					<Button onClick={onClickNextHandler} disabled={isLastQuestion}>
+						Next
 					</Button>
 				)}
 			</footer>

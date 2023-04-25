@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import LinkButton from '../../buttons/LinkButton';
 import GamePlayActions from '../../games/GamePlayActions';
-import Modal from '../../shared/Modal';
-import FinishedGame from './FinishedGame';
+import PencilIcon from '../../icons/PencilIcon';
 import styles from './GamePlay.module.css';
 import Question from './Question';
+import QuestionPoints from './QuestionPoints';
+import QuestionSelector from './QuestionSelector';
 
 const GamePlay = ({ game }) => {
-	const { modalContent, closeModal, openModal } = useModal();
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [isResolved, setIsResolved] = useState(false);
 	const [userAnswer, setUserAnswer] = useState();
@@ -22,13 +23,9 @@ const GamePlay = ({ game }) => {
 	const currentQuestion = questions[currentQuestionIndex];
 
 	const moveToQuestion = currentIndex => {
-		if (isLastQuestion) {
-			openModal({ points, resetGame });
-		} else {
-			setIsResolved(false);
-			setUserAnswer();
-			setCurrentQuestionIndex(currentIndex);
-		}
+		setIsResolved(false);
+		setUserAnswer();
+		setCurrentQuestionIndex(currentIndex);
 	};
 
 	const resetGame = () => {
@@ -40,72 +37,67 @@ const GamePlay = ({ game }) => {
 
 	return (
 		<>
-			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<section className={styles.container}>
 				<GamePlayActions resetGame={resetGame} />
 				<div className={styles.game}>
-					<h1 className={styles.title}>{game.title}</h1>
+					<div className={styles.game__panel}>
+						<h1 className={styles.game__panel__header}>{game.title}</h1>
+						<div className={styles.game__panel_content}>
+							{totalQuestions === 0 && (
+								<div className={styles.message}>
+									<p className={styles.message__text}>
+										The game doesn&apos;t have any questions.
+									</p>
 
-					{totalQuestions === 0 && (
-						<p className={styles.text}>
-							The game doesn&apos;t have any questions.
-						</p>
-					)}
+									<LinkButton to={`/games/${game.id}/edit`}>
+										<div className={styles.button__content}>
+											<PencilIcon className={styles.button__icon} />
+											<span className={styles.button__text}>Add question</span>
+										</div>
+									</LinkButton>
+								</div>
+							)}
 
-					{totalQuestions !== 0 && (
-						<>
-							<div className={styles.stats}>
-								<span>{`Question: ${
-									currentQuestionIndex + 1
-								} / ${totalQuestions}`}</span>
-								<span
-									className={styles.stat}
-								>{`Points: ${points} / ${totalPoints}`}</span>
-							</div>
-
-							<div className={styles.questions}>
-								<Question
-									index={currentQuestionIndex}
-									question={currentQuestion}
-									userAnswer={userAnswer}
-									setUserAnswer={setUserAnswer}
-									setPoints={setPoints}
-									isResolved={isResolved}
-									setIsResolved={setIsResolved}
-									nextQuestion={() => moveToQuestion(currentQuestionIndex + 1)}
-									isLastQuestion={isLastQuestion}
-								/>
-							</div>
-						</>
-					)}
+							{totalQuestions > 0 && (
+								<>
+									<div className={styles.game__stats}>
+										<QuestionSelector
+											currentQuestionIndex={currentQuestionIndex}
+											isLastQuestion={isLastQuestion}
+											isResolved={isResolved}
+											retryQuestion={() => moveToQuestion(currentQuestionIndex)}
+											nextQuestion={() =>
+												moveToQuestion(currentQuestionIndex + 1)
+											}
+											total={totalQuestions}
+										/>
+										{isLastQuestion && isResolved && (
+											<QuestionPoints points={points} total={totalPoints} />
+										)}
+									</div>
+									<div className={styles.game__questions}>
+										<Question
+											index={currentQuestionIndex}
+											question={currentQuestion}
+											userAnswer={userAnswer}
+											setUserAnswer={setUserAnswer}
+											setPoints={setPoints}
+											isResolved={isResolved}
+											setIsResolved={setIsResolved}
+											nextQuestion={() =>
+												moveToQuestion(currentQuestionIndex + 1)
+											}
+											isLastQuestion={isLastQuestion}
+										/>
+									</div>
+								</>
+							)}
+						</div>
+					</div>
 				</div>
 			</section>
 		</>
 	);
-};
-
-const useModal = () => {
-	const [modalContent, setModalContent] = useState();
-
-	const closeModal = () => {
-		setModalContent();
-	};
-
-	const openModal = ({ points, resetGame }) => {
-		setModalContent(
-			<FinishedGame
-				points={points}
-				resetGame={resetGame}
-				closeModal={closeModal}
-			/>
-		);
-	};
-
-	return {
-		modalContent,
-		closeModal,
-		openModal
-	};
 };
 
 export default GamePlay;
