@@ -8,6 +8,7 @@ import {
 import LinkButton from '../../buttons/LinkButton';
 import GamePlayActions from '../../games/GamePlayActions';
 import PencilIcon from '../../icons/PencilIcon';
+import CounterTries from './CounterTries';
 import styles from './GamePlay.module.css';
 import HiddenSentence from './HiddenSentence';
 import Letters from './Letters';
@@ -117,7 +118,7 @@ const GamePlay = ({ game }) => {
 										isWinner={isWinner}
 									/>
 
-									{/* <CounterTries maxTries={maxTries} tries={moves} /> */}
+									<CounterTries maxTries={maxTries} tries={moves} />
 								</>
 							)}
 						</div>
