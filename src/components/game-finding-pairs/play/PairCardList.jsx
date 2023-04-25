@@ -14,6 +14,8 @@ const PairCardList = ({
 
 	const checkIsResolved = text => resolvedCards.includes(text);
 
+	if (pairs.length === 0) return;
+
 	return (
 		<div className={styles.cards}>
 			{pairs.map((pair, index) => (

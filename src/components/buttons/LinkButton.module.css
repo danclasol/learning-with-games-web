@@ -4,7 +4,6 @@
 	padding: 0 1.5rem;
 	border-radius: var(--btn-border-radius);
 	font-weight: bold;
-	/* line-height: 0; */
 	border: 1px solid black;
 	box-shadow: var(--btn-color-shadow) 3px 3px 0 0;
 	/* width: 100%; */

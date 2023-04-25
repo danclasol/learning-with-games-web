@@ -5,8 +5,9 @@ import {
 	checkLetterExists,
 	checkLetterPressed
 } from '../../../lib/games/hangman';
+import LinkButton from '../../buttons/LinkButton';
 import GamePlayActions from '../../games/GamePlayActions';
-import CounterTries from './CounterTries';
+import PencilIcon from '../../icons/PencilIcon';
 import styles from './GamePlay.module.css';
 import HiddenSentence from './HiddenSentence';
 import Letters from './Letters';
@@ -76,6 +77,8 @@ const GamePlay = ({ game }) => {
 		}
 	};
 
+	console.log({ totalWords });
+
 	return (
 		<>
 			<section className={styles.container}>
@@ -84,22 +87,40 @@ const GamePlay = ({ game }) => {
 					<div className={styles.game__panel}>
 						<h1 className={styles.game__panel__header}>{game.title}</h1>
 						<div className={styles.game__panel_content}>
-							<WordSelector
-								currentWordIndex={currentWordIndex}
-								isLastWord={isLastWord}
-								isFinished={isFinished}
-								retryWord={() => moveToWord(currentWordIndex)}
-								nextWord={() => moveToWord(currentWordIndex + 1)}
-								total={totalWords}
-							/>
-							<HiddenSentence
-								sentence={currentWord}
-								resolvedLetters={resolvedLetters}
-								isFinished={isFinished}
-								isWinner={isWinner}
-							/>
+							{totalWords === 0 && (
+								<div className={styles.message}>
+									<p className={styles.message__text}>
+										The game doesn&apos;t have any words.
+									</p>
+
+									<LinkButton to={`/games/${game.id}/edit`}>
+										<div className={styles.button__content}>
+											<PencilIcon className={styles.button__icon} />
+											<span className={styles.button__text}>Add words</span>
+										</div>
+									</LinkButton>
+								</div>
+							)}
+
 							{totalWords > 0 && (
-								<CounterTries maxTries={maxTries} tries={moves} />
+								<>
+									<WordSelector
+										currentWordIndex={currentWordIndex}
+										isLastWord={isLastWord}
+										isFinished={isFinished}
+										retryWord={() => moveToWord(currentWordIndex)}
+										nextWord={() => moveToWord(currentWordIndex + 1)}
+										total={totalWords}
+									/>
+									<HiddenSentence
+										sentence={currentWord}
+										resolvedLetters={resolvedLetters}
+										isFinished={isFinished}
+										isWinner={isWinner}
+									/>
+
+									{/* <CounterTries maxTries={maxTries} tries={moves} /> */}
+								</>
 							)}
 						</div>
 					</div>

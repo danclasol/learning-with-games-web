@@ -1,7 +1,9 @@
 import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
 import { prepareCards, suffle } from '../../../lib/games/findingPairs';
+import LinkButton from '../../buttons/LinkButton';
 import GamePlayActions from '../../games/GamePlayActions';
+import PencilIcon from '../../icons/PencilIcon';
 import styles from './GamePlay.module.css';
 import PairCardList from './PairCardList';
 
@@ -104,9 +106,18 @@ const GamePlay = ({ game }) => {
 
 						<div className={styles.game__panel__content}>
 							{pairs.length === 0 && (
-								<p className={styles.text}>
-									The game doesn&apos;t have any pairs.
-								</p>
+								<div className={styles.message}>
+									<p className={styles.message__text}>
+										The game doesn&apos;t have any pairs.
+									</p>
+
+									<LinkButton to={`/games/${game.id}/edit`}>
+										<div className={styles.button__content}>
+											<PencilIcon className={styles.button__icon} />
+											<span className={styles.button__text}>Add pair</span>
+										</div>
+									</LinkButton>
+								</div>
 							)}
 							{pairs.length !== 0 && (
 								<p className={styles.text}>Number of movements: {moves}</p>
