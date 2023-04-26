@@ -71,7 +71,7 @@ const GamePlay = ({ game }) => {
 											}
 											total={totalQuestions}
 										/>
-										{isLastQuestion && isResolved && (
+										{isLastQuestion && isResolved && totalPoints !== 0 && (
 											<QuestionPoints points={points} total={totalPoints} />
 										)}
 									</div>

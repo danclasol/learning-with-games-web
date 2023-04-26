@@ -16,6 +16,7 @@ const GameEdit = ({ game }) => {
 		control,
 		watch,
 		reset,
+		setValue,
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({
 		defaultValues: { title: game?.title, questions: game?.questions }
@@ -35,6 +36,7 @@ const GameEdit = ({ game }) => {
 			register={register}
 			control={control}
 			watch={watch}
+			setValue={setValue}
 			errors={errors}
 			remove={remove}
 		>

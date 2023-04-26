@@ -30,6 +30,11 @@ const Question = ({
 				<h3 className={styles.question__title}>{question.question}</h3>
 			</header>
 			<main className={styles.question__body}>
+				{question.image && (
+					<div className={styles.question__media}>
+						<img className={styles.image} src={question.image} />
+					</div>
+				)}
 				<ul className={styles.options}>
 					{question.options.map((option, index) => (
 						<QuestionOption

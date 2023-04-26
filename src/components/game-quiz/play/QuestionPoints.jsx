@@ -32,7 +32,7 @@ const QuestionPoints = ({ points, total }) => {
 	);
 };
 
-const getTotalMarkStyle = totalMark => {
+const getTotalMarkStyle = (totalMark = 0) => {
 	if (totalMark < 50) {
 		return { text: 'Bad', markStyle: styles['mark--bad'] };
 	}
