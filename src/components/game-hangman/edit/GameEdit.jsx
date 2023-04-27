@@ -15,6 +15,7 @@ const GameEdit = ({ game }) => {
 		handleSubmit,
 		control,
 		watch,
+		setValue,
 		reset,
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({ defaultValues: { title: game?.title, words: game?.words } });
@@ -28,11 +29,16 @@ const GameEdit = ({ game }) => {
 		append({ word: '', maxTries: 10 });
 	};
 
+	const onCleanInput = nameInput => {
+		setValue(nameInput, '', { shouldDirty: true });
+	};
+
 	return (
 		<FormProvider
 			register={register}
 			watch={watch}
 			errors={errors}
+			onCleanInput={onCleanInput}
 			remove={remove}
 		>
 			<section className={styles.container}>
@@ -70,6 +76,7 @@ const GameEdit = ({ game }) => {
 									}
 								}}
 								error={errors.title?.message}
+								onClean={() => onCleanInput('title')}
 							/>
 						</div>
 					</div>

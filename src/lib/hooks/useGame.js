@@ -15,8 +15,11 @@ export const useGame = ({ id }) => {
 		setGame({ data: newData, loading: false, error: false });
 	};
 
-	const setError = () =>
+	const setError = () => {
+		// console.log(err);
+
 		setGame({ data: undefined, loading: false, error: true });
+	};
 
 	const refresh = () => {
 		loadGame({ id, setData, setError });
@@ -38,7 +41,7 @@ export const useGame = ({ id }) => {
 
 			return () => controller.abort();
 		} catch (error) {
-			setError();
+			setError(error);
 		}
 	}, [accessToken, id, game.loading]);
 
@@ -51,7 +54,9 @@ export const useGame = ({ id }) => {
 };
 
 const loadGame = async ({ accessToken, id, setData, setError, signal }) => {
-	const { game, aborted } = await getGame({ accessToken, id, signal });
+	const { game, aborted, error } = await getGame({ accessToken, id, signal });
+
+	// console.log('loadGames', { error });
 
 	if (aborted) return;
 

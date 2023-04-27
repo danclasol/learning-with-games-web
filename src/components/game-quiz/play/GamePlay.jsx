@@ -61,6 +61,9 @@ const GamePlay = ({ game }) => {
 							{totalQuestions > 0 && (
 								<>
 									<div className={styles.game__stats}>
+										{isLastQuestion && isResolved && totalPoints !== 0 && (
+											<QuestionPoints points={points} total={totalPoints} />
+										)}
 										<QuestionSelector
 											currentQuestionIndex={currentQuestionIndex}
 											isLastQuestion={isLastQuestion}
@@ -71,9 +74,6 @@ const GamePlay = ({ game }) => {
 											}
 											total={totalQuestions}
 										/>
-										{isLastQuestion && isResolved && totalPoints !== 0 && (
-											<QuestionPoints points={points} total={totalPoints} />
-										)}
 									</div>
 									<div className={styles.game__questions}>
 										<Question

@@ -21,7 +21,10 @@ const GameEditPage = () => {
 		return <Loading label='Loading...' />;
 	}
 
+	// console.log({ error });
+
 	if (error) {
+		// if (error === 404)
 		return <p>Something went wrong. Please try again later.</p>;
 	}
 
