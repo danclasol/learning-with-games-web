@@ -84,8 +84,29 @@
 }
 
 .form__media {
+	position: relative;
 	display: flex;
-	column-gap: 1rem;
+	column-gap: 0.5rem;
+	background-color: #fd8a8a;
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: 0.5rem;
+}
+
+.icon__image {
+	display: flex;
+	align-items: center;
+	column-gap: 0.5rem;
+}
+
+.icon__text {
+	font-size: var(--text-sm);
+}
+
+.close {
+	position: absolute;
+	top: 2px;
+	right: 5px;
 }
 
 .options__label {

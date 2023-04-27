@@ -6,10 +6,10 @@ import IconButton from '../../buttons/IconButton';
 import InputNumber from '../../forms/InputNumber';
 import InputOption from '../../forms/InputOption';
 import InputSelect from '../../forms/InputSelect';
-import InputSwitch from '../../forms/InputSwitch';
 import InputText from '../../forms/InputText';
 import AddIcon from '../../icons/AddIcon';
 import CloseIcon from '../../icons/CloseIcon';
+import ImageIcon from '../../icons/ImageIcon';
 import TrashIcon from '../../icons/TrashIcon';
 import ImagePreview from './ImagePreview';
 import styles from './QuestionCardEdit.module.css';
@@ -40,7 +40,13 @@ const QuestionCardEdit = ({ index }) => {
 		setAddMedia(!addMedia);
 	};
 
+	const handleCleanInput = nameInput => {
+		setValue(`questions.${index}.${nameInput}`, '', { shouldDirty: true });
+	};
+
 	useEffect(() => {
+		if (!watchAddMedia) return;
+
 		setAddMedia(Boolean(watchAddMedia));
 	}, [watchAddMedia]);
 
@@ -73,41 +79,61 @@ const QuestionCardEdit = ({ index }) => {
 								pattern: { value: isValidWord, message: 'Invalid characters' }
 							}}
 							error={errorsEdit?.question?.message}
+							onClean={() => handleCleanInput('question')}
 						/>
 					</div>
-					<div className={styles.form__field}>
-						<InputSwitch
-							label='Add image'
-							checked={addMedia}
-							onChange={handleAddMediaToggle}
-						/>
-					</div>
-					{addMedia && (
-						<div className={styles.form__media}>
-							<ImagePreview
-								image={watchAddMedia}
-								error={errorsEdit?.image?.message}
-							/>
-							<div className={styles.form__fields}>
-								<div className={styles.form__field}>
-									<InputText
-										name={`questions.${index}.image`}
-										label='Image'
-										placeholder='Image'
-										register={register}
-										validate={{
-											required: 'Field required',
-											minLength: {
-												value: 2,
-												message: 'At least 2 characters'
-											}
-										}}
-										error={errorsEdit?.question?.message}
+					<div className={styles.form__addMedia}>
+						{!addMedia && (
+							<div className={styles.icon__image}>
+								<IconButton
+									icon={ImageIcon}
+									type='button'
+									filled
+									onClick={handleAddMediaToggle}
+								/>
+								<span className={styles.icon__text}>
+									{addMedia ? 'Remove image' : 'Add image'}
+								</span>
+							</div>
+						)}
+						{addMedia && (
+							<div className={styles.form__media}>
+								<ImagePreview
+									image={watchAddMedia}
+									error={errorsEdit?.image?.message}
+								/>
+								<div className={styles.form__fields}>
+									<div className={styles.form__field}>
+										<InputText
+											name={`questions.${index}.image`}
+											label='Image'
+											placeholder='Image URL'
+											register={register}
+											validate={{
+												required: 'Field required',
+												minLength: {
+													value: 2,
+													message: 'At least 2 characters'
+												}
+											}}
+											error={errorsEdit?.image?.message}
+											onClean={() => handleCleanInput('image')}
+										/>
+									</div>
+								</div>
+								<div className={styles.close}>
+									<IconButton
+										icon={CloseIcon}
+										filled
+										kind='secondary'
+										size='small'
+										onClick={handleAddMediaToggle}
 									/>
 								</div>
 							</div>
-						</div>
-					)}
+						)}
+					</div>
+
 					<div className={styles.form__group}>
 						<div className={styles.form__group__field}>
 							<InputNumber
@@ -185,7 +211,7 @@ const QuestionCardEdit = ({ index }) => {
 								onClick={() => append({ text: '' })}
 								type='button'
 							/>
-							<span>Add option</span>
+							<span className={styles.icon__text}>Add option</span>
 						</div>
 					</div>
 				</div>

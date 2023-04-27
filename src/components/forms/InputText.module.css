@@ -1,5 +1,6 @@
 .wrapper {
 	width: 100%;
+	position: relative;
 }
 
 .label {
@@ -22,10 +23,15 @@
 	font-size: var(--text-sm);
 }
 
+.input:hover {
+	padding-right: 2rem;
+}
+
 .input:focus:not(.borderError) {
 	outline: none;
 	place-content: none;
 	padding: 0.5rem 1rem;
+	padding-right: 2rem;
 	outline: 1px solid var(--input-focus-color);
 }
 
@@ -37,6 +43,29 @@
 
 .input:not(:empty) {
 	display: none;
+}
+
+.icon__reset {
+	visibility: hidden;
+	position: absolute;
+	top: 1.85rem;
+	right: 0.7rem;
+	width: 1.3rem;
+	height: 1.3rem;
+	padding: 0.15rem;
+	color: var(--text-color-white);
+	color: black;
+}
+
+.input:hover ~ .icon__reset,
+.icon__reset:hover {
+	visibility: visible;
+}
+
+.icon__reset:hover {
+	color: white;
+	border-radius: 50%;
+	background-color: var(--input-text-color);
 }
 
 .error {

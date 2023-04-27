@@ -31,6 +31,10 @@ const GameEdit = ({ game }) => {
 		append({ question: '', points: 0, options: [{ text: '' }] });
 	};
 
+	const onCleanInput = nameInput => {
+		setValue(nameInput, '', { shouldDirty: true });
+	};
+
 	return (
 		<FormProvider
 			register={register}
@@ -75,6 +79,7 @@ const GameEdit = ({ game }) => {
 									}
 								}}
 								error={errors.title?.message}
+								onClean={() => onCleanInput('title')}
 							/>
 						</div>
 					</div>
