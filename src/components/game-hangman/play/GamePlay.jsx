@@ -1,5 +1,5 @@
 import confetti from 'canvas-confetti';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	checkFinishGame,
 	checkLetterExists,
@@ -77,6 +77,10 @@ const GamePlay = ({ game }) => {
 			finishGame({ isWinner: false, moves: newMoves });
 		}
 	};
+
+	useEffect(() => {
+		return () => confetti.reset();
+	}, []);
 
 	return (
 		<>

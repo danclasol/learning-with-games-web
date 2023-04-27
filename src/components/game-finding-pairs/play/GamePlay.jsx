@@ -71,6 +71,10 @@ const GamePlay = ({ game }) => {
 	};
 
 	useEffect(() => {
+		return () => confetti.reset();
+	}, []);
+
+	useEffect(() => {
 		if (flippedCards.length !== 2) return;
 
 		const intervalId = setTimeout(() => {

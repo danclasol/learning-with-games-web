@@ -4,7 +4,8 @@ import StarIcon from '../../icons/StarIcon';
 import styles from './QuestionPoints.module.css';
 
 const QuestionPoints = ({ points, total }) => {
-	const totalMark = (points / total) * 100;
+	const mark = (points / total) * 100;
+	const totalMark = Math.round(mark * 100) / 100;
 	const { text, markStyle } = getTotalMarkStyle(totalMark);
 
 	useEffect(() => {
@@ -19,6 +20,10 @@ const QuestionPoints = ({ points, total }) => {
 			confetti.reset();
 		};
 	}, [totalMark]);
+
+	useEffect(() => {
+		return () => confetti.reset();
+	}, []);
 
 	return (
 		<div className={styles.selector}>
