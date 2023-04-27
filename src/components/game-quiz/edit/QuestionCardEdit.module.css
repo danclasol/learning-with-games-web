@@ -1,7 +1,6 @@
 .card {
 	display: flex;
 	align-items: stretch;
-	column-gap: 0.5rem;
 	border-radius: 1rem;
 	background-color: var(--card-color-front);
 	border: 1px solid black;

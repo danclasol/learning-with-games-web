@@ -18,25 +18,31 @@ const GameEdit = ({ game }) => {
 		handleSubmit,
 		control,
 		watch,
+		setValue,
 		reset,
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({
 		defaultValues: { title: game?.title, mode: game?.mode, pairs: game?.pairs }
 	});
 
-	const { fields, prepend, remove } = useFieldArray({
+	const { fields, append, remove } = useFieldArray({
 		name: 'pairs',
 		control
 	});
 
 	const handleAddPairClick = () => {
-		prepend({ text: '', image: '' });
+		append({ text: '', image: '' });
+	};
+
+	const onCleanInput = nameInput => {
+		setValue(nameInput, '', { shouldDirty: true });
 	};
 
 	return (
 		<FormProvider
 			register={register}
 			watch={watch}
+			onCleanInput={onCleanInput}
 			errors={errors}
 			remove={remove}
 		>
@@ -76,6 +82,7 @@ const GameEdit = ({ game }) => {
 										}
 									}}
 									error={errors.title?.message}
+									onClean={() => onCleanInput('title')}
 								/>
 							</div>
 							<div className={styles.form__field}>
