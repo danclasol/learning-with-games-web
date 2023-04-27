@@ -1,20 +1,40 @@
+import { useId } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { isValidWord } from '../../../lib/utils/regex';
 import IconButton from '../../buttons/IconButton';
 import InputNumber from '../../forms/InputNumber';
 import InputText from '../../forms/InputText';
+import MoveIcon from '../../icons/MoveIcon';
 import TrashIcon from '../../icons/TrashIcon';
 import styles from './WordCardEdit.module.css';
 
-const WordCardEdit = ({ index }) => {
+const WordCardEdit = ({
+	index,
+	handleDrag,
+	handleDropEnter,
+	handleDropEnd
+}) => {
 	const { register, remove, errors, onCleanInput } = useFormContext();
+	const cardId = useId();
 
 	const errorsEdit = errors?.words && errors?.words[index];
 
 	return (
-		<div className={styles.card}>
+		<div
+			id={cardId}
+			className={styles.card}
+			draggable
+			onDragStart={() => handleDrag(index)}
+			onDragEnter={() => handleDropEnter(index)}
+			onDragEnd={handleDropEnd}
+		>
 			<div className={styles.card__nav}>
 				<span className={styles.card__index}>{index + 1}</span>
+				<IconButton
+					icon={MoveIcon}
+					type='button'
+					className={styles.icon__move}
+				/>
 				<IconButton
 					icon={TrashIcon}
 					filled

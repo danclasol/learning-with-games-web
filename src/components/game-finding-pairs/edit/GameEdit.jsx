@@ -4,7 +4,7 @@ import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
 import GameEditActions from '../../games/GameEditActions';
 
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { FINDING_PAIRS_MODES } from '../../../constants/findingPairsModes';
 import { AuthContext } from '../../../lib/context/AuthContext';
 import InputSelect from '../../forms/InputSelect';
@@ -25,7 +25,7 @@ const GameEdit = ({ game }) => {
 		defaultValues: { title: game?.title, mode: game?.mode, pairs: game?.pairs }
 	});
 
-	const { fields, append, remove } = useFieldArray({
+	const { fields, append, move, remove } = useFieldArray({
 		name: 'pairs',
 		control
 	});
@@ -36,6 +36,24 @@ const GameEdit = ({ game }) => {
 
 	const onCleanInput = nameInput => {
 		setValue(nameInput, '', { shouldDirty: true });
+	};
+
+	const dragItem = useRef();
+	const dragOverItem = useRef();
+
+	const handleDrag = position => {
+		dragItem.current = position;
+	};
+
+	const handleDropEnter = position => {
+		dragOverItem.current = position;
+	};
+
+	const handleDropEnd = () => {
+		move(dragItem.current, dragOverItem.current);
+
+		dragItem.current = null;
+		dragOverItem.current = null;
 	};
 
 	return (
@@ -115,7 +133,14 @@ const GameEdit = ({ game }) => {
 						</div>
 						<div className={styles.pairs__list}>
 							{fields.map((field, index) => (
-								<PairCardEdit key={field.id} index={index} control={control} />
+								<PairCardEdit
+									key={field.id}
+									index={index}
+									control={control}
+									handleDrag={handleDrag}
+									handleDropEnter={handleDropEnter}
+									handleDropEnd={handleDropEnd}
+								/>
 							))}
 						</div>
 					</div>

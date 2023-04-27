@@ -147,3 +147,7 @@
 	align-items: center;
 	row-gap: 0.5rem;
 }
+
+.icon__move {
+	cursor: move;
+}

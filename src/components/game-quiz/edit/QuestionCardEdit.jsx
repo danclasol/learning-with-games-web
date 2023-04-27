@@ -10,11 +10,17 @@ import InputText from '../../forms/InputText';
 import AddIcon from '../../icons/AddIcon';
 import CloseIcon from '../../icons/CloseIcon';
 import ImageIcon from '../../icons/ImageIcon';
+import MoveIcon from '../../icons/MoveIcon';
 import TrashIcon from '../../icons/TrashIcon';
 import ImagePreview from './ImagePreview';
 import styles from './QuestionCardEdit.module.css';
 
-const QuestionCardEdit = ({ index }) => {
+const QuestionCardEdit = ({
+	index,
+	handleDrag,
+	handleDropEnter,
+	handleDropEnd
+}) => {
 	const { register, control, watch, setValue, remove, errors } =
 		useFormContext();
 	const {
@@ -51,9 +57,20 @@ const QuestionCardEdit = ({ index }) => {
 	}, [watchAddMedia]);
 
 	return (
-		<div className={styles.card}>
+		<div
+			className={styles.card}
+			draggable
+			onDragStart={() => handleDrag(index)}
+			onDragEnter={() => handleDropEnter(index)}
+			onDragEnd={handleDropEnd}
+		>
 			<div className={styles.card__nav}>
 				<span className={styles.card__index}>{index + 1}</span>
+				<IconButton
+					icon={MoveIcon}
+					type='button'
+					className={styles.icon__move}
+				/>
 				<IconButton
 					icon={TrashIcon}
 					filled

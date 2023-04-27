@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { updateGame } from '../../../lib/api/game-quiz';
 import { AuthContext } from '../../../lib/context/AuthContext';
@@ -22,7 +22,7 @@ const GameEdit = ({ game }) => {
 		defaultValues: { title: game?.title, questions: game?.questions }
 	});
 
-	const { fields, append, remove } = useFieldArray({
+	const { fields, append, move, remove } = useFieldArray({
 		name: 'questions',
 		control
 	});
@@ -33,6 +33,24 @@ const GameEdit = ({ game }) => {
 
 	const onCleanInput = nameInput => {
 		setValue(nameInput, '', { shouldDirty: true });
+	};
+
+	const dragItem = useRef();
+	const dragOverItem = useRef();
+
+	const handleDrag = position => {
+		dragItem.current = position;
+	};
+
+	const handleDropEnter = position => {
+		dragOverItem.current = position;
+	};
+
+	const handleDropEnd = () => {
+		move(dragItem.current, dragOverItem.current);
+
+		dragItem.current = null;
+		dragOverItem.current = null;
 	};
 
 	return (
@@ -94,7 +112,13 @@ const GameEdit = ({ game }) => {
 						</div>
 						<div className={styles.questions__list}>
 							{fields.map((field, index) => (
-								<QuestionCardEdit key={field.id} index={index} />
+								<QuestionCardEdit
+									key={field.id}
+									index={index}
+									handleDrag={handleDrag}
+									handleDropEnter={handleDropEnter}
+									handleDropEnd={handleDropEnd}
+								/>
 							))}
 						</div>
 					</div>

@@ -45,7 +45,7 @@ const IconButton = ({
 	return (
 		<button
 			{...props}
-			className={`${styles.button} ${kindClassName} ${sizeButtonClassName}`}
+			className={`${styles.button} ${kindClassName} ${sizeButtonClassName} ${className}`}
 		>
 			<Icon className={`${styles.icon} ${sizeIconClassName}`}></Icon>
 		</button>

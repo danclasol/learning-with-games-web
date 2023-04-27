@@ -2,19 +2,36 @@ import { useFormContext } from 'react-hook-form';
 import { isImageValid } from '../../../lib/utils/images';
 import IconButton from '../../buttons/IconButton';
 import InputText from '../../forms/InputText';
+import MoveIcon from '../../icons/MoveIcon';
 import TrashIcon from '../../icons/TrashIcon';
 import ImagePreview from './ImagePreview';
 import styles from './PairCardEdit.module.css';
 
-const PairCardEdit = ({ index }) => {
+const PairCardEdit = ({
+	index,
+	handleDrag,
+	handleDropEnter,
+	handleDropEnd
+}) => {
 	const { register, watch, remove, errors, onCleanInput } = useFormContext();
 
 	const errorsEdit = errors?.pairs && errors?.pairs[index];
 
 	return (
-		<div className={styles.card}>
+		<div
+			className={styles.card}
+			draggable
+			onDragStart={() => handleDrag(index)}
+			onDragEnter={() => handleDropEnter(index)}
+			onDragEnd={handleDropEnd}
+		>
 			<div className={styles.card__nav}>
 				<span className={styles.card__index}>{index + 1}</span>
+				<IconButton
+					icon={MoveIcon}
+					type='button'
+					className={styles.icon__move}
+				/>
 				<IconButton
 					icon={TrashIcon}
 					filled

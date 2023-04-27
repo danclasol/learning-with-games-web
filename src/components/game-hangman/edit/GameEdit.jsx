@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { updateGame } from '../../../lib/api/game-hangman';
 import { AuthContext } from '../../../lib/context/AuthContext';
@@ -20,7 +20,7 @@ const GameEdit = ({ game }) => {
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({ defaultValues: { title: game?.title, words: game?.words } });
 
-	const { fields, append, remove } = useFieldArray({
+	const { fields, append, move, remove } = useFieldArray({
 		name: 'words',
 		control
 	});
@@ -31,6 +31,24 @@ const GameEdit = ({ game }) => {
 
 	const onCleanInput = nameInput => {
 		setValue(nameInput, '', { shouldDirty: true });
+	};
+
+	const dragItem = useRef();
+	const dragOverItem = useRef();
+
+	const handleDrag = position => {
+		dragItem.current = position;
+	};
+
+	const handleDropEnter = position => {
+		dragOverItem.current = position;
+	};
+
+	const handleDropEnd = () => {
+		move(dragItem.current, dragOverItem.current);
+
+		dragItem.current = null;
+		dragOverItem.current = null;
 	};
 
 	return (
@@ -91,7 +109,14 @@ const GameEdit = ({ game }) => {
 						</div>
 						<div className={styles.words__list}>
 							{fields.map((field, index) => (
-								<WordCardEdit key={field.id} index={index} control={control} />
+								<WordCardEdit
+									key={field.id}
+									index={index}
+									control={control}
+									handleDrag={handleDrag}
+									handleDropEnter={handleDropEnter}
+									handleDropEnd={handleDropEnd}
+								/>
 							))}
 						</div>
 					</div>
