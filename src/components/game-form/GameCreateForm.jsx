@@ -14,8 +14,13 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isDirty, isSubmitting }
+		setValue,
+		formState: { errors, isSubmitting, isValid }
 	} = useForm({ defaultValues: { title: '', type: '' } });
+
+	const onCleanInput = nameInput => {
+		setValue(nameInput, '', { shouldDirty: true });
+	};
 
 	return (
 		<section className={styles.wrapper}>
@@ -46,6 +51,7 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 							}
 						}}
 						error={errors.title?.message}
+						onClean={() => onCleanInput('title')}
 					/>
 				</div>
 				<div className={styles.form__field}>
@@ -68,7 +74,7 @@ const GameCreateForm = ({ closeModal, onSuccess }) => {
 				</div>
 
 				<div className={styles.actions}>
-					<Button disabled={isSubmitting || !isDirty}>
+					<Button disabled={isSubmitting || !isValid}>
 						{isSubmitting ? 'Creating...' : 'Create'}
 					</Button>
 				</div>

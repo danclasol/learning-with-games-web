@@ -15,7 +15,7 @@ const GameDeleteForm = ({ id, title, closeModal, onSuccess }) => {
 
 			<div className={styles.actions}>
 				<Button kind='secondary' onClick={closeModal} disabled={isSubmitting}>
-					Cancelar
+					Cancel
 				</Button>
 				<Button
 					disabled={isSubmitting}
