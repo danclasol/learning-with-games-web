@@ -6,20 +6,12 @@
 	column-gap: 1rem;
 }
 
-.fail {
-	width: 1.5rem;
-}
-
 .fail__icon {
-	color: tomato;
-	/* border: 1px solid red; */
-}
-
-.try {
 	width: 1.5rem;
+	color: tomato;
 }
 
 .try__icon {
+	width: 1.5rem;
 	color: green;
-	/* border: 1px solid red; */
 }

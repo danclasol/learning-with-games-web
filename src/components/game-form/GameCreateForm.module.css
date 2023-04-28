@@ -1,9 +1,16 @@
 .wrapper {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	margin: 0 auto;
 	row-gap: 1.2rem;
-	padding: 2rem 3.5rem 2.5rem;
-	background-color: var(--modal-background);
+	padding: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+	.wrapper {
+		padding: 2rem 3.5rem 2.5rem;
+	}
 }
 
 .title {

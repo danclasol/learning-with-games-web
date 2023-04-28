@@ -6,7 +6,7 @@ const CounterTries = ({ maxTries, tries }) => {
 	const triesAux = Array(tries)
 		.fill('0')
 		.map((_, index) => (
-			<div key={index} className={styles.fail}>
+			<div key={index}>
 				<CloseIcon className={styles.fail__icon} />
 			</div>
 		));
@@ -14,7 +14,7 @@ const CounterTries = ({ maxTries, tries }) => {
 	const triesLeftAux = Array(maxTries - tries)
 		.fill('0')
 		.map((_, index) => (
-			<div key={index} className={styles.try}>
+			<div key={index}>
 				<CheckIcon className={styles.try__icon} />
 			</div>
 		));

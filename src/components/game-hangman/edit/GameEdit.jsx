@@ -80,22 +80,24 @@ const GameEdit = ({ game }) => {
 					})}
 				>
 					<div className={styles.game__info}>
-						<div className={styles.form__field}>
-							<InputText
-								name='title'
-								label='Title'
-								placeholder='Title'
-								register={register}
-								validate={{
-									required: 'Field required',
-									minLength: {
-										value: 4,
-										message: 'At least 4 characters'
-									}
-								}}
-								error={errors.title?.message}
-								onClean={() => onCleanInput('title')}
-							/>
+						<div className={styles.form__fields}>
+							<div className={styles.form__field}>
+								<InputText
+									name='title'
+									label='Title'
+									placeholder='Title'
+									register={register}
+									validate={{
+										required: 'Field required',
+										minLength: {
+											value: 4,
+											message: 'At least 4 characters'
+										}
+									}}
+									error={errors.title?.message}
+									onClean={() => onCleanInput('title')}
+								/>
+							</div>
 						</div>
 					</div>
 

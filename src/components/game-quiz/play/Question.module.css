@@ -2,11 +2,10 @@
 	border-radius: var(--item-border-radius);
 	border: 1px solid black;
 	overflow: hidden;
-	min-width: 600px;
 }
 
 .question__header {
-	padding: 0.8rem 3rem;
+	padding: 0.8rem 2rem;
 	background-color: var(--item-color);
 	border-bottom: 1px solid black;
 	text-align: center;
@@ -33,13 +32,14 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 0.5rem;
-	padding: 0.5rem 1.8rem 1rem;
+	padding: 0.5rem 1rem 1rem;
 	background-color: var(--question-color-bg);
 }
 
 .options {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	row-gap: 0.5rem;
 	list-style: none;
 	margin: 0;
@@ -47,7 +47,7 @@
 }
 
 .question__footer {
-	padding: 0 1.8rem 1.5rem;
+	padding: 0 1rem 1.5rem;
 	display: flex;
 	flex-direction: column;
 	background-color: var(--question-color-bg);

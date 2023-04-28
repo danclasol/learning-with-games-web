@@ -1,8 +1,16 @@
 .rows {
-	display: grid;
-	width: 100%;
-	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-	gap: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+@media screen and (min-width: 768px) {
+	.rows {
+		display: grid;
+		width: 100%;
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		gap: 1.5rem;
+	}
 }
 
 .text {

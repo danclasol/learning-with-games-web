@@ -1,9 +1,19 @@
 .card {
-	min-width: 6.5rem;
-	padding: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 4rem;
+	height: 4rem;
 	border-radius: var(--letter-border-radius);
 	border: 2px solid var(--letter-border-color);
 	background-color: var(--letter-color);
+}
+
+@media screen and (min-width: 768px) {
+	.card {
+		width: 6rem;
+		height: 6rem;
+	}
 }
 
 .card:hover:not(.pressed, .resolved, .lose) {
@@ -30,7 +40,13 @@
 	display: block;
 	text-align: center;
 	text-transform: uppercase;
-	font-size: var(--title-2);
+	font-size: var(--title-3);
+}
+
+@media screen and (min-width: 768px) {
+	.letter {
+		font-size: var(--title-2);
+	}
 }
 
 .letter--hidden {

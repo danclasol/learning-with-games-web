@@ -4,8 +4,8 @@
 
 .card {
 	position: relative;
-	height: 12rem;
-	width: 12rem;
+	height: 8rem;
+	width: 8rem;
 	transform-style: preserve-3d;
 	transform-origin: center;
 	transition: transform 0.3s ease-in;
@@ -13,6 +13,13 @@
 
 .flipped {
 	transform: rotateY(180deg);
+}
+
+@media screen and (min-width: 768px) {
+	.card {
+		height: 12rem;
+		width: 12rem;
+	}
 }
 
 .front,
@@ -62,6 +69,7 @@
 	color: var(--text-color);
 	font-weight: bold;
 	text-align: center;
+	font-size: var(--text-sm);
 }
 
 .image {
@@ -77,10 +85,17 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 3rem;
-	height: 3rem;
+	width: 2rem;
+	height: 2rem;
 	background-color: var(--card-color-item);
 	border-radius: 50%;
 	font-size: var(--title-3);
 	border: 1px solid black;
+}
+
+@media screen and (min-width: 768px) {
+	.index {
+		width: 3rem;
+		height: 3rem;
+	}
 }

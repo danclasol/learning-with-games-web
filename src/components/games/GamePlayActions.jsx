@@ -39,7 +39,7 @@ const GamePlayActions = ({ resetGame }) => {
 
 	return (
 		<div className={styles.actions}>
-			<div className={styles.actions__buttons}>
+			<div className={styles.actions__left}>
 				<LinkButton to={-1}>
 					<div className={styles.button__content}>
 						<ArrowLeftIcon className={styles.icon} />
@@ -47,25 +47,27 @@ const GamePlayActions = ({ resetGame }) => {
 					</div>
 				</LinkButton>
 			</div>
-			<div className={styles.actions__buttons}>
-				<Button onClick={toggleFullScreen}>
-					<div className={styles.button__content}>
-						{!isFullScreen ? (
-							<MaximamizeIcon className={styles.icon} />
-						) : (
-							<MinimizeIcon className={styles.icon} />
-						)}
-						<span className={styles.button__text}>
-							{!isFullScreen ? 'Full Screen' : 'Minimize'}
-						</span>
-					</div>
-				</Button>
-				<Button onClick={resetGame} kind='secondary'>
-					<div className={styles.button__content}>
-						<RefreshIcon className={styles.icon} />
-						<span className={styles.button__text}>Reset</span>
-					</div>
-				</Button>
+			<div className={styles.actions__right}>
+				<div className={styles.actions__buttons}>
+					<Button onClick={toggleFullScreen}>
+						<div className={styles.button__content}>
+							{!isFullScreen ? (
+								<MaximamizeIcon className={styles.icon} />
+							) : (
+								<MinimizeIcon className={styles.icon} />
+							)}
+							<span className={styles.button__text}>
+								{!isFullScreen ? 'Full Screen' : 'Minimize'}
+							</span>
+						</div>
+					</Button>
+					<Button onClick={resetGame} kind='secondary'>
+						<div className={styles.button__content}>
+							<RefreshIcon className={styles.icon} />
+							<span className={styles.button__text}>Reset</span>
+						</div>
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

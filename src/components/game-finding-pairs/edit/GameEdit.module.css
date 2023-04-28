@@ -27,6 +27,22 @@
 	row-gap: 1.5rem;
 }
 
+.form__fields {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.7rem;
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: 1rem 1rem 1.5rem;
+	background-color: var(--card-color-front);
+}
+
+.form__field {
+	width: 100%;
+	display: flex;
+}
+
 .pairs {
 	display: flex;
 	flex-direction: column;
@@ -41,30 +57,15 @@
 }
 
 .pairs__list {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-	gap: 1rem;
-}
-
-.form__fields {
-	width: 100%;
 	display: flex;
 	flex-direction: column;
-	row-gap: 0.3rem;
-	border: 1px solid black;
-	border-radius: 1rem;
-	padding: 1rem 1rem 1.5rem;
-	background-color: var(--card-color-front);
+	row-gap: 1rem;
 }
 
-.form__fields {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	row-gap: 0.7rem;
-}
-
-.form__field {
-	width: 100%;
-	display: flex;
+@media screen and (min-width: 768px) {
+	.pairs__list {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+		gap: 1rem;
+	}
 }

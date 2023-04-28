@@ -11,19 +11,21 @@
 }
 
 .modal {
+	display: flex;
+	width: 100%;
 	position: fixed;
 	inset: 0;
-	width: 100%;
-	height: auto;
-	border-radius: var(--modal-border-radius);
-	border: 2px solid black;
 	overflow-y: auto;
+	background-color: var(--modal-background);
 }
 
 @media screen and (min-width: 768px) {
 	.modal {
 		position: relative;
 		width: auto;
+		height: auto;
+		border-radius: var(--modal-border-radius);
+		border: 2px solid black;
 	}
 }
 

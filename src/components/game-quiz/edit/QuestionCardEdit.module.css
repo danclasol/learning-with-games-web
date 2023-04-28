@@ -4,7 +4,6 @@
 	border-radius: 1rem;
 	background-color: var(--card-color-front);
 	border: 1px solid black;
-	min-width: 500px;
 	overflow: hidden;
 }
 

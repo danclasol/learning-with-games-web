@@ -6,12 +6,18 @@
 .card {
 	perspective: 1000px;
 	position: relative;
-	min-width: 5.5rem;
-	height: 6rem;
-	padding: 1.5rem;
+	width: 4rem;
+	height: 4rem;
 	transform-style: preserve-3d;
 	transform-origin: center;
 	transition: transform 0.3s ease-in;
+}
+
+@media screen and (min-width: 768px) {
+	.card {
+		width: 6rem;
+		height: 6rem;
+	}
 }
 
 .card__resolved {
@@ -20,9 +26,7 @@
 }
 
 .card__shown {
-	min-width: 5rem;
 	margin: auto;
-	padding: 1rem;
 	border-radius: var(--letter-border-radius);
 }
 
@@ -43,8 +47,6 @@
 }
 
 .front {
-	min-width: 5rem;
-	padding: 1rem;
 	border-radius: var(--letter-border-radius);
 }
 
@@ -69,5 +71,11 @@
 	display: block;
 	text-align: center;
 	text-transform: uppercase;
-	font-size: var(--title-2);
+	font-size: var(--title-3);
+}
+
+@media screen and (min-width: 768px) {
+	.letter {
+		font-size: var(--title-2);
+	}
 }

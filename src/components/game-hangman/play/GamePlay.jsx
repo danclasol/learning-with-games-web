@@ -89,7 +89,7 @@ const GamePlay = ({ game }) => {
 				<div className={styles.game}>
 					<div className={styles.game__panel}>
 						<h1 className={styles.game__panel__header}>{game.title}</h1>
-						<div className={styles.game__panel_content}>
+						<div className={styles.game__panel__content}>
 							{totalWords === 0 && (
 								<div className={styles.message}>
 									<p className={styles.message__text}>

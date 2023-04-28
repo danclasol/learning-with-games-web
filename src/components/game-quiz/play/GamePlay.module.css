@@ -28,7 +28,7 @@
 	border-bottom: 3px solid indigo;
 	background-color: #5458b4;
 	margin: 0;
-	padding: 1rem 4.5rem;
+	padding: 1rem;
 	letter-spacing: 0.15rem;
 	color: white;
 }
@@ -38,7 +38,7 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 1rem;
-	padding: 1rem 4.5rem 2rem;
+	padding: 1rem 1rem 2rem;
 }
 
 .game__stats {
