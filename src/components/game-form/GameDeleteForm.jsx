@@ -9,9 +9,9 @@ const GameDeleteForm = ({ id, title, closeModal, onSuccess }) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	return (
-		<div className={styles.form}>
-			<p className={styles.text}>Remove this game?</p>
-			<p className={styles.title}>{title}</p>
+		<div className={styles.wrapper}>
+			<h3 className={styles.title}>Remove this game?</h3>
+			<p className={styles.text}>{title}</p>
 
 			<div className={styles.actions}>
 				<Button kind='secondary' onClick={closeModal} disabled={isSubmitting}>
