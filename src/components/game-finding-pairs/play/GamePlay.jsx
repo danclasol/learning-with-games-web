@@ -2,7 +2,7 @@ import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
 import { prepareCards, suffle } from '../../../lib/games/findingPairs';
 import LinkButton from '../../buttons/LinkButton';
-import GamePlayActions from '../../games/GamePlayActions';
+import GamePlayActions from '../../game-actions/GamePlayActions';
 import PencilIcon from '../../icons/PencilIcon';
 import styles from './GamePlay.module.css';
 import PairCardList from './PairCardList';

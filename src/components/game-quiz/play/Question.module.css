@@ -4,6 +4,12 @@
 	overflow: hidden;
 }
 
+@media screen and (min-width: 768px) {
+	.question {
+		min-width: 500px;
+	}
+}
+
 .question__header {
 	padding: 0.8rem 2rem;
 	background-color: var(--item-color);

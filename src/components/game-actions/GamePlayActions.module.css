@@ -55,6 +55,7 @@
 
 .button__content {
 	display: flex;
+	justify-content: center;
 	width: 100%;
 	align-items: center;
 	column-gap: 0.5rem;

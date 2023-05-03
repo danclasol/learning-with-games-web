@@ -25,6 +25,7 @@
 	border: var(--border-weight) solid var(--border-color);
 	border-radius: var(--border-radius-input);
 	appearance: none;
+	line-height: normal;
 	color: var(--input-text-color);
 	background-color: var(--input-color);
 }

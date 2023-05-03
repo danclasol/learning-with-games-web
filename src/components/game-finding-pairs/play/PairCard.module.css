@@ -89,7 +89,6 @@
 	height: 2rem;
 	background-color: var(--card-color-item);
 	border-radius: 50%;
-	font-size: var(--title-3);
 	border: 1px solid black;
 }
 
@@ -97,5 +96,15 @@
 	.index {
 		width: 3rem;
 		height: 3rem;
+	}
+}
+
+.text {
+	font-size: var(--title-4);
+}
+
+@media screen and (min-width: 768px) {
+	.index {
+		font-size: var(--text-sm);
 	}
 }

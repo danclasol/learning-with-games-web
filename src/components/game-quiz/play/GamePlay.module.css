@@ -67,6 +67,7 @@
 }
 
 .button__content {
+	width: min-content;
 	display: flex;
 	align-items: center;
 	column-gap: 0.5rem;

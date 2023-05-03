@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import LinkButton from '../../buttons/LinkButton';
-import GamePlayActions from '../../games/GamePlayActions';
+import GamePlayActions from '../../game-actions/GamePlayActions';
 import PencilIcon from '../../icons/PencilIcon';
 import styles from './GamePlay.module.css';
 import Question from './Question';

@@ -2,7 +2,7 @@ import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { updateGame } from '../../../lib/api/game-finding-pairs';
 import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
-import GameEditActions from '../../games/GameEditActions';
+import GameEditActions from '../../game-actions/GameEditActions';
 
 import { useContext, useRef } from 'react';
 import { FINDING_PAIRS_MODES } from '../../../constants/findingPairsModes';

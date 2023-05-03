@@ -6,7 +6,7 @@ import {
 	checkLetterPressed
 } from '../../../lib/games/hangman';
 import LinkButton from '../../buttons/LinkButton';
-import GamePlayActions from '../../games/GamePlayActions';
+import GamePlayActions from '../../game-actions/GamePlayActions';
 import PencilIcon from '../../icons/PencilIcon';
 import CounterTries from './CounterTries';
 import styles from './GamePlay.module.css';

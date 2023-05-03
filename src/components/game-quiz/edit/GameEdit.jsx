@@ -4,7 +4,7 @@ import { updateGame } from '../../../lib/api/game-quiz';
 import { AuthContext } from '../../../lib/context/AuthContext';
 import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
-import GameEditActions from '../../games/GameEditActions';
+import GameEditActions from '../../game-actions/GameEditActions';
 import styles from './GameEdit.module.css';
 import QuestionCardEdit from './QuestionCardEdit';
 

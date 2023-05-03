@@ -10,7 +10,7 @@ const GameEditActions = ({ gameId, isDirty, isSubmitting, clearForm }) => {
 	return (
 		<div className={styles.actions}>
 			<div className={styles.actions__left}>
-				<LinkButton to='/games' disabled={isSubmitting}>
+				<LinkButton to={-1} disabled={isSubmitting}>
 					<div className={styles.button__content}>
 						<ArrowLeftIcon className={styles.icon} />
 						<span>Go back</span>
