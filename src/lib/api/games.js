@@ -148,6 +148,36 @@ export const createGame = async ({ accessToken, game, groupId }) => {
 	}
 };
 
+export const cloneGame = async ({ accessToken, id, game, groupId }) => {
+	const request = `${API_URL}/${API_VERSION}/${path}/${id}/clone`;
+
+	let gameCloned;
+
+	try {
+		const res = await fetch(request, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + accessToken
+			},
+			body: JSON.stringify({
+				idOld: id,
+				idNew: crypto.randomUUID(),
+				...game,
+				groupId
+			})
+		});
+
+		if (res.ok) {
+			gameCloned = await res.json();
+		}
+
+		return gameCloned;
+	} catch {
+		return gameCloned;
+	}
+};
+
 // export const updateGame = async ({ id, game }) => {
 // 	console.log('updateGame', { id, game });
 
