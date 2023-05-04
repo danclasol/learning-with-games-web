@@ -1,4 +1,5 @@
 .card {
+	width: 100%;
 	display: flex;
 	align-items: stretch;
 	border-radius: 1rem;
