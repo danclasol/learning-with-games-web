@@ -14,7 +14,7 @@ const GroupCreateForm = ({ closeModal, onSuccess }) => {
 		handleSubmit,
 		setValue,
 		formState: { errors, isSubmitting, isValid }
-	} = useForm({ defaultValues: { name: '' } });
+	} = useForm({ defaultValues: { name: '', level: '', course: '' } });
 
 	const onCleanInput = nameInput => {
 		setValue(nameInput, '', { shouldDirty: true });
@@ -59,7 +59,6 @@ const GroupCreateForm = ({ closeModal, onSuccess }) => {
 						placeholder='Level'
 						register={register}
 						validate={{
-							required: 'Field required',
 							minLength: {
 								value: 2,
 								message: 'At least 2 characters'
@@ -76,7 +75,6 @@ const GroupCreateForm = ({ closeModal, onSuccess }) => {
 						placeholder='Course'
 						register={register}
 						validate={{
-							required: 'Field required',
 							minLength: {
 								value: 2,
 								message: 'At least 2 characters'
@@ -103,8 +101,6 @@ const handleSubmitForm = async ({
 	closeModal,
 	onSuccess
 }) => {
-	console.log({ data });
-
 	const success = await createGroup({ accessToken, group: data });
 
 	if (success) {

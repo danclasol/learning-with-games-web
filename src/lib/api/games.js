@@ -124,8 +124,6 @@ export const getGame = async ({ accessToken, id, signal }) => {
 };
 
 export const createGame = async ({ accessToken, game, groupId }) => {
-	console.log('createGame', { accessToken, game, groupId });
-
 	const request = `${API_URL}/${API_VERSION}/${path}/`;
 
 	let gameCreated;

@@ -110,6 +110,8 @@ export const getGroup = async ({ accessToken, id, signal }) => {
 };
 
 export const createGroup = async ({ accessToken, group }) => {
+	console.log({ group });
+
 	const request = `${API_URL}/${API_VERSION}/${path}/`;
 
 	let groupCreated;
@@ -136,8 +138,6 @@ export const createGroup = async ({ accessToken, group }) => {
 
 export const updateGroup = async ({ accessToken, id, group }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
-
-	console.log({ group });
 
 	try {
 		const res = await fetch(request, {
