@@ -3,7 +3,7 @@
 	top: 0;
 	display: flex;
 	justify-content: space-between;
-	column-gap: 1rem;
+	column-gap: 2rem;
 	padding: 0.3rem 1rem;
 	background-color: var(--bg-header-color);
 	/* border-top: 2px solid black; */

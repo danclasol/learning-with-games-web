@@ -6,7 +6,7 @@
 
 @media screen and (min-width: 800px) {
 	.nav__toggle {
-		/* display: none; */
+		display: none;
 	}
 }
 
