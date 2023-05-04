@@ -1,24 +1,19 @@
 import { useState } from 'react';
 import { PAGINATION } from '../../constants/pagination';
-import { SORT_GAMES_OPTIONS } from '../../constants/sortGamesOptions';
+import { SORT_GROUPS_OPTIONS } from '../../constants/sortGroupsOptions';
 
 export const FILTERS_INITIAL_STATE = {
 	search: '',
-	type: '',
-	sortBy: SORT_GAMES_OPTIONS.BY_DATE_DESC,
+	sortBy: SORT_GROUPS_OPTIONS.BY_DATE_DESC,
 	page: PAGINATION.DEFAULT_PAGE,
 	itemsPerPage: PAGINATION.DEFAULT_ITEMS_PER_PAGE
 };
 
-export const useFilters = () => {
+export const useGroupFilters = () => {
 	const [filters, setFilters] = useState({ ...FILTERS_INITIAL_STATE });
 
 	const setSearch = search => {
 		setFilters({ ...filters, search });
-	};
-
-	const setType = type => {
-		setFilters({ ...filters, type });
 	};
 
 	const setSortBy = sortBy => {
@@ -40,7 +35,6 @@ export const useFilters = () => {
 	return {
 		filters,
 		setSearch,
-		setType,
 		setSortBy,
 		setPage,
 		setItemsPerPage,

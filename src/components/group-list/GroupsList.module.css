@@ -23,7 +23,7 @@
 	font-size: var(--title-2);
 }
 
-.games__list {
+.groups__list {
 	display: flex;
 	flex-direction: column;
 	row-gap: 2rem;

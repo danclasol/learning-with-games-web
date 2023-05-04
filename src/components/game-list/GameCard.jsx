@@ -10,10 +10,12 @@ const GAME_TYPE_ICONS = {
 	other: { text: 'Other', image: '' }
 };
 
-const GameCard = ({ game, reset }) => {
+const GameCard = ({ game, groupId, reset }) => {
 	const { text, image } = game.type
 		? GAME_TYPE_ICONS[game.type]
 		: GAME_TYPE_ICONS.other;
+
+	const { name } = game?.group;
 
 	return (
 		<div className={styles.card}>
@@ -22,6 +24,9 @@ const GameCard = ({ game, reset }) => {
 			<div className={styles.card__info}>
 				<span className={styles.title}>{game.title}</span>
 				<span className={styles.type}>{text}</span>
+				{game.groupId && !groupId && (
+					<span className={styles.group}>{`Group: ${name}`}</span>
+				)}
 				<span className={styles.date}>
 					{formatDateLocale(game.creationDate)}
 				</span>

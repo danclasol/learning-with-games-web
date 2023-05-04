@@ -1,0 +1,5 @@
+export const SORT_GROUPS_OPTIONS = {
+	BY_DATE_DESC: 0,
+	BY_DATE_ASC: 1,
+	BY_TITLE: 2
+};

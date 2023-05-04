@@ -1,27 +1,17 @@
-import { SORT_GAMES_OPTIONS } from '../../constants/sortGamesOptions';
+import { SORT_GROUPS_OPTIONS } from '../../constants/sortGroupsOptions';
 import { API_URL, API_VERSION } from './api-settings';
 
-const path = 'games';
+const path = 'groups';
 
 const SORT_MAPPER = {
-	[SORT_GAMES_OPTIONS.BY_DATE_ASC]: ['creationDate', 'asc'],
-	[SORT_GAMES_OPTIONS.BY_DATE_DESC]: ['creationDate', 'desc'],
-	[SORT_GAMES_OPTIONS.BY_TITLE]: ['title', 'asc'],
-	[SORT_GAMES_OPTIONS.BY_TYPE]: ['type', 'asc']
+	[SORT_GROUPS_OPTIONS.BY_DATE_ASC]: ['creationDate', 'asc'],
+	[SORT_GROUPS_OPTIONS.BY_DATE_DESC]: ['creationDate', 'desc'],
+	[SORT_GROUPS_OPTIONS.BY_TITLE]: ['title', 'asc']
 };
 
-export const getUserGames = async ({
-	accessToken,
-	groupId,
-	filters,
-	signal
-}) => {
+export const getUserGroups = async ({ accessToken, filters, signal }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}`;
 	const url = new URL(request);
-
-	if (groupId) {
-		url.searchParams.append('groupId', groupId);
-	}
 
 	if (filters.page && filters.itemsPerPage) {
 		url.searchParams.append('page', filters.page);
@@ -29,11 +19,7 @@ export const getUserGames = async ({
 	}
 
 	if (filters.search) {
-		url.searchParams.append('title', filters.search);
-	}
-
-	if (filters.type) {
-		url.searchParams.append('type', filters.type);
+		url.searchParams.append('name', filters.search);
 	}
 
 	const sortProps = SORT_MAPPER[filters.sortBy];
@@ -44,7 +30,7 @@ export const getUserGames = async ({
 		url.searchParams.append('order', order);
 	}
 
-	let games;
+	let groups;
 
 	try {
 		const res = await fetch(
@@ -59,11 +45,11 @@ export const getUserGames = async ({
 		);
 
 		if (res.ok) {
-			games = await res.json();
+			groups = await res.json();
 		}
 
 		return {
-			games,
+			groups,
 			count: res.ok ? res.headers.get('total-count') : 0,
 			error: !res.ok,
 			aborted: false
@@ -83,10 +69,10 @@ export const getUserGames = async ({
 	}
 };
 
-export const getGame = async ({ accessToken, id, signal }) => {
+export const getGroup = async ({ accessToken, id, signal }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
 
-	let game;
+	let group;
 
 	try {
 		const res = await fetch(
@@ -101,11 +87,11 @@ export const getGame = async ({ accessToken, id, signal }) => {
 		);
 
 		if (res.ok) {
-			game = await res.json();
+			group = await res.json();
 		}
 
 		return {
-			game,
+			group,
 			error: !res.ok,
 			aborted: false
 		};
@@ -116,19 +102,17 @@ export const getGame = async ({ accessToken, id, signal }) => {
 			: { code: 500, message: 'Error server' };
 
 		return {
-			game: undefined,
+			group: undefined,
 			error,
 			aborted: isAborted
 		};
 	}
 };
 
-export const createGame = async ({ accessToken, game, groupId }) => {
-	console.log('createGame', { accessToken, game, groupId });
-
+export const createGroup = async ({ accessToken, group }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/`;
 
-	let gameCreated;
+	let groupCreated;
 
 	try {
 		const res = await fetch(request, {
@@ -137,40 +121,41 @@ export const createGame = async ({ accessToken, game, groupId }) => {
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + accessToken
 			},
-			body: JSON.stringify({ id: crypto.randomUUID(), ...game, groupId })
+			body: JSON.stringify({ id: crypto.randomUUID(), ...group })
 		});
 
 		if (res.ok) {
-			gameCreated = await res.json();
+			groupCreated = await res.json();
 		}
 
-		return gameCreated;
+		return groupCreated;
 	} catch {
-		return gameCreated;
+		return groupCreated;
 	}
 };
 
-// export const updateGame = async ({ id, game }) => {
-// 	console.log('updateGame', { id, game });
+export const updateGroup = async ({ accessToken, id, group }) => {
+	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
 
-// 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
+	console.log({ group });
 
-// 	try {
-// 		const res = await fetch(request, {
-// 			method: 'PUT',
-// 			headers: {
-// 				'Content-Type': 'application/json'
-// 			},
-// 			body: JSON.stringify(game)
-// 		});
+	try {
+		const res = await fetch(request, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + accessToken
+			},
+			body: JSON.stringify(group)
+		});
 
-// 		return res.ok;
-// 	} catch {
-// 		return false;
-// 	}
-// };
+		return res.ok;
+	} catch {
+		return false;
+	}
+};
 
-export const deleteGame = async ({ accessToken, id }) => {
+export const deleteGroup = async ({ accessToken, id }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
 
 	try {

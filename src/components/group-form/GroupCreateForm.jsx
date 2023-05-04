@@ -1,14 +1,12 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { LIST_GAMES } from '../../constants/games';
-import { createGame } from '../../lib/api/games';
+import { createGroup } from '../../lib/api/groups';
 import { AuthContext } from '../../lib/context/AuthContext';
 import Button from '../buttons/Button';
-import InputSelect from '../forms/InputSelect';
 import InputText from '../forms/InputText';
-import styles from './GameCreateForm.module.css';
+import styles from './GroupCreateForm.module.css';
 
-const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
+const GroupCreateForm = ({ closeModal, onSuccess }) => {
 	const { accessToken } = useContext(AuthContext);
 
 	const {
@@ -16,7 +14,7 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 		handleSubmit,
 		setValue,
 		formState: { errors, isSubmitting, isValid }
-	} = useForm({ defaultValues: { title: '', type: '' } });
+	} = useForm({ defaultValues: { name: '' } });
 
 	const onCleanInput = nameInput => {
 		setValue(nameInput, '', { shouldDirty: true });
@@ -24,14 +22,13 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 
 	return (
 		<section className={styles.wrapper}>
-			<h3 className={styles.title}>Create New Game</h3>
+			<h3 className={styles.title}>Create New Group</h3>
 
 			<form
 				className={styles.form}
 				onSubmit={handleSubmit(async data => {
 					await handleSubmitForm({
 						accessToken,
-						groupId,
 						data,
 						closeModal,
 						onSuccess
@@ -40,9 +37,9 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 			>
 				<div className={styles.form__field}>
 					<InputText
-						name='title'
-						label='Title'
-						placeholder='Title'
+						name='name'
+						label='Name'
+						placeholder='Name'
 						register={register}
 						validate={{
 							required: 'Field required',
@@ -51,27 +48,43 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 								message: 'At least 4 characters'
 							}
 						}}
-						error={errors.title?.message}
-						onClean={() => onCleanInput('title')}
+						error={errors.name?.message}
+						onClean={() => onCleanInput('name')}
 					/>
 				</div>
 				<div className={styles.form__field}>
-					<InputSelect
-						name='type'
-						label='Game'
+					<InputText
+						name='level'
+						label='Level'
+						placeholder='Level'
 						register={register}
 						validate={{
-							required: 'Field required'
+							required: 'Field required',
+							minLength: {
+								value: 2,
+								message: 'At least 2 characters'
+							}
 						}}
-						error={errors.type?.message}
-					>
-						<option value=''>Select game...</option>
-						{LIST_GAMES.map(item => (
-							<option key={item.type} value={item.type}>
-								{item.name}
-							</option>
-						))}
-					</InputSelect>
+						error={errors.level?.message}
+						onClean={() => onCleanInput('level')}
+					/>
+				</div>
+				<div className={styles.form__field}>
+					<InputText
+						name='course'
+						label='Course'
+						placeholder='Course'
+						register={register}
+						validate={{
+							required: 'Field required',
+							minLength: {
+								value: 2,
+								message: 'At least 2 characters'
+							}
+						}}
+						error={errors.course?.message}
+						onClean={() => onCleanInput('course')}
+					/>
 				</div>
 
 				<div className={styles.actions}>
@@ -86,12 +99,13 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 
 const handleSubmitForm = async ({
 	accessToken,
-	groupId,
 	data,
 	closeModal,
 	onSuccess
 }) => {
-	const success = await createGame({ accessToken, groupId, game: data });
+	console.log({ data });
+
+	const success = await createGroup({ accessToken, group: data });
 
 	if (success) {
 		onSuccess();
@@ -99,4 +113,4 @@ const handleSubmitForm = async ({
 	}
 };
 
-export default GameCreateForm;
+export default GroupCreateForm;

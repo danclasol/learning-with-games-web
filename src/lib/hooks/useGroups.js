@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { getUserGames } from '../api/games';
+import { getUserGroups } from '../api/groups';
 import { AuthContext } from '../context/AuthContext';
 
-export const useGames = ({ groupId, filters }) => {
+export const useGroups = ({ filters }) => {
 	const { accessToken } = useContext(AuthContext);
 
-	const [games, setGames] = useState({
+	const [groups, setGroups] = useState({
 		data: [],
 		count: 0,
 		error: false,
@@ -13,7 +13,7 @@ export const useGames = ({ groupId, filters }) => {
 	});
 
 	const setData = (newData, newCount) =>
-		setGames({
+		setGroups({
 			data: newData,
 			count: newCount,
 			loading: false,
@@ -21,14 +21,13 @@ export const useGames = ({ groupId, filters }) => {
 		});
 
 	const setError = () =>
-		setGames({ data: [], count: 0, loading: false, error: true });
+		setGroups({ data: [], count: 0, loading: false, error: true });
 
 	useEffect(() => {
 		const controller = new AbortController();
 
-		loadGames({
+		loadGroups({
 			accessToken,
-			groupId,
 			setData,
 			setError,
 			filters,
@@ -36,35 +35,33 @@ export const useGames = ({ groupId, filters }) => {
 		});
 
 		return () => controller.abort();
-	}, [accessToken, groupId, filters]);
+	}, [accessToken, filters]);
 
 	return {
-		games: games.data,
-		count: games.count,
-		error: games.error,
-		loading: games.loading
+		groups: groups.data,
+		count: groups.count,
+		error: groups.error,
+		loading: groups.loading
 	};
 };
 
-const loadGames = async ({
+const loadGroups = async ({
 	accessToken,
-	groupId,
 	setData,
 	setError,
 	filters,
 	signal
 }) => {
-	const { games, count, aborted, error } = await getUserGames({
+	const { groups, count, aborted, error } = await getUserGroups({
 		accessToken,
-		groupId,
 		filters,
 		signal
 	});
 
 	if (aborted) return;
 
-	if (games) {
-		setData(games, count);
+	if (groups) {
+		setData(groups, count);
 	} else {
 		setError(error);
 	}

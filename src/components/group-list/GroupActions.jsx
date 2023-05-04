@@ -2,29 +2,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDropdown } from '../../lib/hooks/useDropdown';
 import IconButton from '../buttons/IconButton';
-import GameDeleteForm from '../game-form/GameDeleteForm';
+import GroupDeleteForm from '../group-form/GroupDeleteForm';
 import DotsIcon from '../icons/DotsIcon';
 import PencilIcon from '../icons/PencilIcon';
-import PlayIcon from '../icons/PlayIcon';
 import Modal from '../shared/Modal';
-import styles from './GameActions.module.css';
+import styles from './GroupActions.module.css';
 
-const GameActions = ({ game, reset }) => {
+const GroupActions = ({ group, reset }) => {
 	const navigate = useNavigate();
 
 	const { modalContent, closeModal, openDeleteModal } = useModal({
-		game,
+		group,
 		reset
 	});
 
 	const { showDropdown, dropdownRef, toggleDropdown } = useDropdown();
 
-	const clickEditHandler = () => {
-		navigate(`/games/${game.id}/edit`);
-	};
-
-	const clickPlayHandler = () => {
-		navigate(`/games/${game.id}/play`);
+	const clickGroupHandler = () => {
+		navigate(`/groups/${group.id}`);
 	};
 
 	const toggleActionsDropdown = ev => {
@@ -40,13 +35,7 @@ const GameActions = ({ game, reset }) => {
 					icon={PencilIcon}
 					kind='secondary'
 					filled
-					onClick={clickEditHandler}
-				/>
-				<IconButton
-					icon={PlayIcon}
-					kind='secondary'
-					filled
-					onClick={clickPlayHandler}
+					onClick={clickGroupHandler}
 				/>
 				<IconButton
 					icon={DotsIcon}
@@ -61,7 +50,6 @@ const GameActions = ({ game, reset }) => {
 					className={styles.list}
 					onClick={toggleActionsDropdown}
 				>
-					<li className={styles.list__item}>Move to...</li>
 					<li className={styles.list__item}>Clone</li>
 					<li className={styles.list__item} onClick={openDeleteModal}>
 						Delete
@@ -72,7 +60,7 @@ const GameActions = ({ game, reset }) => {
 	);
 };
 
-const useModal = ({ game, reset }) => {
+const useModal = ({ group, reset }) => {
 	const [modalContent, setModalContent] = useState();
 
 	const closeModal = () => {
@@ -81,9 +69,9 @@ const useModal = ({ game, reset }) => {
 
 	const openDeleteModal = () => {
 		setModalContent(
-			<GameDeleteForm
-				id={game.id}
-				title={game.title}
+			<GroupDeleteForm
+				id={group.id}
+				name={group.name}
 				closeModal={closeModal}
 				onSuccess={reset}
 			/>
@@ -97,4 +85,4 @@ const useModal = ({ game, reset }) => {
 	};
 };
 
-export default GameActions;
+export default GroupActions;
