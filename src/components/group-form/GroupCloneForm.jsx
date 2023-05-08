@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { cloneGroup } from '../../lib/api/groups';
 import { AuthContext } from '../../lib/context/AuthContext';
 import Button from '../buttons/Button';
-import InputSwitch from '../forms/InputSwitch';
+import InputCheck from '../forms/InputCheck';
 import InputText from '../forms/InputText';
-import styles from './GroupCreateForm.module.css';
+import styles from './GroupCloneForm.module.css';
 
 const GroupCloneForm = ({ id, group, closeModal, onSuccess }) => {
 	const { accessToken } = useContext(AuthContext);
@@ -90,10 +90,13 @@ const GroupCloneForm = ({ id, group, closeModal, onSuccess }) => {
 				</div>
 
 				<div className={styles.form__field}>
-					<InputSwitch label='Clone games?' />
-					<InputSwitch label='Clone students?' />
+					<InputCheck
+						name='cloneGames'
+						label='Clone games?'
+						defaultChecked
+						register={register}
+					/>
 				</div>
-
 				<div className={styles.actions}>
 					<Button disabled={isSubmitting || !isValid}>
 						{isSubmitting ? 'Creating...' : 'Create'}
@@ -111,7 +114,14 @@ const handleSubmitForm = async ({
 	closeModal,
 	onSuccess
 }) => {
-	const success = await cloneGroup({ accessToken, id, group: data });
+	console.log({ cloneGames: data.cloneGames });
+
+	const success = await cloneGroup({
+		accessToken,
+		id,
+		group: data,
+		options: { cloneGames: data.cloneGames }
+	});
 
 	if (success) {
 		onSuccess();

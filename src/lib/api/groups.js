@@ -134,7 +134,7 @@ export const createGroup = async ({ accessToken, group }) => {
 	}
 };
 
-export const cloneGroup = async ({ accessToken, id, group }) => {
+export const cloneGroup = async ({ accessToken, id, group, options }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}/clone`;
 
 	let groupCreated;
@@ -146,7 +146,12 @@ export const cloneGroup = async ({ accessToken, id, group }) => {
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + accessToken
 			},
-			body: JSON.stringify({ idOld: id, idNew: crypto.randomUUID(), ...group })
+			body: JSON.stringify({
+				idOld: id,
+				idNew: crypto.randomUUID(),
+				...group,
+				options
+			})
 		});
 
 		if (res.ok) {
