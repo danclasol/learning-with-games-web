@@ -123,7 +123,7 @@ export const getGame = async ({ accessToken, id, signal }) => {
 	}
 };
 
-export const createGame = async ({ accessToken, game, groupId }) => {
+export const createGame = async ({ accessToken, game }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/`;
 
 	let gameCreated;
@@ -135,7 +135,7 @@ export const createGame = async ({ accessToken, game, groupId }) => {
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + accessToken
 			},
-			body: JSON.stringify({ id: crypto.randomUUID(), ...game, groupId })
+			body: JSON.stringify({ id: crypto.randomUUID(), ...game })
 		});
 
 		if (res.ok) {

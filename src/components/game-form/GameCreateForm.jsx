@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { LIST_GAMES } from '../../constants/games';
 import { createGame } from '../../lib/api/games';
 import { AuthContext } from '../../lib/context/AuthContext';
+import { useGroups } from '../../lib/hooks/useGroups';
 import Button from '../buttons/Button';
 import InputSelect from '../forms/InputSelect';
 import InputText from '../forms/InputText';
@@ -11,12 +12,16 @@ import styles from './GameCreateForm.module.css';
 const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 	const { accessToken } = useContext(AuthContext);
 
+	const { groups, count } = useGroups({});
+
+	console.log({ groups, count });
+
 	const {
 		register,
 		handleSubmit,
 		setValue,
 		formState: { errors, isSubmitting, isValid }
-	} = useForm({ defaultValues: { title: '', type: '' } });
+	} = useForm({ defaultValues: { title: '', type: '', groupId } });
 
 	const onCleanInput = nameInput => {
 		setValue(nameInput, '', { shouldDirty: true });
@@ -74,6 +79,24 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 					</InputSelect>
 				</div>
 
+				{!groupId && (
+					<div className={styles.form__field}>
+						<InputSelect
+							name='groupId'
+							label='Group'
+							register={register}
+							error={errors.groupId?.message}
+						>
+							<option value=''>Without group</option>
+							{groups.map(item => (
+								<option key={item.id} value={item.id}>
+									{item.name}
+								</option>
+							))}
+						</InputSelect>
+					</div>
+				)}
+
 				<div className={styles.actions}>
 					<Button disabled={isSubmitting || !isValid}>
 						{isSubmitting ? 'Creating...' : 'Create'}
@@ -91,7 +114,7 @@ const handleSubmitForm = async ({
 	closeModal,
 	onSuccess
 }) => {
-	const success = await createGame({ accessToken, groupId, game: data });
+	const success = await createGame({ accessToken, game: data });
 
 	if (success) {
 		onSuccess();

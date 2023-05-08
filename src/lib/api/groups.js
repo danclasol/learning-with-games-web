@@ -13,16 +13,16 @@ export const getUserGroups = async ({ accessToken, filters, signal }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}`;
 	const url = new URL(request);
 
-	if (filters.page && filters.itemsPerPage) {
+	if (filters?.page && filters?.itemsPerPage) {
 		url.searchParams.append('page', filters.page);
 		url.searchParams.append('limit', filters.itemsPerPage);
 	}
 
-	if (filters.search) {
+	if (filters?.search) {
 		url.searchParams.append('name', filters.search);
 	}
 
-	const sortProps = SORT_MAPPER[filters.sortBy];
+	const sortProps = SORT_MAPPER[filters?.sortBy];
 
 	if (sortProps) {
 		const [sort, order] = sortProps;
