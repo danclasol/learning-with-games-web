@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDropdown } from '../../lib/hooks/useDropdown';
 import IconButton from '../buttons/IconButton';
+import GroupCloneForm from '../group-form/GroupCloneForm';
 import GroupDeleteForm from '../group-form/GroupDeleteForm';
 import DotsIcon from '../icons/DotsIcon';
 import PencilIcon from '../icons/PencilIcon';
@@ -11,10 +12,11 @@ import styles from './GroupActions.module.css';
 const GroupActions = ({ group, reset }) => {
 	const navigate = useNavigate();
 
-	const { modalContent, closeModal, openDeleteModal } = useModal({
-		group,
-		reset
-	});
+	const { modalContent, closeModal, openCloneModal, openDeleteModal } =
+		useModal({
+			group,
+			reset
+		});
 
 	const { showDropdown, dropdownRef, toggleDropdown } = useDropdown();
 
@@ -50,7 +52,9 @@ const GroupActions = ({ group, reset }) => {
 					className={styles.list}
 					onClick={toggleActionsDropdown}
 				>
-					<li className={styles.list__item}>Clone</li>
+					<li className={styles.list__item} onClick={openCloneModal}>
+						Clone
+					</li>
 					<li className={styles.list__item} onClick={openDeleteModal}>
 						Delete
 					</li>
@@ -67,6 +71,17 @@ const useModal = ({ group, reset }) => {
 		setModalContent();
 	};
 
+	const openCloneModal = () => {
+		setModalContent(
+			<GroupCloneForm
+				id={group.id}
+				group={group}
+				closeModal={closeModal}
+				onSuccess={reset}
+			/>
+		);
+	};
+
 	const openDeleteModal = () => {
 		setModalContent(
 			<GroupDeleteForm
@@ -81,6 +96,7 @@ const useModal = ({ group, reset }) => {
 	return {
 		modalContent,
 		closeModal,
+		openCloneModal,
 		openDeleteModal
 	};
 };

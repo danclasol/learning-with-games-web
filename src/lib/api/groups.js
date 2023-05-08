@@ -110,8 +110,6 @@ export const getGroup = async ({ accessToken, id, signal }) => {
 };
 
 export const createGroup = async ({ accessToken, group }) => {
-	console.log({ group });
-
 	const request = `${API_URL}/${API_VERSION}/${path}/`;
 
 	let groupCreated;
@@ -124,6 +122,31 @@ export const createGroup = async ({ accessToken, group }) => {
 				Authorization: 'Bearer ' + accessToken
 			},
 			body: JSON.stringify({ id: crypto.randomUUID(), ...group })
+		});
+
+		if (res.ok) {
+			groupCreated = await res.json();
+		}
+
+		return groupCreated;
+	} catch {
+		return groupCreated;
+	}
+};
+
+export const cloneGroup = async ({ accessToken, id, group }) => {
+	const request = `${API_URL}/${API_VERSION}/${path}/${id}/clone`;
+
+	let groupCreated;
+
+	try {
+		const res = await fetch(request, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + accessToken
+			},
+			body: JSON.stringify({ idOld: id, idNew: crypto.randomUUID(), ...group })
 		});
 
 		if (res.ok) {

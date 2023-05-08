@@ -4,7 +4,7 @@
 	flex-direction: column;
 	row-gap: 1rem;
 
-	padding: 1.5rem 1rem;
+	padding: 1rem 1.2rem;
 	background-color: #9ea1d4;
 	border-radius: var(--item-border-radius);
 	border: 1px solid black;
@@ -12,7 +12,7 @@
 
 @media screen and (min-width: 800px) {
 	.container {
-		row-gap: 2rem;
+		row-gap: 1rem;
 		padding: 2rem 3.5rem;
 	}
 }
