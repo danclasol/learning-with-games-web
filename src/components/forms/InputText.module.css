@@ -41,6 +41,10 @@
 	opacity: var(--placeholder-opacity);
 }
 
+.input:disabled {
+	opacity: 0.6;
+}
+
 .input:not(:empty) {
 	display: none;
 }
@@ -57,7 +61,7 @@
 	color: black;
 }
 
-.input:hover ~ .icon__reset,
+.input:hover:not(:disabled) ~ .icon__reset,
 .icon__reset:hover {
 	visibility: visible;
 }

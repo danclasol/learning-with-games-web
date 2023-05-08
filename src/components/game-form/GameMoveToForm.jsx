@@ -19,6 +19,7 @@ const GameMoveToForm = ({ id, game, closeModal, onSuccess }) => {
 		register,
 		handleSubmit,
 		setValue,
+		watch,
 		formState: { errors, isSubmitting, isValid }
 	} = useForm({
 		defaultValues: {
@@ -28,10 +29,6 @@ const GameMoveToForm = ({ id, game, closeModal, onSuccess }) => {
 			groupId: ''
 		}
 	});
-
-	const onCleanInput = nameInput => {
-		setValue(nameInput, '', { shouldDirty: true });
-	};
 
 	return (
 		<section className={styles.wrapper}>
@@ -54,28 +51,12 @@ const GameMoveToForm = ({ id, game, closeModal, onSuccess }) => {
 						name='title'
 						label='Title'
 						placeholder='Title'
+						disabled
 						register={register}
-						validate={{
-							required: 'Field required',
-							minLength: {
-								value: 4,
-								message: 'At least 4 characters'
-							}
-						}}
-						error={errors.title?.message}
-						onClean={() => onCleanInput('title')}
 					/>
 				</div>
 				<div className={styles.form__field}>
-					<InputSelect
-						name='type'
-						label='Game'
-						register={register}
-						validate={{
-							required: 'Field required'
-						}}
-						error={errors.type?.message}
-					>
+					<InputSelect name='type' label='Game' disabled register={register}>
 						<option value=''>Select game...</option>
 						{LIST_GAMES.map(item => (
 							<option key={item.type} value={item.type}>
@@ -102,7 +83,20 @@ const GameMoveToForm = ({ id, game, closeModal, onSuccess }) => {
 							</InputSelect>
 						</div>
 						<div className={styles.form__field}>
-							<InputSelect name='groupId' label='New Group' register={register}>
+							<InputSelect
+								name='groupId'
+								label='New Group'
+								register={register}
+								validate={{
+									required: 'Field required',
+									validate: value => {
+										if (watch('currentGroupId') === value) {
+											return 'Same group as current';
+										}
+									}
+								}}
+								error={errors.groupId?.message}
+							>
 								<option value=''>Select group</option>
 								{groups.map(item => (
 									<option key={item.id} value={item.id}>
@@ -115,8 +109,8 @@ const GameMoveToForm = ({ id, game, closeModal, onSuccess }) => {
 				)}
 
 				<div className={styles.actions}>
-					<Button disabled={isSubmitting || !isValid}>
-						{isSubmitting ? 'Creating...' : 'Create'}
+					<Button disabled={isSubmitting}>
+						{isSubmitting ? 'Submitting...' : 'Move'}
 					</Button>
 				</div>
 			</form>

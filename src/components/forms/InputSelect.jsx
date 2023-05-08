@@ -10,6 +10,7 @@ const InputSelect = ({
 	error,
 	...props
 }) => {
+	const isDisabled = props.disabled;
 	const styleSelect = `${styles.input} ${error && styles.borderError}`;
 
 	return (
@@ -22,7 +23,7 @@ const InputSelect = ({
 					name={name}
 					{...register(name, validate)}
 				></select>
-				<ArrowDownIcon className={styles.dropdown} />
+				{!isDisabled && <ArrowDownIcon className={styles.dropdown} />}
 			</div>
 			{error && <span className={styles.error}>{error}</span>}
 		</div>
