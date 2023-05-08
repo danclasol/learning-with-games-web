@@ -88,13 +88,12 @@ const GameCloneForm = ({ groupId, id, game, closeModal, onSuccess }) => {
 
 const handleSubmitForm = async ({
 	accessToken,
-	groupId,
 	id,
 	data,
 	closeModal,
 	onSuccess
 }) => {
-	const success = await cloneGame({ accessToken, groupId, id, game: data });
+	const success = await cloneGame({ accessToken, id, game: data });
 
 	if (success) {
 		onSuccess();

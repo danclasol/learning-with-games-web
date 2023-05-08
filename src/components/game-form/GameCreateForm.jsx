@@ -12,9 +12,7 @@ import styles from './GameCreateForm.module.css';
 const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 	const { accessToken } = useContext(AuthContext);
 
-	const { groups, count } = useGroups({});
-
-	console.log({ groups, count });
+	const { groups } = useGroups({});
 
 	const {
 		register,
@@ -36,7 +34,6 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 				onSubmit={handleSubmit(async data => {
 					await handleSubmitForm({
 						accessToken,
-						groupId,
 						data,
 						closeModal,
 						onSuccess
@@ -109,7 +106,6 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 
 const handleSubmitForm = async ({
 	accessToken,
-	groupId,
 	data,
 	closeModal,
 	onSuccess
