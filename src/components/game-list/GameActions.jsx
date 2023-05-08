@@ -4,6 +4,7 @@ import { useDropdown } from '../../lib/hooks/useDropdown';
 import IconButton from '../buttons/IconButton';
 import GameCloneForm from '../game-form/GameCloneForm';
 import GameDeleteForm from '../game-form/GameDeleteForm';
+import GameMoveToForm from '../game-form/GameMoveToForm';
 import DotsIcon from '../icons/DotsIcon';
 import PencilIcon from '../icons/PencilIcon';
 import PlayIcon from '../icons/PlayIcon';
@@ -13,11 +14,16 @@ import styles from './GameActions.module.css';
 const GameActions = ({ game, reset }) => {
 	const navigate = useNavigate();
 
-	const { modalContent, closeModal, openCloneModal, openDeleteModal } =
-		useModal({
-			game,
-			reset
-		});
+	const {
+		modalContent,
+		closeModal,
+		openMoveToModal,
+		openCloneModal,
+		openDeleteModal
+	} = useModal({
+		game,
+		reset
+	});
 
 	const { showDropdown, dropdownRef, toggleDropdown } = useDropdown();
 
@@ -63,7 +69,9 @@ const GameActions = ({ game, reset }) => {
 					className={styles.list}
 					onClick={toggleActionsDropdown}
 				>
-					<li className={styles.list__item}>Move to...</li>
+					<li className={styles.list__item} onClick={openMoveToModal}>
+						Move to...
+					</li>
 					<li className={styles.list__item} onClick={openCloneModal}>
 						Clone
 					</li>
@@ -81,6 +89,17 @@ const useModal = ({ game, reset }) => {
 
 	const closeModal = () => {
 		setModalContent();
+	};
+
+	const openMoveToModal = () => {
+		setModalContent(
+			<GameMoveToForm
+				id={game.id}
+				game={game}
+				closeModal={closeModal}
+				onSuccess={reset}
+			/>
+		);
 	};
 
 	const openCloneModal = () => {
@@ -108,6 +127,7 @@ const useModal = ({ game, reset }) => {
 	return {
 		modalContent,
 		closeModal,
+		openMoveToModal,
 		openCloneModal,
 		openDeleteModal
 	};

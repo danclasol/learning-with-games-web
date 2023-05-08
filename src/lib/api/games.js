@@ -148,7 +148,7 @@ export const createGame = async ({ accessToken, game }) => {
 	}
 };
 
-export const cloneGame = async ({ accessToken, id, game, groupId }) => {
+export const cloneGame = async ({ accessToken, id, game }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}/clone`;
 
 	let gameCloned;
@@ -163,8 +163,7 @@ export const cloneGame = async ({ accessToken, id, game, groupId }) => {
 			body: JSON.stringify({
 				idOld: id,
 				idNew: crypto.randomUUID(),
-				...game,
-				groupId
+				...game
 			})
 		});
 
@@ -178,25 +177,24 @@ export const cloneGame = async ({ accessToken, id, game, groupId }) => {
 	}
 };
 
-// export const updateGame = async ({ id, game }) => {
-// 	console.log('updateGame', { id, game });
+export const updateGame = async ({ accessToken, id, game }) => {
+	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
 
-// 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;
+	try {
+		const res = await fetch(request, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + accessToken
+			},
+			body: JSON.stringify(game)
+		});
 
-// 	try {
-// 		const res = await fetch(request, {
-// 			method: 'PUT',
-// 			headers: {
-// 				'Content-Type': 'application/json'
-// 			},
-// 			body: JSON.stringify(game)
-// 		});
-
-// 		return res.ok;
-// 	} catch {
-// 		return false;
-// 	}
-// };
+		return res.ok;
+	} catch {
+		return false;
+	}
+};
 
 export const deleteGame = async ({ accessToken, id }) => {
 	const request = `${API_URL}/${API_VERSION}/${path}/${id}`;

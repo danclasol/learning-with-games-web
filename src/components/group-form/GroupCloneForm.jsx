@@ -114,8 +114,6 @@ const handleSubmitForm = async ({
 	closeModal,
 	onSuccess
 }) => {
-	console.log({ cloneGames: data.cloneGames });
-
 	const success = await cloneGroup({
 		accessToken,
 		id,
