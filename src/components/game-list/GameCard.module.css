@@ -34,7 +34,7 @@
 
 .title {
 	color: var(--text-color);
-	font-size: var(--title-4);
+	font-size: var(--text);
 }
 
 .type {

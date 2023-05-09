@@ -1,4 +1,8 @@
 .button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	column-gap: 0.5rem;
 	height: 2.5rem;
 	padding: 0 1.5rem;
 	border-radius: var(--btn-border-radius);
@@ -9,6 +13,7 @@
 	width: 100%;
 	white-space: nowrap;
 	transition: transform;
+	font-size: var(--text);
 }
 
 .button:hover {

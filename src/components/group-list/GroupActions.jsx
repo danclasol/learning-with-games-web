@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDropdown } from '../../lib/hooks/useDropdown';
 import IconButton from '../buttons/IconButton';
+import LinkIconButton from '../buttons/LinkIconButton';
 import GroupCloneForm from '../group-form/GroupCloneForm';
 import GroupDeleteForm from '../group-form/GroupDeleteForm';
 import DotsIcon from '../icons/DotsIcon';
@@ -10,8 +10,6 @@ import Modal from '../shared/Modal';
 import styles from './GroupActions.module.css';
 
 const GroupActions = ({ group, reset }) => {
-	const navigate = useNavigate();
-
 	const { modalContent, closeModal, openCloneModal, openDeleteModal } =
 		useModal({
 			group,
@@ -19,10 +17,6 @@ const GroupActions = ({ group, reset }) => {
 		});
 
 	const { showDropdown, dropdownRef, toggleDropdown } = useDropdown();
-
-	const clickGroupHandler = () => {
-		navigate(`/groups/${group.id}`);
-	};
 
 	const toggleActionsDropdown = ev => {
 		ev.stopPropagation();
@@ -33,11 +27,11 @@ const GroupActions = ({ group, reset }) => {
 		<>
 			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<div className={styles.actions}>
-				<IconButton
+				<LinkIconButton
 					icon={PencilIcon}
 					kind='secondary'
 					filled
-					onClick={clickGroupHandler}
+					to={`/groups/${group.id}`}
 				/>
 				<IconButton
 					icon={DotsIcon}

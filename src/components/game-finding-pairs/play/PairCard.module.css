@@ -100,7 +100,7 @@
 }
 
 .text {
-	font-size: var(--title-4);
+	font-size: var(--text);
 }
 
 @media screen and (min-width: 768px) {

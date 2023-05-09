@@ -95,13 +95,12 @@ const GamePlay = ({ game }) => {
 									<p className={styles.message__text}>
 										The game doesn&apos;t have any words.
 									</p>
-
-									<LinkButton to={`/games/${game.id}/edit`}>
-										<div className={styles.button__content}>
+									<div>
+										<LinkButton to={`/games/${game.id}/edit`}>
 											<PencilIcon className={styles.button__icon} />
-											<span className={styles.button__text}>Add words</span>
-										</div>
-									</LinkButton>
+											<span>Add words</span>
+										</LinkButton>
+									</div>
 								</div>
 							)}
 

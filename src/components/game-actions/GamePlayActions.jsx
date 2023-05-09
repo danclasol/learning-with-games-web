@@ -41,31 +41,23 @@ const GamePlayActions = ({ resetGame }) => {
 		<div className={styles.actions}>
 			<div className={styles.actions__left}>
 				<LinkButton to={-1}>
-					<div className={styles.button__content}>
-						<ArrowLeftIcon className={styles.icon} />
-						<span className={styles.button__text}>Go back</span>
-					</div>
+					<ArrowLeftIcon className={styles.icon} />
+					<span>Go back</span>
 				</LinkButton>
 			</div>
 			<div className={styles.actions__right}>
 				<div className={styles.actions__buttons}>
 					<Button onClick={toggleFullScreen}>
-						<div className={styles.button__content}>
-							{!isFullScreen ? (
-								<MaximamizeIcon className={styles.icon} />
-							) : (
-								<MinimizeIcon className={styles.icon} />
-							)}
-							<span className={styles.button__text}>
-								{!isFullScreen ? 'Full Screen' : 'Minimize'}
-							</span>
-						</div>
+						{!isFullScreen ? (
+							<MaximamizeIcon className={styles.icon} />
+						) : (
+							<MinimizeIcon className={styles.icon} />
+						)}
+						<span>{!isFullScreen ? 'Full Screen' : 'Minimize'}</span>
 					</Button>
 					<Button onClick={resetGame} kind='secondary'>
-						<div className={styles.button__content}>
-							<RefreshIcon className={styles.icon} />
-							<span className={styles.button__text}>Reset</span>
-						</div>
+						<RefreshIcon className={styles.icon} />
+						<span>Reset</span>
 					</Button>
 				</div>
 			</div>

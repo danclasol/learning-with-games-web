@@ -63,18 +63,7 @@
 .message__text {
 	text-align: center;
 	margin: 0;
-	font-size: var(--title-4);
-}
-
-.button__content {
-	width: min-content;
-	display: flex;
-	align-items: center;
-	column-gap: 0.5rem;
-}
-
-.button__text {
-	display: block;
+	font-size: var(--text);
 }
 
 .button__icon {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDropdown } from '../../lib/hooks/useDropdown';
 import IconButton from '../buttons/IconButton';
+import LinkIconButton from '../buttons/LinkIconButton';
 import GameCloneForm from '../game-form/GameCloneForm';
 import GameDeleteForm from '../game-form/GameDeleteForm';
 import GameMoveToForm from '../game-form/GameMoveToForm';
@@ -12,8 +12,6 @@ import Modal from '../shared/Modal';
 import styles from './GameActions.module.css';
 
 const GameActions = ({ game, reset }) => {
-	const navigate = useNavigate();
-
 	const {
 		modalContent,
 		closeModal,
@@ -27,14 +25,6 @@ const GameActions = ({ game, reset }) => {
 
 	const { showDropdown, dropdownRef, toggleDropdown } = useDropdown();
 
-	const clickEditHandler = () => {
-		navigate(`/games/${game.id}/edit`);
-	};
-
-	const clickPlayHandler = () => {
-		navigate(`/games/${game.id}/play`);
-	};
-
 	const toggleActionsDropdown = ev => {
 		ev.stopPropagation();
 		toggleDropdown();
@@ -44,17 +34,17 @@ const GameActions = ({ game, reset }) => {
 		<>
 			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<div className={styles.actions}>
-				<IconButton
+				<LinkIconButton
 					icon={PencilIcon}
 					kind='secondary'
 					filled
-					onClick={clickEditHandler}
+					to={`/games/${game.id}/edit`}
 				/>
-				<IconButton
+				<LinkIconButton
 					icon={PlayIcon}
 					kind='secondary'
 					filled
-					onClick={clickPlayHandler}
+					to={`/games/${game.id}/play`}
 				/>
 				<IconButton
 					icon={DotsIcon}

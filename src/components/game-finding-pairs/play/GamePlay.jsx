@@ -115,13 +115,12 @@ const GamePlay = ({ game }) => {
 										<p className={styles.message__text}>
 											The game doesn&apos;t have any pairs.
 										</p>
-
-										<LinkButton to={`/games/${game.id}/edit`}>
-											<div className={styles.button__content}>
+										<div>
+											<LinkButton to={`/games/${game.id}/edit`}>
 												<PencilIcon className={styles.button__icon} />
-												<span className={styles.button__text}>Add pair</span>
-											</div>
-										</LinkButton>
+												<span>Add pair</span>
+											</LinkButton>
+										</div>
 									</>
 								)}
 								{pairs.length !== 0 && (

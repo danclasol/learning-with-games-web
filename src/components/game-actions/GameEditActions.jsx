@@ -11,10 +11,8 @@ const GameEditActions = ({ gameId, isDirty, isSubmitting, clearForm }) => {
 		<div className={styles.actions}>
 			<div className={styles.actions__left}>
 				<LinkButton to={-1} disabled={isSubmitting}>
-					<div className={styles.button__content}>
-						<ArrowLeftIcon className={styles.icon} />
-						<span>Go back</span>
-					</div>
+					<ArrowLeftIcon className={styles.icon} />
+					<span>Go back</span>
 				</LinkButton>
 			</div>
 			<div className={styles.actions__right}>
@@ -24,25 +22,19 @@ const GameEditActions = ({ gameId, isDirty, isSubmitting, clearForm }) => {
 							disabled={isSubmitting || !isDirty}
 							onClick={() => clearForm()}
 						>
-							<div className={styles.button__content}>
-								<CloseIcon className={styles.icon} />
-								<span>Reset</span>
-							</div>
+							<CloseIcon className={styles.icon} />
+							<span>Reset</span>
 						</Button>
 					)}
 					<Button disabled={isSubmitting || !isDirty} type='submit' form='form'>
-						<div className={styles.button__content}>
-							<SaveIcon className={styles.icon} />
-							<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
-						</div>
+						<SaveIcon className={styles.icon} />
+						<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
 					</Button>
 				</div>
 				<div className={styles.buttons}>
 					<LinkButton to={`/games/${gameId}/play`} kind='secondary'>
-						<div className={styles.button__content}>
-							<PlayIcon className={styles.icon} />
-							<span>Play</span>
-						</div>
+						<PlayIcon className={styles.icon} />
+						<span>Play</span>
 					</LinkButton>
 				</div>
 			</div>
