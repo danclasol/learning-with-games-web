@@ -1,5 +1,8 @@
 .word {
 	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	row-gap: 0.4rem;
 	column-gap: 0.3rem;
 }
 

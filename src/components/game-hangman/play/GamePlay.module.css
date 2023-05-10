@@ -45,7 +45,6 @@
 	flex-direction: column;
 	row-gap: 1rem;
 	padding: 1rem 0.5rem 2rem;
-	overflow-x: auto;
 }
 
 .game__letters {
