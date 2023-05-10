@@ -6,6 +6,12 @@
 	.main {
 		padding: 2rem 1rem 3rem;
 		margin: auto;
-		max-width: 75rem;
+		max-width: 85rem;
+	}
+}
+
+@media all and (display-mode: fullscreen) {
+	.main {
+		max-width: none;
 	}
 }

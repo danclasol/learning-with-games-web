@@ -83,60 +83,58 @@ const GamePlay = ({ game }) => {
 	}, []);
 
 	return (
-		<>
-			<section className={styles.container}>
-				<GamePlayActions resetGame={() => moveToWord(0)} />
-				<div className={styles.game}>
-					<div className={styles.game__panel}>
-						<h1 className={styles.game__panel__header}>{game.title}</h1>
-						<div className={styles.game__panel__content}>
-							{totalWords === 0 && (
-								<div className={styles.message}>
-									<p className={styles.message__text}>
-										The game doesn&apos;t have any words.
-									</p>
-									<div>
-										<LinkButton to={`/games/${game.id}/edit`}>
-											<PencilIcon className={styles.button__icon} />
-											<span>Add words</span>
-										</LinkButton>
-									</div>
+		<section className={styles.container}>
+			<GamePlayActions resetGame={() => moveToWord(0)} />
+			<div className={styles.game}>
+				<div className={styles.game__panel}>
+					<h1 className={styles.game__panel__header}>{game.title}</h1>
+					<div className={styles.game__panel__content}>
+						{totalWords === 0 && (
+							<div className={styles.message}>
+								<p className={styles.message__text}>
+									The game doesn&apos;t have any words.
+								</p>
+								<div>
+									<LinkButton to={`/games/${game.id}/edit`}>
+										<PencilIcon className={styles.button__icon} />
+										<span>Add words</span>
+									</LinkButton>
 								</div>
-							)}
+							</div>
+						)}
 
-							{totalWords > 0 && (
-								<>
-									<WordSelector
-										currentWordIndex={currentWordIndex}
-										isLastWord={isLastWord}
-										isFinished={isFinished}
-										retryWord={() => moveToWord(currentWordIndex)}
-										nextWord={() => moveToWord(currentWordIndex + 1)}
-										total={totalWords}
-									/>
-									<HiddenSentence
-										sentence={currentWord}
-										resolvedLetters={resolvedLetters}
-										isFinished={isFinished}
-										isWinner={isWinner}
-									/>
+						{totalWords > 0 && (
+							<>
+								<WordSelector
+									currentWordIndex={currentWordIndex}
+									isLastWord={isLastWord}
+									isFinished={isFinished}
+									retryWord={() => moveToWord(currentWordIndex)}
+									nextWord={() => moveToWord(currentWordIndex + 1)}
+									total={totalWords}
+								/>
+								<HiddenSentence
+									sentence={currentWord}
+									resolvedLetters={resolvedLetters}
+									isFinished={isFinished}
+									isWinner={isWinner}
+								/>
 
-									<CounterTries maxTries={maxTries} tries={moves} />
-								</>
-							)}
-						</div>
-					</div>
-
-					<div className={styles.game__letters}>
-						<Letters
-							resolvedLetters={resolvedLetters}
-							pressedLetters={pressedLetters}
-							checkLetter={checkLetter}
-						/>
+								<CounterTries maxTries={maxTries} tries={moves} />
+							</>
+						)}
 					</div>
 				</div>
-			</section>
-		</>
+
+				<div className={styles.game__letters}>
+					<Letters
+						resolvedLetters={resolvedLetters}
+						pressedLetters={pressedLetters}
+						checkLetter={checkLetter}
+					/>
+				</div>
+			</div>
+		</section>
 	);
 };
 
