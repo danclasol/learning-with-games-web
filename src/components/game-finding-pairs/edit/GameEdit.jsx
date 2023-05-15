@@ -4,10 +4,12 @@ import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
 import GameEditActions from '../../game-actions/GameEditActions';
 
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { FINDING_PAIRS_MODES } from '../../../constants/findingPairsModes';
 import { AuthContext } from '../../../lib/context/AuthContext';
+import { DragAndDropContextProvider } from '../../../lib/context/DragAndDropContextProvider';
 import InputSelect from '../../forms/InputSelect';
+import Draggable from '../../shared/Draggable';
 import styles from './GameEdit.module.css';
 import PairCardEdit from './PairCardEdit';
 
@@ -25,7 +27,7 @@ const GameEdit = ({ game }) => {
 		defaultValues: { title: game?.title, mode: game?.mode, pairs: game?.pairs }
 	});
 
-	const { fields, append, move, remove } = useFieldArray({
+	const { fields, append, swap, remove } = useFieldArray({
 		name: 'pairs',
 		control
 	});
@@ -36,24 +38,6 @@ const GameEdit = ({ game }) => {
 
 	const onCleanInput = nameInput => {
 		setValue(nameInput, '', { shouldDirty: true });
-	};
-
-	const dragItem = useRef();
-	const dragOverItem = useRef();
-
-	const handleDrag = position => {
-		dragItem.current = position;
-	};
-
-	const handleDropEnter = position => {
-		dragOverItem.current = position;
-	};
-
-	const handleDropEnd = () => {
-		move(dragItem.current, dragOverItem.current);
-
-		dragItem.current = null;
-		dragOverItem.current = null;
 	};
 
 	return (
@@ -131,18 +115,19 @@ const GameEdit = ({ game }) => {
 								</Button>
 							</div>
 						</div>
-						<div className={styles.pairs__list}>
-							{fields.map((field, index) => (
-								<PairCardEdit
-									key={field.id}
-									index={index}
-									control={control}
-									handleDrag={handleDrag}
-									handleDropEnter={handleDropEnter}
-									handleDropEnd={handleDropEnd}
-								/>
-							))}
-						</div>
+						<DragAndDropContextProvider swap={swap}>
+							<div className={styles.pairs__list}>
+								{fields.map((field, index) => (
+									<Draggable key={field.id} index={index} swap={swap}>
+										<PairCardEdit
+											key={field.id}
+											index={index}
+											control={control}
+										/>
+									</Draggable>
+								))}
+							</div>
+						</DragAndDropContextProvider>
 					</div>
 				</form>
 			</section>

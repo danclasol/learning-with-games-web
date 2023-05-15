@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { getLetterOptionFromIndex } from '../../../lib/games/quiz';
+import { isImageValid } from '../../../lib/utils/images';
 import { isValidWord } from '../../../lib/utils/regex';
 import IconButton from '../../buttons/IconButton';
 import InputNumber from '../../forms/InputNumber';
@@ -15,13 +16,8 @@ import TrashIcon from '../../icons/TrashIcon';
 import ImagePreview from './ImagePreview';
 import styles from './QuestionCardEdit.module.css';
 
-const QuestionCardEdit = ({
-	index,
-	handleDrag,
-	handleDropEnter,
-	handleDropEnd
-}) => {
-	const { register, control, watch, setValue, remove, errors } =
+const QuestionCardEdit = ({ index, toggleIsDraggable }) => {
+	const { register, control, watch, setValue, remove, errors, clearErrors } =
 		useFormContext();
 	const {
 		fields,
@@ -44,6 +40,7 @@ const QuestionCardEdit = ({
 		}
 
 		setAddMedia(!addMedia);
+		clearErrors(`questions.${index}.image`);
 	};
 
 	const handleCleanInput = nameInput => {
@@ -57,19 +54,14 @@ const QuestionCardEdit = ({
 	}, [watchAddMedia]);
 
 	return (
-		<div
-			className={styles.card}
-			draggable
-			onDragStart={() => handleDrag(index)}
-			onDragEnter={() => handleDropEnter(index)}
-			onDragEnd={handleDropEnd}
-		>
+		<div className={styles.card}>
 			<div className={styles.card__nav}>
 				<span className={styles.card__index}>{index + 1}</span>
 				<IconButton
 					icon={MoveIcon}
 					type='button'
 					className={styles.icon__move}
+					onMouseDown={toggleIsDraggable}
 				/>
 				<IconButton
 					icon={TrashIcon}
@@ -127,10 +119,9 @@ const QuestionCardEdit = ({
 											placeholder='Image URL'
 											register={register}
 											validate={{
-												required: 'Field required',
-												minLength: {
-													value: 2,
-													message: 'At least 2 characters'
+												validate: async value => {
+													const result = await isImageValid(value);
+													return result || 'Invalid image';
 												}
 											}}
 											error={errorsEdit?.image?.message}

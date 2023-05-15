@@ -7,30 +7,20 @@ import TrashIcon from '../../icons/TrashIcon';
 import ImagePreview from './ImagePreview';
 import styles from './PairCardEdit.module.css';
 
-const PairCardEdit = ({
-	index,
-	handleDrag,
-	handleDropEnter,
-	handleDropEnd
-}) => {
+const PairCardEdit = ({ index, toggleIsDraggable }) => {
 	const { register, watch, remove, errors, onCleanInput } = useFormContext();
 
 	const errorsEdit = errors?.pairs && errors?.pairs[index];
 
 	return (
-		<div
-			className={styles.card}
-			draggable
-			onDragStart={() => handleDrag(index)}
-			onDragEnter={() => handleDropEnter(index)}
-			onDragEnd={handleDropEnd}
-		>
+		<div className={styles.card}>
 			<div className={styles.card__nav}>
 				<span className={styles.card__index}>{index + 1}</span>
 				<IconButton
 					icon={MoveIcon}
 					type='button'
 					className={styles.icon__move}
+					onMouseDown={toggleIsDraggable}
 				/>
 				<IconButton
 					icon={TrashIcon}

@@ -1,10 +1,12 @@
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { updateGame } from '../../../lib/api/game-quiz';
 import { AuthContext } from '../../../lib/context/AuthContext';
+import { DragAndDropContextProvider } from '../../../lib/context/DragAndDropContextProvider';
 import Button from '../../buttons/Button';
 import InputText from '../../forms/InputText';
 import GameEditActions from '../../game-actions/GameEditActions';
+import Draggable from '../../shared/Draggable';
 import styles from './GameEdit.module.css';
 import QuestionCardEdit from './QuestionCardEdit';
 
@@ -17,12 +19,13 @@ const GameEdit = ({ game }) => {
 		watch,
 		reset,
 		setValue,
+		clearErrors,
 		formState: { errors, isDirty, isSubmitting }
 	} = useForm({
 		defaultValues: { title: game?.title, questions: game?.questions }
 	});
 
-	const { fields, append, move, remove } = useFieldArray({
+	const { fields, append, swap, remove } = useFieldArray({
 		name: 'questions',
 		control
 	});
@@ -35,24 +38,6 @@ const GameEdit = ({ game }) => {
 		setValue(nameInput, '', { shouldDirty: true });
 	};
 
-	const dragItem = useRef();
-	const dragOverItem = useRef();
-
-	const handleDrag = position => {
-		dragItem.current = position;
-	};
-
-	const handleDropEnter = position => {
-		dragOverItem.current = position;
-	};
-
-	const handleDropEnd = () => {
-		move(dragItem.current, dragOverItem.current);
-
-		dragItem.current = null;
-		dragOverItem.current = null;
-	};
-
 	return (
 		<FormProvider
 			register={register}
@@ -60,6 +45,7 @@ const GameEdit = ({ game }) => {
 			watch={watch}
 			setValue={setValue}
 			errors={errors}
+			clearErrors={clearErrors}
 			remove={remove}
 		>
 			<section className={styles.container}>
@@ -112,17 +98,15 @@ const GameEdit = ({ game }) => {
 								</Button>
 							</div>
 						</div>
-						<div className={styles.questions__list}>
-							{fields.map((field, index) => (
-								<QuestionCardEdit
-									key={field.id}
-									index={index}
-									handleDrag={handleDrag}
-									handleDropEnter={handleDropEnter}
-									handleDropEnd={handleDropEnd}
-								/>
-							))}
-						</div>
+						<DragAndDropContextProvider swap={swap}>
+							<div className={styles.questions__list}>
+								{fields.map((field, index) => (
+									<Draggable key={field.id} index={index} swap={swap}>
+										<QuestionCardEdit index={index} />
+									</Draggable>
+								))}
+							</div>
+						</DragAndDropContextProvider>
 					</div>
 				</form>
 			</section>

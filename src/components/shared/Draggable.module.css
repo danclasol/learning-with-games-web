@@ -1,0 +1,13 @@
+.draggable {
+	width: 100%;
+}
+
+.dragging {
+	opacity: 0.7;
+	transform: scale(0.99);
+}
+
+.dragover {
+	opacity: 0.7;
+	transform: scale(0.99);
+}

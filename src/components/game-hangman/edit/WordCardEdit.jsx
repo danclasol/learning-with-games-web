@@ -8,32 +8,21 @@ import MoveIcon from '../../icons/MoveIcon';
 import TrashIcon from '../../icons/TrashIcon';
 import styles from './WordCardEdit.module.css';
 
-const WordCardEdit = ({
-	index,
-	handleDrag,
-	handleDropEnter,
-	handleDropEnd
-}) => {
+const WordCardEdit = ({ index, toggleIsDraggable }) => {
 	const { register, remove, errors, onCleanInput } = useFormContext();
 	const cardId = useId();
 
 	const errorsEdit = errors?.words && errors?.words[index];
 
 	return (
-		<div
-			id={cardId}
-			className={styles.card}
-			draggable
-			onDragStart={() => handleDrag(index)}
-			onDragEnter={() => handleDropEnter(index)}
-			onDragEnd={handleDropEnd}
-		>
+		<div id={cardId} className={styles.card}>
 			<div className={styles.card__nav}>
 				<span className={styles.card__index}>{index + 1}</span>
 				<IconButton
 					icon={MoveIcon}
 					type='button'
 					className={styles.icon__move}
+					onMouseDown={toggleIsDraggable}
 				/>
 				<IconButton
 					icon={TrashIcon}
@@ -57,7 +46,10 @@ const WordCardEdit = ({
 									value: 2,
 									message: 'At least 2 characters'
 								},
-								pattern: { value: isValidWord, message: 'Invalid characters' }
+								pattern: {
+									value: isValidWord,
+									message: 'Invalid characters'
+								}
 							}}
 							error={errorsEdit?.word?.message}
 							onClean={() => onCleanInput(`words.${index}.word`)}
