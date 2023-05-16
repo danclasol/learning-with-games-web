@@ -12,13 +12,15 @@
 
 .info__image {
 	width: 100%;
-	min-width: 7rem;
-	max-width: 7rem;
+	min-width: 6rem;
+	max-width: 6rem;
 }
 
 @media screen and (min-width: 768px) {
 	.info__image {
 		margin: 0;
+		min-width: 7rem;
+		max-width: 7rem;
 	}
 }
 

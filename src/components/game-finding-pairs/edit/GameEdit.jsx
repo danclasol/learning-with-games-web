@@ -1,19 +1,19 @@
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { updateGame } from '../../../lib/api/game-finding-pairs';
 import Button from '../../buttons/Button';
-import InputText from '../../forms/InputText';
-import GameEditActions from '../../game-actions/GameEditActions';
 
 import { useContext } from 'react';
-import { FINDING_PAIRS_MODES } from '../../../constants/findingPairsModes';
 import { AuthContext } from '../../../lib/context/AuthContext';
 import { DragAndDropContextProvider } from '../../../lib/context/DragAndDropContextProvider';
-import InputSelect from '../../forms/InputSelect';
+import GameInfo from '../../games/GameInfo';
+import AddIcon from '../../icons/AddIcon';
+import CloseIcon from '../../icons/CloseIcon';
+import SaveIcon from '../../icons/SaveIcon';
 import Draggable from '../../shared/Draggable';
 import styles from './GameEdit.module.css';
 import PairCardEdit from './PairCardEdit';
 
-const GameEdit = ({ game }) => {
+const GameEdit = ({ game, refresh }) => {
 	const { accessToken } = useContext(AuthContext);
 	const {
 		register,
@@ -41,77 +41,53 @@ const GameEdit = ({ game }) => {
 	};
 
 	return (
-		<FormProvider
-			register={register}
-			watch={watch}
-			onCleanInput={onCleanInput}
-			errors={errors}
-			remove={remove}
-		>
-			<section className={styles.container}>
-				<GameEditActions
-					gameId={game.id}
-					isDirty={isDirty}
-					isSubmitting={isSubmitting}
-					clearForm={reset}
-				/>
+		<section className={styles.container}>
+			<GameInfo game={game} refresh={refresh} />
 
-				<form
-					id='form'
-					className={styles.form}
-					onSubmit={handleSubmit(async data => {
-						await handleSubmitForm({
-							accessToken,
-							id: game.id,
-							data,
-							reset
-						});
-					})}
+			<div className={styles.pairs}>
+				<FormProvider
+					register={register}
+					watch={watch}
+					onCleanInput={onCleanInput}
+					errors={errors}
+					remove={remove}
 				>
-					<div className={styles.game__info}>
-						<div className={styles.form__fields}>
-							<div className={styles.form__field}>
-								<InputText
-									name='title'
-									label='Title'
-									placeholder='Title'
-									register={register}
-									validate={{
-										required: 'Field required',
-										minLength: {
-											value: 4,
-											message: 'At least 4 characters'
-										}
-									}}
-									error={errors.title?.message}
-									onClean={() => onCleanInput('title')}
-								/>
-							</div>
-							<div className={styles.form__field}>
-								<InputSelect
-									name='mode'
-									label='Mode'
-									register={register}
-									error={errors.mode?.message}
-								>
-									<option value=''>Select mode...</option>
-									{Object.values(FINDING_PAIRS_MODES).map(item => {
-										return (
-											<option key={item.type} value={item.type}>
-												{item.name}
-											</option>
-										);
-									})}
-								</InputSelect>
-							</div>
-						</div>
-					</div>
-
-					<div className={styles.pairs}>
-						<div className={styles.pairs__add}>
-							<div className={styles.actions}>
+					<form
+						id='form'
+						className={styles.form}
+						onSubmit={handleSubmit(async data => {
+							await handleSubmitForm({
+								accessToken,
+								id: game.id,
+								data,
+								reset
+							});
+						})}
+					>
+						<div className={styles.actions}>
+							<div className={styles.actions__left}>
 								<Button type='button' onClick={handleAddPairClick}>
-									Add pair
+									<AddIcon className={styles.icon} />
+									<span>Add Word</span>
+								</Button>
+							</div>
+							<div className={styles.actions__right}>
+								<Button
+									disabled={isSubmitting || !isDirty}
+									type='submit'
+									form='form'
+								>
+									<SaveIcon className={styles.icon} />
+									<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
+								</Button>
+
+								<Button
+									disabled={isSubmitting || !isDirty}
+									kind='secondary'
+									onClick={() => reset()}
+								>
+									<CloseIcon className={styles.icon} />
+									<span>Reset</span>
 								</Button>
 							</div>
 						</div>
@@ -128,10 +104,10 @@ const GameEdit = ({ game }) => {
 								))}
 							</div>
 						</DragAndDropContextProvider>
-					</div>
-				</form>
-			</section>
-		</FormProvider>
+					</form>
+				</FormProvider>
+			</div>
+		</section>
 	);
 };
 

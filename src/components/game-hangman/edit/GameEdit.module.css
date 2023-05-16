@@ -17,18 +17,10 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 1rem;
-
-	padding: 1.5rem;
+	padding: 1rem 1.5rem 2rem;
 	background-color: #9ea1d4;
 	border-radius: var(--item-border-radius);
 	border: 1px solid black;
-}
-
-.words__add {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	row-gap: 0.6rem;
 }
 
 .actions {
@@ -46,15 +38,19 @@
 		column-gap: 0.5rem;
 	}
 }
-
+.actions__left,
 .actions__right {
 	display: flex;
-	justify-content: flex-end;
 	column-gap: 0.5rem;
 }
 
+.actions__left {
+	order: 1;
+}
+
 @media screen and (min-width: 768px) {
-	.actions__right {
+	.actions__left {
+		order: 0;
 	}
 }
 
