@@ -1,0 +1,75 @@
+.wrapper {
+	position: relative;
+	display: flex;
+	border: 1px solid black;
+	border-radius: 1rem;
+	background-color: white;
+	overflow: hidden;
+}
+
+.image {
+	width: 100%;
+	object-fit: cover;
+}
+
+.input {
+	display: none;
+}
+
+.label {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.5rem;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.label:hover {
+	background-color: rgba(31, 30, 30, 0.45);
+}
+
+.label:hover > .icon,
+.label:hover > .text {
+	visibility: visible;
+}
+
+.icon {
+	visibility: collapse;
+	width: 2rem;
+	color: white;
+}
+
+.text {
+	visibility: collapse;
+	color: white;
+	cursor: default;
+	text-align: center;
+	font-size: var(--text);
+}
+
+.loading {
+	display: flex;
+	width: 15rem;
+	height: 15rem;
+	display: flex;
+	justify-content: center;
+	background-color: rgba(39, 38, 38, 0.45);
+}
+
+.error {
+	position: absolute;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	color: red;
+	font-weight: bold;
+}

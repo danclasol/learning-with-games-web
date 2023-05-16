@@ -1,119 +1,50 @@
-import { useContext } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { updateGroup } from '../../lib/api/groups';
-import { AuthContext } from '../../lib/context/AuthContext';
-import InputText from '../forms/InputText';
+import { useState } from 'react';
+import IconButton from '../buttons/IconButton';
+import InputImage from '../forms/InputImage';
 import GamesList from '../game-list/GamesList';
-import GroupEditActions from '../group-actions/GroupEditActions';
+import GroupEditForm from '../group-form/GroupEditForm';
+import PencilIcon from '../icons/PencilIcon';
+import Modal from '../shared/Modal';
 import styles from './GroupEdit.module.css';
 
-const GroupEdit = ({ group }) => {
-	const { accessToken } = useContext(AuthContext);
-	const {
-		register,
-		handleSubmit,
-		watch,
-		setValue,
-		reset,
-		formState: { errors, isDirty, isSubmitting }
-	} = useForm({
-		defaultValues: {
-			name: group?.name,
-			level: group?.level,
-			course: group?.course
-		}
+const GroupEdit = ({ group, refresh }) => {
+	const { modalContent, closeModal, openEditModal } = useModalGroup({
+		id: group.id,
+		group,
+		refresh
 	});
-
-	const onCleanInput = nameInput => {
-		setValue(nameInput, '', { shouldDirty: true });
-	};
 
 	return (
 		<>
+			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<section className={styles.container}>
-				<GroupEditActions
-					groupId={group.id}
-					isDirty={isDirty}
-					isSubmitting={isSubmitting}
-					clearForm={reset}
-				/>
-
 				<div className={styles.group}>
-					<FormProvider
-						register={register}
-						watch={watch}
-						errors={errors}
-						onCleanInput={onCleanInput}
-					>
-						<form
-							id='form'
-							className={styles.form}
-							onSubmit={handleSubmit(async data => {
-								await handleSubmitForm({
-									accessToken,
-									id: group.id,
-									data,
-									reset
-								});
-							})}
-						>
-							<div className={styles.group__info}>
-								<div className={styles.form__fields}>
-									<div className={styles.form__field}>
-										<InputText
-											name='name'
-											label='Name'
-											placeholder='Name'
-											register={register}
-											validate={{
-												required: 'Field required',
-												minLength: {
-													value: 4,
-													message: 'At least 4 characters'
-												}
-											}}
-											error={errors.name?.message}
-											onClean={() => onCleanInput('name')}
-										/>
-									</div>
-									<div className={styles.form__group}>
-										<div className={styles.form__group__field}>
-											<InputText
-												name='level'
-												label='Level'
-												placeholder='Level'
-												register={register}
-												validate={{
-													minLength: {
-														value: 2,
-														message: 'At least 2 characters'
-													}
-												}}
-												error={errors.level?.message}
-												onClean={() => onCleanInput('level')}
-											/>
-										</div>
-										<div className={styles.form__group__field}>
-											<InputText
-												name='course'
-												label='Course'
-												placeholder='Course'
-												register={register}
-												validate={{
-													minLength: {
-														value: 4,
-														message: 'At least 4 characters'
-													}
-												}}
-												error={errors.course?.message}
-												onClean={() => onCleanInput('course')}
-											/>
-										</div>
-									</div>
-								</div>
+					<div className={styles.info}>
+						<div className={styles.info__image}>
+							<InputImage
+								image={group?.image || '/images/group.svg'}
+								className={styles.image}
+							/>
+						</div>
+
+						<div className={styles.info__text}>
+							<h2 className={styles.name}>{group.name}</h2>
+							<div className={styles.tags}>
+								{group.level && (
+									<span className={styles.level}>{`${group.level}`}</span>
+								)}
+								{group.course && (
+									<span className={styles.course}>{`${group.course}`}</span>
+								)}
 							</div>
-						</form>
-					</FormProvider>
+						</div>
+						<IconButton
+							icon={PencilIcon}
+							filled
+							className={styles.icon__edit}
+							onClick={openEditModal}
+						/>
+					</div>
 
 					<div className={styles.games}>
 						<GamesList groupId={group.id} />
@@ -124,16 +55,29 @@ const GroupEdit = ({ group }) => {
 	);
 };
 
-const handleSubmitForm = async ({ accessToken, id, data, reset }) => {
-	const success = await updateGroup({
-		accessToken,
-		id,
-		group: { ...data }
-	});
+const useModalGroup = ({ id, group, refresh }) => {
+	const [modalContent, setModalContent] = useState();
 
-	if (success) {
-		reset({ ...data });
-	}
+	const closeModal = () => {
+		setModalContent();
+	};
+
+	const openEditModal = () => {
+		setModalContent(
+			<GroupEditForm
+				closeModal={closeModal}
+				refresh={refresh}
+				id={id}
+				group={group}
+			/>
+		);
+	};
+
+	return {
+		modalContent,
+		closeModal,
+		openEditModal
+	};
 };
 
 export default GroupEdit;
