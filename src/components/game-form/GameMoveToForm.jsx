@@ -18,9 +18,8 @@ const GameMoveToForm = ({ id, game, closeModal, onSuccess }) => {
 	const {
 		register,
 		handleSubmit,
-		setValue,
 		watch,
-		formState: { errors, isSubmitting, isValid }
+		formState: { errors, isSubmitting }
 	} = useForm({
 		defaultValues: {
 			title: game?.title,
