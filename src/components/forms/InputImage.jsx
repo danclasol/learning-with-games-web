@@ -35,6 +35,7 @@ const InputImage = ({
 					className={styles.input}
 					type='file'
 					accept='image/*'
+					disabled
 				/>
 			</label>
 		</div>

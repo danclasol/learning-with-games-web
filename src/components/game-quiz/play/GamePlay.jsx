@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import Button from '../../buttons/Button';
 import LinkButton from '../../buttons/LinkButton';
-import GamePlayActions from '../../game-actions/GamePlayActions';
 import PencilIcon from '../../icons/PencilIcon';
+import RefreshIcon from '../../icons/RefreshIcon';
 import styles from './GamePlay.module.css';
 import Question from './Question';
 import QuestionPoints from './QuestionPoints';
@@ -38,7 +39,6 @@ const GamePlay = ({ game }) => {
 	return (
 		<>
 			<section className={styles.container}>
-				<GamePlayActions resetGame={resetGame} />
 				<div className={styles.game}>
 					<div className={styles.game__panel}>
 						<h1 className={styles.game__panel__header}>{game.title}</h1>
@@ -89,6 +89,14 @@ const GamePlay = ({ game }) => {
 											isLastQuestion={isLastQuestion}
 										/>
 									</div>
+									{isLastQuestion && isResolved && (
+										<div className={styles.actions}>
+											<Button onClick={resetGame}>
+												<RefreshIcon className={styles.icon} />
+												<span>Retry</span>
+											</Button>
+										</div>
+									)}
 								</>
 							)}
 						</div>

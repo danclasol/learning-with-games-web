@@ -1,9 +1,10 @@
 import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
 import { prepareCards, suffle } from '../../../lib/games/findingPairs';
+import Button from '../../buttons/Button';
 import LinkButton from '../../buttons/LinkButton';
-import GamePlayActions from '../../game-actions/GamePlayActions';
 import PencilIcon from '../../icons/PencilIcon';
+import RefreshIcon from '../../icons/RefreshIcon';
 import styles from './GamePlay.module.css';
 import PairCardList from './PairCardList';
 
@@ -103,7 +104,6 @@ const GamePlay = ({ game }) => {
 	return (
 		<>
 			<section className={styles.container}>
-				<GamePlayActions resetGame={resetGame} />
 				<div className={styles.game}>
 					<div className={styles.game__panel}>
 						<h1 className={styles.game__panel__header}>{game.title}</h1>
@@ -138,6 +138,14 @@ const GamePlay = ({ game }) => {
 								isFinish={isFinished}
 								onClickCard={handleCardClick}
 							/>
+							{isFinished && (
+								<div className={styles.actions}>
+									<Button onClick={resetGame}>
+										<RefreshIcon className={styles.icon} />
+										<span>Retry</span>
+									</Button>
+								</div>
+							)}
 						</div>
 					</div>
 				</div>

@@ -29,14 +29,14 @@
 	left: 0;
 }
 
-.label:hover {
+/* .label:hover {
 	background-color: rgba(31, 30, 30, 0.45);
 }
 
 .label:hover > .icon,
 .label:hover > .text {
 	visibility: visible;
-}
+} */
 
 .icon {
 	visibility: collapse;

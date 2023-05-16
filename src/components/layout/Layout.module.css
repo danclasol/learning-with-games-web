@@ -9,9 +9,9 @@
 		max-width: 75rem;
 	}
 }
-
+/* 
 @media all and (display-mode: fullscreen) {
 	.main {
 		max-width: none;
 	}
-}
+} */
