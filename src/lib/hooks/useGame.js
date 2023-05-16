@@ -16,13 +16,11 @@ export const useGame = ({ id }) => {
 	};
 
 	const setError = () => {
-		// console.log(err);
-
 		setGame({ data: undefined, loading: false, error: true });
 	};
 
 	const refresh = () => {
-		loadGame({ id, setData, setError });
+		loadGame({ accessToken, id, setData, setError });
 	};
 
 	useEffect(() => {
@@ -54,9 +52,7 @@ export const useGame = ({ id }) => {
 };
 
 const loadGame = async ({ accessToken, id, setData, setError, signal }) => {
-	const { game, aborted, error } = await getGame({ accessToken, id, signal });
-
-	// console.log('loadGames', { error });
+	const { game, aborted } = await getGame({ accessToken, id, signal });
 
 	if (aborted) return;
 

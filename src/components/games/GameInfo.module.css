@@ -1,0 +1,92 @@
+.info {
+	position: relative;
+	height: 100%;
+	display: flex;
+	column-gap: 1rem;
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding: 1rem;
+	padding-right: 3rem;
+	background-color: var(--card-color-front);
+}
+
+.info__image {
+	width: 100%;
+	min-width: 7rem;
+	max-width: 7rem;
+}
+
+@media screen and (min-width: 768px) {
+	.info__image {
+		margin: 0;
+	}
+}
+
+.image {
+	padding: 0.8rem;
+}
+
+.info__text {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.title,
+.type,
+.group {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	line-height: normal;
+}
+
+.title {
+	width: 100%;
+	margin: 0;
+	color: var(--text-color);
+	font-size: var(--title-3);
+}
+
+@media screen and (min-width: 768px) {
+	.title {
+		font-size: var(--title-2);
+	}
+}
+
+.type,
+.group {
+	font-size: var(--text-color);
+	font-weight: normal;
+	font-size: var(--text-sm);
+	margin: 0;
+
+	border-radius: 1rem;
+	border: 1px solid black;
+	padding: 0.2rem 0.8rem;
+}
+
+.type {
+	background-color: lightgreen;
+}
+
+.group {
+	background-color: khaki;
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 0.2rem;
+	column-gap: 0.3rem;
+}
+
+.actions {
+	position: absolute;
+	top: 0.6rem;
+	right: 0.6rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	row-gap: 0.5rem;
+}

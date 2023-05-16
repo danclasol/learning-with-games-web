@@ -15,7 +15,7 @@ const GAMES_TYPE_MAPPER = {
 const GameEditPage = () => {
 	const { id } = useParams();
 
-	const { game, loading, error } = useGame({ id });
+	const { game, loading, error, refresh } = useGame({ id });
 
 	if (loading) {
 		return <Loading label='Loading...' />;
@@ -30,7 +30,7 @@ const GameEditPage = () => {
 
 	const GameEditComponent = GAMES_TYPE_MAPPER[game.type];
 
-	return <GameEditComponent game={game} />;
+	return <GameEditComponent game={game} refresh={refresh} />;
 };
 
 export default GameEditPage;
