@@ -7,7 +7,7 @@ export const LIST_GAMES = [
 export const IMAGES_GAMES_TYPES = {
 	'finding-pairs': '/images/game-cards.png',
 	hangman: '/images/game-letters.png',
-	quiz: '/images/game-questions.png'
+	quiz: '/images/game-quiz.png'
 };
 
 export const getTypeNameGame = type => {
