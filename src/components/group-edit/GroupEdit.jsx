@@ -6,6 +6,7 @@ import GroupEditForm from '../group-form/GroupEditForm';
 import PencilIcon from '../icons/PencilIcon';
 import Modal from '../shared/Modal';
 import styles from './GroupEdit.module.css';
+import GroupFolder from './GroupFolder';
 
 const GroupEdit = ({ group, refresh }) => {
 	const { modalContent, closeModal, openEditModal } = useModalGroup({
@@ -45,8 +46,12 @@ const GroupEdit = ({ group, refresh }) => {
 							onClick={openEditModal}
 						/>
 					</div>
-
 					<div className={styles.games}>
+						<div className={styles.folders}>
+							<GroupFolder name='Lesson 1' />
+							<GroupFolder name='Lesson 2' />
+							<GroupFolder name='Lesson 3' />
+						</div>
 						<GamesList groupId={group.id} />
 					</div>
 				</div>

@@ -115,3 +115,8 @@
 	align-items: center;
 	row-gap: 1rem;
 }
+
+.folders {
+	display: flex;
+	column-gap: 0.5rem;
+}

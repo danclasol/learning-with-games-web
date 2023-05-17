@@ -36,74 +36,78 @@ const GameEdit = ({ game, refresh }) => {
 		append({ question: '', points: 0, options: [{ text: '' }] });
 	};
 
-	const onCleanInput = nameInput => {
-		setValue(nameInput, '', { shouldDirty: true });
-	};
-
 	return (
 		<section className={styles.container}>
 			<GameInfo game={game} refresh={refresh} />
 
-			<div className={styles.questions}>
-				<FormProvider
-					register={register}
-					control={control}
-					watch={watch}
-					setValue={setValue}
-					errors={errors}
-					clearErrors={clearErrors}
-					remove={remove}
-				>
-					<form
-						id='form'
-						className={styles.form}
-						onSubmit={handleSubmit(async data => {
-							await handleSubmitForm({
-								accessToken,
-								id: game.id,
-								data,
-								reset
-							});
-						})}
-					>
-						<div className={styles.actions}>
-							<div className={styles.actions__left}>
-								<Button type='button' onClick={handleAddQuestionClick}>
-									<AddIcon className={styles.icon} />
-									<span>Add Word</span>
-								</Button>
-							</div>
-							<div className={styles.actions__right}>
-								<Button
-									disabled={isSubmitting || !isDirty}
-									type='submit'
-									form='form'
-								>
-									<SaveIcon className={styles.icon} />
-									<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
-								</Button>
+			<div className={styles.edit}>
+				<div className={styles.edit__actions}>
+					<div className={styles.actions__buttons}>
+						<Button
+							disabled={isSubmitting || !isDirty}
+							type='submit'
+							form='form'
+						>
+							<SaveIcon className={styles.icon} />
+							<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
+						</Button>
+					</div>
+					<div className={styles.actions__buttons}>
+						<Button
+							disabled={isSubmitting || !isDirty}
+							kind='secondary'
+							onClick={() => reset()}
+						>
+							<CloseIcon className={styles.icon} />
+							<span>Reset</span>
+						</Button>
+					</div>
+				</div>
 
-								<Button
-									disabled={isSubmitting || !isDirty}
-									kind='secondary'
-									onClick={() => reset()}
-								>
-									<CloseIcon className={styles.icon} />
-									<span>Reset</span>
-								</Button>
+				<div className={styles.questions}>
+					<FormProvider
+						register={register}
+						control={control}
+						watch={watch}
+						setValue={setValue}
+						errors={errors}
+						clearErrors={clearErrors}
+						remove={remove}
+					>
+						<form
+							id='form'
+							className={styles.form}
+							onSubmit={handleSubmit(async data => {
+								await handleSubmitForm({
+									accessToken,
+									id: game.id,
+									data,
+									reset
+								});
+							})}
+						>
+							<div className={styles.list}>
+								<div className={styles.questions__actions}>
+									<div className={styles.actions__buttons}>
+										<Button type='button' onClick={handleAddQuestionClick}>
+											<AddIcon className={styles.icon} />
+											<span>Add Question</span>
+										</Button>
+									</div>
+								</div>
+								<DragAndDropContextProvider swap={swap}>
+									<div className={styles.questions__list}>
+										{fields.map((field, index) => (
+											<Draggable key={field.id} index={index} swap={swap}>
+												<QuestionCardEdit index={index} />
+											</Draggable>
+										))}
+									</div>
+								</DragAndDropContextProvider>
 							</div>
-						</div>
-						<DragAndDropContextProvider swap={swap}>
-							<div className={styles.questions__list}>
-								{fields.map((field, index) => (
-									<Draggable key={field.id} index={index} swap={swap}>
-										<QuestionCardEdit index={index} />
-									</Draggable>
-								))}
-							</div>
-						</DragAndDropContextProvider>
-					</form>
-				</FormProvider>
+						</form>
+					</FormProvider>
+				</div>
 			</div>
 		</section>
 	);
