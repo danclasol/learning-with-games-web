@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { getUserGames } from '../api/games';
 import { AuthContext } from '../context/AuthContext';
 
-export const useGames = ({ groupId, filters }) => {
+export const useGames = ({ groupId, collectionId, filters }) => {
 	const { accessToken } = useContext(AuthContext);
 
 	const [games, setGames] = useState({
@@ -23,12 +23,24 @@ export const useGames = ({ groupId, filters }) => {
 	const setError = () =>
 		setGames({ data: [], count: 0, loading: false, error: true });
 
+	const refresh = () => {
+		loadGames({
+			accessToken,
+			groupId,
+			collectionId,
+			setData,
+			setError,
+			filters
+		});
+	};
+
 	useEffect(() => {
 		const controller = new AbortController();
 
 		loadGames({
 			accessToken,
 			groupId,
+			collectionId,
 			setData,
 			setError,
 			filters,
@@ -36,19 +48,21 @@ export const useGames = ({ groupId, filters }) => {
 		});
 
 		return () => controller.abort();
-	}, [accessToken, groupId, filters]);
+	}, [accessToken, groupId, collectionId, filters]);
 
 	return {
 		games: games.data,
 		count: games.count,
 		error: games.error,
-		loading: games.loading
+		loading: games.loading,
+		refresh
 	};
 };
 
 const loadGames = async ({
 	accessToken,
 	groupId,
+	collectionId,
 	setData,
 	setError,
 	filters,
@@ -57,6 +71,7 @@ const loadGames = async ({
 	const { games, count, aborted, error } = await getUserGames({
 		accessToken,
 		groupId,
+		collectionId,
 		filters,
 		signal
 	});

@@ -1,4 +1,4 @@
-const ArrowSort = props => {
+const SortIcon = props => {
 	return (
 		<svg
 			{...props}
@@ -11,4 +11,4 @@ const ArrowSort = props => {
 	);
 };
 
-export default ArrowSort;
+export default SortIcon;

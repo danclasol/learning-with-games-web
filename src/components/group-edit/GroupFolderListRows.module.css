@@ -1,0 +1,19 @@
+.rows {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.6rem;
+	flex-wrap: wrap;
+}
+
+@media screen and (min-width: 800px) {
+	.rows {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 1rem 0.5rem;
+	}
+}
+
+.text {
+	margin: 0.5rem 0rem;
+}

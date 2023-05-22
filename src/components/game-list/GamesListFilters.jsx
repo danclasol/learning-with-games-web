@@ -4,8 +4,9 @@ import Button from '../buttons/Button';
 import InputSearch from '../forms/InputSearch';
 import SelectSearch from '../forms/SelectSearch';
 import GameCreateForm from '../game-form/GameCreateForm';
-import ArrowSort from '../icons/ArrowSort';
 import FilterIcon from '../icons/FilterIcon';
+import GameIcon from '../icons/GameIcon';
+import SortIcon from '../icons/SortIcon';
 import Modal from '../shared/Modal';
 import styles from './GamesListFilters.module.css';
 
@@ -67,7 +68,7 @@ const GamesListFilters = ({
 					</SelectSearch>
 				</div>
 				<div className={styles.filter}>
-					<ArrowSort className={styles.icon} />
+					<SortIcon className={styles.icon} />
 					<SelectSearch
 						value={sortBy}
 						className={styles.filter}
@@ -82,7 +83,10 @@ const GamesListFilters = ({
 			</div>
 
 			<div className={styles.actions}>
-				<Button onClick={openCreateModal}>Create game</Button>
+				<Button onClick={openCreateModal}>
+					<GameIcon className={styles.icon} />
+					<span>Create game</span>
+				</Button>
 			</div>
 		</div>
 	);

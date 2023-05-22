@@ -13,6 +13,7 @@ const SORT_MAPPER = {
 export const getUserGames = async ({
 	accessToken,
 	groupId,
+	collectionId,
 	filters,
 	signal
 }) => {
@@ -21,6 +22,10 @@ export const getUserGames = async ({
 
 	if (groupId) {
 		url.searchParams.append('groupId', groupId);
+	}
+
+	if (collectionId) {
+		url.searchParams.append('collectionId', collectionId);
 	}
 
 	if (filters.page && filters.itemsPerPage) {

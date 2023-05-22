@@ -3,7 +3,7 @@ import Button from '../buttons/Button';
 import InputSearch from '../forms/InputSearch';
 import SelectSearch from '../forms/SelectSearch';
 import GroupCreateForm from '../group-form/GroupCreateForm';
-import ArrowSort from '../icons/ArrowSort';
+import SortIcon from '../icons/SortIcon';
 import Modal from '../shared/Modal';
 import styles from './GroupsListFilters.module.css';
 
@@ -37,7 +37,7 @@ const GroupsListFilters = ({ search, sortBy, setSearch, setSortBy, reset }) => {
 				/>
 
 				<div className={styles.filter}>
-					<ArrowSort className={styles.icon} />
+					<SortIcon className={styles.icon} />
 					<SelectSearch
 						value={sortBy}
 						className={styles.filter}

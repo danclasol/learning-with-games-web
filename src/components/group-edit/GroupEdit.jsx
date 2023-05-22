@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import IconButton from '../buttons/IconButton';
 import InputImage from '../forms/InputImage';
-import GamesList from '../game-list/GamesList';
 import GroupEditForm from '../group-form/GroupEditForm';
 import PencilIcon from '../icons/PencilIcon';
 import Modal from '../shared/Modal';
 import styles from './GroupEdit.module.css';
+import GroupFolderList from './GroupFolderList';
 
 const GroupEdit = ({ group, refresh }) => {
 	const { modalContent, closeModal, openEditModal } = useModalGroup({
@@ -45,7 +45,11 @@ const GroupEdit = ({ group, refresh }) => {
 							onClick={openEditModal}
 						/>
 					</div>
-					<GamesList groupId={group.id} />
+					<GroupFolderList
+						groupId={group.id}
+						foldersInit={group?.collections}
+						reset={refresh}
+					/>
 				</div>
 			</section>
 		</>

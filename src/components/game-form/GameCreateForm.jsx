@@ -9,17 +9,17 @@ import InputSelect from '../forms/InputSelect';
 import InputText from '../forms/InputText';
 import styles from './GameCreateForm.module.css';
 
-const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
+const GameCreateForm = ({ groupId, collectionId, closeModal, onSuccess }) => {
 	const { accessToken } = useContext(AuthContext);
-
 	const { groups } = useGroups({});
-
 	const {
 		register,
 		handleSubmit,
 		setValue,
 		formState: { errors, isSubmitting, isValid }
-	} = useForm({ defaultValues: { title: '', type: '', groupId } });
+	} = useForm({
+		defaultValues: { title: '', type: '', groupId, collectionId }
+	});
 
 	const onCleanInput = nameInput => {
 		setValue(nameInput, '', { shouldDirty: true });
@@ -28,7 +28,6 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 	return (
 		<section className={styles.wrapper}>
 			<h3 className={styles.title}>Create New Game</h3>
-
 			<form
 				className={styles.form}
 				onSubmit={handleSubmit(async data => {
@@ -75,7 +74,6 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 						))}
 					</InputSelect>
 				</div>
-
 				{!groupId && (
 					<div className={styles.form__field}>
 						<InputSelect
@@ -93,7 +91,6 @@ const GameCreateForm = ({ groupId, closeModal, onSuccess }) => {
 						</InputSelect>
 					</div>
 				)}
-
 				<div className={styles.actions}>
 					<Button disabled={isSubmitting || !isValid}>
 						{isSubmitting ? 'Creating...' : 'Create'}
