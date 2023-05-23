@@ -3,6 +3,7 @@ import Button from '../buttons/Button';
 import InputSearch from '../forms/InputSearch';
 import SelectSearch from '../forms/SelectSearch';
 import GroupCreateForm from '../group-form/GroupCreateForm';
+import GroupIcon from '../icons/GroupIcon';
 import SortIcon from '../icons/SortIcon';
 import Modal from '../shared/Modal';
 import styles from './GroupsListFilters.module.css';
@@ -50,7 +51,10 @@ const GroupsListFilters = ({ search, sortBy, setSearch, setSortBy, reset }) => {
 				</div>
 			</div>
 			<div className={styles.actions}>
-				<Button onClick={openCreateModal}>Create group</Button>
+				<Button onClick={openCreateModal}>
+					<GroupIcon className={styles.icon} />
+					<span>Create group</span>
+				</Button>
 			</div>
 		</div>
 	);

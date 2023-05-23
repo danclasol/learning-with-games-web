@@ -46,9 +46,10 @@
 		flex-grow: 2;
 	}
 }
+
 .icon {
 	color: black;
-	height: 1.5rem;
+	height: 1.4rem;
 }
 
 .actions {

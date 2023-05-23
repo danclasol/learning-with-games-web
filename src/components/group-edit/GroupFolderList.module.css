@@ -12,7 +12,7 @@
 
 @media screen and (min-width: 800px) {
 	.container {
-		row-gap: 1rem;
+		row-gap: 2rem;
 		padding: 1rem 3.5rem 2rem;
 	}
 }

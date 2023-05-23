@@ -17,40 +17,38 @@ const GroupEdit = ({ group, refresh }) => {
 	return (
 		<>
 			<Modal onClose={closeModal}>{modalContent}</Modal>
-			<section className={styles.container}>
-				<div className={styles.group}>
-					<div className={styles.info}>
-						<div className={styles.info__image}>
-							<InputImage
-								image={group?.image || '/images/group.svg'}
-								className={styles.image}
-							/>
-						</div>
-
-						<div className={styles.info__text}>
-							<h2 className={styles.name}>{group.name}</h2>
-							<div className={styles.tags}>
-								{group.level && (
-									<span className={styles.level}>{`${group.level}`}</span>
-								)}
-								{group.course && (
-									<span className={styles.course}>{`${group.course}`}</span>
-								)}
-							</div>
-						</div>
-						<IconButton
-							icon={PencilIcon}
-							filled
-							className={styles.icon__edit}
-							onClick={openEditModal}
+			<section className={styles.group}>
+				<div className={styles.info}>
+					<div className={styles.info__image}>
+						<InputImage
+							image={group?.image || '/images/group.svg'}
+							className={styles.image}
 						/>
 					</div>
-					<GroupFolderList
-						groupId={group.id}
-						foldersInit={group?.collections}
-						reset={refresh}
+
+					<div className={styles.info__text}>
+						<h2 className={styles.name}>{group.name}</h2>
+						<div className={styles.tags}>
+							{group.level && (
+								<span className={styles.level}>{`${group.level}`}</span>
+							)}
+							{group.course && (
+								<span className={styles.course}>{`${group.course}`}</span>
+							)}
+						</div>
+					</div>
+					<IconButton
+						icon={PencilIcon}
+						filled
+						className={styles.icon__edit}
+						onClick={openEditModal}
 					/>
 				</div>
+				<GroupFolderList
+					groupId={group.id}
+					foldersInit={group?.collections}
+					reset={refresh}
+				/>
 			</section>
 		</>
 	);
