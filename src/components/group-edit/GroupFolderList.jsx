@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import { useGames } from '../../lib/hooks/useGames';
 import { useGamesFilters } from '../../lib/hooks/useGamesFilters';
-import Button from '../buttons/Button';
-import GameCreateForm from '../game-form/GameCreateForm';
+import GamesListFilters from '../game-list/GamesListFilters';
 import GamesListRows from '../game-list/GamesListRows';
 import PageSelector from '../game-list/PageSelector';
 import FolderCreateForm from '../group-folder-form/FolderCreateForm';
+
+import Button from '../buttons/Button';
+import IconButton from '../buttons/IconButton';
+import GameCreateForm from '../game-form/GameCreateForm';
+import CloseIcon from '../icons/CloseIcon';
 import FolderAddIcon from '../icons/FolderAddIcon';
 import GameIcon from '../icons/GameIcon';
+import SearchIcon from '../icons/SearchIcon';
 import Modal from '../shared/Modal';
 import styles from './GroupFolderList.module.css';
 import GroupFolderListRows from './GroupFolderListRows';
@@ -16,6 +21,8 @@ import PathFolder from './PathFolder';
 const GroupFolderList = ({ groupId, foldersInit = [], reset }) => {
 	const [path, setPath] = useState([]);
 	const [parentId, setParentId] = useState();
+	const [showGamesFilters, setShowGamesFilters] = useState(false);
+
 	const { filters, setSearch, setType, setSortBy, setPage, resetFilters } =
 		useGamesFilters();
 
@@ -33,10 +40,10 @@ const GroupFolderList = ({ groupId, foldersInit = [], reset }) => {
 
 	const {
 		modalContent,
-		closeModal,
 		openCreateFolderModal,
-		openCreateGameModal
-	} = useModalFolder({
+		openCreateGameModal,
+		closeModal
+	} = useModal({
 		groupId,
 		parentId,
 		reset,
@@ -67,6 +74,14 @@ const GroupFolderList = ({ groupId, foldersInit = [], reset }) => {
 		a.name.localeCompare(b.name)
 	);
 
+	const toggleShowGamesFilters = () => {
+		setShowGamesFilters(!showGamesFilters);
+
+		if (showGamesFilters) {
+			resetFilters();
+		}
+	};
+
 	return (
 		<>
 			<Modal onClose={closeModal}>{modalContent}</Modal>
@@ -74,11 +89,13 @@ const GroupFolderList = ({ groupId, foldersInit = [], reset }) => {
 				<div className={styles.folders}>
 					<div className={styles.folders__title}>
 						<PathFolder path={path} goToFolder={goToFolder} />
-						<div className={styles.folders__actions}>
-							<Button onClick={openCreateFolderModal}>
-								<FolderAddIcon className={styles.icon} />
-								<span>Create Folder</span>
-							</Button>
+						<div className={styles.folders__header}>
+							<div className={styles.actions}>
+								<Button onClick={openCreateFolderModal}>
+									<FolderAddIcon className={styles.icon} />
+									<span>Create Folder</span>
+								</Button>
+							</div>
 						</div>
 					</div>
 					<div className={styles.folders__list}>
@@ -94,13 +111,33 @@ const GroupFolderList = ({ groupId, foldersInit = [], reset }) => {
 				<div className={styles.games}>
 					<div className={styles.games__title}>
 						<h2 className={styles.title}>Games</h2>
-						<div className={styles.folders__actions}>
-							<Button onClick={openCreateGameModal}>
-								<GameIcon className={styles.icon} />
-								<span>Create Game</span>
-							</Button>
+						<div className={styles.games__header}>
+							<div className={styles.actions}>
+								<IconButton
+									icon={!showGamesFilters ? SearchIcon : CloseIcon}
+									onClick={toggleShowGamesFilters}
+									filled={showGamesFilters}
+								/>
+								<Button onClick={openCreateGameModal}>
+									<GameIcon className={styles.icon} />
+									<span>Create game</span>
+								</Button>
+							</div>
 						</div>
 					</div>
+					{showGamesFilters && (
+						<GamesListFilters
+							search={filters.search}
+							type={filters.type}
+							sortBy={filters.sortBy}
+							setSearch={setSearch}
+							setType={setType}
+							setSortBy={setSortBy}
+							reset={resetFilters}
+							groupId={groupId}
+							collectionId={parentId}
+						/>
+					)}
 					<div className={styles.games__list}>
 						<GamesListRows
 							games={games}
@@ -123,7 +160,7 @@ const GroupFolderList = ({ groupId, foldersInit = [], reset }) => {
 	);
 };
 
-const useModalFolder = ({ groupId, parentId, reset, refreshGames }) => {
+const useModal = ({ groupId, parentId, reset, refreshGames }) => {
 	const [modalContent, setModalContent] = useState();
 
 	const closeModal = () => {
@@ -155,8 +192,8 @@ const useModalFolder = ({ groupId, parentId, reset, refreshGames }) => {
 	return {
 		modalContent,
 		closeModal,
-		openCreateFolderModal,
-		openCreateGameModal
+		openCreateGameModal,
+		openCreateFolderModal
 	};
 };
 
