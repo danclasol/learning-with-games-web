@@ -28,6 +28,7 @@
 	border: 1px solid black;
 	border-radius: 1rem;
 	padding: 1rem;
+	padding-right: 3rem;
 	background-color: var(--card-color-front);
 }
 
@@ -97,6 +98,8 @@
 
 .tags {
 	display: flex;
+	flex-wrap: wrap;
+	row-gap: 0.2rem;
 	column-gap: 0.3rem;
 }
 
