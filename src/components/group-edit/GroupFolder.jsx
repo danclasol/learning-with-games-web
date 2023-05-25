@@ -18,19 +18,27 @@ const GroupFolder = ({ groupId, collectionId, name, reset, openFolder }) => {
 			reset
 		});
 
+	const handleOpenFolder = () => {
+		openFolder({ id: collectionId, name });
+	};
+
 	return (
 		<>
 			<Modal onClose={closeModal}>{modalContent}</Modal>
-			<div
-				className={styles.card}
-				onDoubleClick={() => openFolder({ id: collectionId, name })}
-			>
+			<div className={styles.card} onDoubleClick={handleOpenFolder()}>
 				<img className={styles.image} src='/images/folder.svg' />
 				<div className={styles.card__content}>
 					<span className={styles.text}>{name}</span>
-
 					<div className={styles.actions}>
-						<IconButton icon={DotsIcon} onClick={toggleDropdown} />
+						<IconButton
+							icon={DotsIcon}
+							onDoubleClick={ev => ev.stopPropagation()}
+							onClick={ev => {
+								ev.stopPropagation();
+								console.log('Folder Actions');
+								toggleDropdown();
+							}}
+						/>
 					</div>
 				</div>
 				{showDropdown && (
@@ -39,6 +47,9 @@ const GroupFolder = ({ groupId, collectionId, name, reset, openFolder }) => {
 						className={styles.list}
 						onClick={toggleDropdown}
 					>
+						<li className={styles.list__item} onClick={handleOpenFolder}>
+							Open
+						</li>
 						<li className={styles.list__item} onClick={openUpdateModal}>
 							Rename
 						</li>
