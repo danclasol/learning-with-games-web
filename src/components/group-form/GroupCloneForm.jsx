@@ -16,7 +16,12 @@ const GroupCloneForm = ({ id, group, closeModal, onSuccess }) => {
 		setValue,
 		formState: { errors, isSubmitting, isValid }
 	} = useForm({
-		defaultValues: { name: '', level: group.level, course: group.course }
+		defaultValues: {
+			name: '',
+			level: group.level,
+			course: group.course,
+			collections: group.collections
+		}
 	});
 
 	const onCleanInput = nameInput => {
@@ -114,6 +119,8 @@ const handleSubmitForm = async ({
 	closeModal,
 	onSuccess
 }) => {
+	console.log({ data });
+
 	const success = await cloneGroup({
 		accessToken,
 		id,
