@@ -25,7 +25,7 @@ const GroupFolder = ({ groupId, collectionId, name, reset, openFolder }) => {
 	return (
 		<>
 			<Modal onClose={closeModal}>{modalContent}</Modal>
-			<div className={styles.card} onDoubleClick={handleOpenFolder()}>
+			<div className={styles.card} onDoubleClick={handleOpenFolder}>
 				<img className={styles.image} src='/images/folder.svg' />
 				<div className={styles.card__content}>
 					<span className={styles.text}>{name}</span>
