@@ -33,11 +33,7 @@ const GroupFolder = ({ groupId, collectionId, name, reset, openFolder }) => {
 						<IconButton
 							icon={DotsIcon}
 							onDoubleClick={ev => ev.stopPropagation()}
-							onClick={ev => {
-								ev.stopPropagation();
-								console.log('Folder Actions');
-								toggleDropdown();
-							}}
+							onClick={toggleDropdown}
 						/>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import IconButton from '../buttons/IconButton.jsx';
 import CloseIcon from '../icons/CloseIcon.jsx';
@@ -19,16 +19,6 @@ const Modal = ({ kind = 'light', className, onClose, children }) => {
 			onClose();
 		}
 	};
-
-	useEffect(() => {
-		if (!children) return;
-
-		document.body.classList.add(styles.bodyOverflow);
-
-		return () => {
-			document.body.classList.remove(styles.bodyOverflow);
-		};
-	}, [children]);
 
 	if (!children) {
 		return;

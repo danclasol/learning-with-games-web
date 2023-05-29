@@ -23,8 +23,26 @@
 	font-size: var(--title-2);
 }
 
+.groups__header {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	row-gap: 1rem;
+}
+
+@media screen and (min-width: 800px) {
+	.groups__header {
+		flex-direction: row;
+		column-gap: 2.5rem;
+	}
+}
 .groups__list {
 	display: flex;
 	flex-direction: column;
 	row-gap: 2rem;
+}
+
+.icon {
+	width: 1.4rem;
+	height: 1.4rem;
 }
