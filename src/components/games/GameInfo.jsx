@@ -37,17 +37,11 @@ const GameInfo = ({ game, refresh }) => {
 					</div>
 				</div>
 				<div className={styles.actions}>
-					<IconButton
-						icon={PencilIcon}
-						filled
-						className={styles.icon__edit}
-						onClick={openEditModal}
-					/>
+					<IconButton icon={PencilIcon} filled onClick={openEditModal} />
 					<LinkIconButton
 						icon={PlayIcon}
 						filled
 						kind='secondary'
-						className={styles.icon__play}
 						to={`/games/${game.id}/play`}
 					/>
 				</div>

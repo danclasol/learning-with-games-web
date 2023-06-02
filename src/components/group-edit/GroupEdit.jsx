@@ -37,12 +37,9 @@ const GroupEdit = ({ group, refresh }) => {
 							)}
 						</div>
 					</div>
-					<IconButton
-						icon={PencilIcon}
-						filled
-						className={styles.icon__edit}
-						onClick={openEditModal}
-					/>
+					<div className={styles.actions}>
+						<IconButton icon={PencilIcon} filled onClick={openEditModal} />
+					</div>
 				</div>
 				<GroupFolderList
 					groupId={group.id}
