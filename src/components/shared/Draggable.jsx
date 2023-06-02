@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { DragAndDropContext } from '../../lib/context/DragAndDropContextProvider';
 import styles from './Draggable.module.css';
 
-const Draggable = ({ index, swap, children }) => {
+const Draggable = ({ item: Item, index, swap }) => {
 	const [isDraggable, setIsDraggable] = useState(false);
 
 	const { dragItem, dragOverItem, drag, dragEnter, dragEnd } =
@@ -46,7 +46,7 @@ const Draggable = ({ index, swap, children }) => {
 			onDragOver={ev => ev.preventDefault()}
 			className={styleCard}
 		>
-			{React.cloneElement(children, { toggleIsDraggable })}
+			<Item index={index} toggleIsDraggable={toggleIsDraggable} />
 		</div>
 	);
 };

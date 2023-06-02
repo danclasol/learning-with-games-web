@@ -98,9 +98,12 @@ const GameEdit = ({ game, refresh }) => {
 								<DragAndDropContextProvider swap={swap}>
 									<div className={styles.questions__list}>
 										{fields.map((field, index) => (
-											<Draggable key={field.id} index={index} swap={swap}>
-												<QuestionCardEdit index={index} />
-											</Draggable>
+											<Draggable
+												key={field.id}
+												index={index}
+												swap={swap}
+												item={QuestionCardEdit}
+											/>
 										))}
 									</div>
 								</DragAndDropContextProvider>
