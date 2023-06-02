@@ -6,13 +6,23 @@ const KIND_CLASSNAME = {
 	secondary: styles.secondary
 };
 
-const LinkButton = ({ kind = 'primary', to, className, ...props }) => {
+const LinkButton = ({
+	icon: Icon,
+	kind = 'primary',
+	to,
+	className,
+	children,
+	...props
+}) => {
 	return (
 		<Link
 			{...props}
 			to={to}
 			className={`${styles.button} ${KIND_CLASSNAME[kind]} ${className || ''}}`}
-		></Link>
+		>
+			{Icon && <Icon className={styles.icon} />}
+			{children}
+		</Link>
 	);
 };
 

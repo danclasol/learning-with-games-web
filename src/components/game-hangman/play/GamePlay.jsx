@@ -97,9 +97,8 @@ const GamePlay = ({ game }) => {
 									The game doesn&apos;t have any words.
 								</p>
 								<div>
-									<LinkButton to={`/games/${game.id}/edit`}>
-										<PencilIcon className={styles.button__icon} />
-										<span>Add words</span>
+									<LinkButton to={`/games/${game.id}/edit`} icon={PencilIcon}>
+										Add words
 									</LinkButton>
 								</div>
 							</div>
@@ -123,9 +122,11 @@ const GamePlay = ({ game }) => {
 								<CounterTries maxTries={maxTries} tries={moves} />
 								{isFinished && (
 									<div className={styles.actions}>
-										<Button onClick={() => moveToWord(currentWordIndex)}>
-											<RefreshIcon className={styles.icon} />
-											<span>Retry</span>
+										<Button
+											onClick={() => moveToWord(currentWordIndex)}
+											icon={RefreshIcon}
+										>
+											Retry
 										</Button>
 									</div>
 								)}

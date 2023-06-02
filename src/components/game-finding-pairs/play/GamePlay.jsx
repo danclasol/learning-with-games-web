@@ -116,9 +116,11 @@ const GamePlay = ({ game }) => {
 											The game doesn&apos;t have any pairs.
 										</p>
 										<div>
-											<LinkButton to={`/games/${game.id}/edit`}>
-												<PencilIcon className={styles.button__icon} />
-												<span>Add pair</span>
+											<LinkButton
+												to={`/games/${game.id}/edit`}
+												icon={PencilIcon}
+											>
+												Add pair
 											</LinkButton>
 										</div>
 									</>
@@ -140,9 +142,8 @@ const GamePlay = ({ game }) => {
 							/>
 							{isFinished && (
 								<div className={styles.actions}>
-									<Button onClick={resetGame}>
-										<RefreshIcon className={styles.icon} />
-										<span>Retry</span>
+									<Button onClick={resetGame} icon={RefreshIcon}>
+										Retry
 									</Button>
 								</div>
 							)}

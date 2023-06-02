@@ -50,3 +50,8 @@
 .secondary:hover {
 	background-color: var(--btn-color-secondary-hover);
 }
+
+.icon {
+	width: 1.2rem;
+	height: 1.2rem;
+}

@@ -53,9 +53,9 @@ const GameEdit = ({ game, refresh }) => {
 							disabled={isSubmitting || !isDirty}
 							type='submit'
 							form='form'
+							icon={SaveIcon}
 						>
-							<SaveIcon className={styles.icon} />
-							<span>{`${isSubmitting ? 'Submitting' : 'Save'}`}</span>
+							{`${isSubmitting ? 'Submitting' : 'Save'}`}
 						</Button>
 					</div>
 					<div className={styles.actions__buttons}>
@@ -63,9 +63,9 @@ const GameEdit = ({ game, refresh }) => {
 							disabled={isSubmitting || !isDirty}
 							kind='secondary'
 							onClick={() => reset()}
+							icon={CloseIcon}
 						>
-							<CloseIcon className={styles.icon} />
-							<span>Reset</span>
+							Reset
 						</Button>
 					</div>
 				</div>
@@ -111,9 +111,12 @@ const GameEdit = ({ game, refresh }) => {
 							<div className={styles.list}>
 								<div className={styles.pairs__actions}>
 									<div className={styles.actions__buttons}>
-										<Button type='button' onClick={handleAddPairClick}>
-											<AddIcon className={styles.icon} />
-											<span>Add Word</span>
+										<Button
+											type='button'
+											onClick={handleAddPairClick}
+											icon={AddIcon}
+										>
+											Add Word
 										</Button>
 									</div>
 								</div>

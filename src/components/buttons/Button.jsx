@@ -5,12 +5,21 @@ const KIND_CLASSNAME = {
 	secondary: styles.secondary
 };
 
-const Button = ({ kind = 'primary', className, ...props }) => {
+const Button = ({
+	icon: Icon,
+	kind = 'primary',
+	className,
+	children,
+	...props
+}) => {
 	return (
 		<button
 			{...props}
 			className={`${styles.button} ${KIND_CLASSNAME[kind]} ${className || ''}}`}
-		></button>
+		>
+			{Icon && <Icon className={styles.icon} />}
+			{children}
+		</button>
 	);
 };
 

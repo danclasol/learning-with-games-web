@@ -36,9 +36,8 @@ const GroupsList = () => {
 						reset={resetFilters}
 					/>
 					<div className={styles.actions}>
-						<Button onClick={openCreateModal}>
-							<GroupIcon className={styles.icon} />
-							<span>Create group</span>
+						<Button onClick={openCreateModal} icon={GroupIcon}>
+							Create group
 						</Button>
 					</div>
 				</div>

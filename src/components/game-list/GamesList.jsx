@@ -41,9 +41,8 @@ const GamesList = ({ groupId }) => {
 						groupId={groupId}
 					/>
 					<div className={styles.actions}>
-						<Button onClick={openCreateModal}>
-							<GameIcon className={styles.icon} />
-							<span>Create game</span>
+						<Button onClick={openCreateModal} icon={GameIcon}>
+							Create game
 						</Button>
 					</div>
 				</div>

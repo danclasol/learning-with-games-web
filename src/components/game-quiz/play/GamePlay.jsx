@@ -49,9 +49,8 @@ const GamePlay = ({ game }) => {
 										The game doesn&apos;t have any questions.
 									</p>
 									<div>
-										<LinkButton to={`/games/${game.id}/edit`}>
-											<PencilIcon className={styles.button__icon} />
-											<span>Add question</span>
+										<LinkButton to={`/games/${game.id}/edit`} icon={PencilIcon}>
+											Add question
 										</LinkButton>
 									</div>
 								</div>
@@ -91,9 +90,8 @@ const GamePlay = ({ game }) => {
 									</div>
 									{isLastQuestion && isResolved && (
 										<div className={styles.actions}>
-											<Button onClick={resetGame}>
-												<RefreshIcon className={styles.icon} />
-												<span>Retry</span>
+											<Button onClick={resetGame} icon={RefreshIcon}>
+												Retry
 											</Button>
 										</div>
 									)}
