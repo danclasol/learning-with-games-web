@@ -91,9 +91,8 @@ const GroupFolderList = ({ groupId, foldersInit = [], reset }) => {
 						<PathFolder path={path} goToFolder={goToFolder} />
 						<div className={styles.folders__header}>
 							<div className={styles.actions}>
-								<Button onClick={openCreateFolderModal}>
-									<FolderAddIcon className={styles.icon} />
-									<span>Create Folder</span>
+								<Button onClick={openCreateFolderModal} icon={FolderAddIcon}>
+									Create Folder
 								</Button>
 							</div>
 						</div>
@@ -118,9 +117,8 @@ const GroupFolderList = ({ groupId, foldersInit = [], reset }) => {
 									onClick={toggleShowGamesFilters}
 									filled={showGamesFilters}
 								/>
-								<Button onClick={openCreateGameModal}>
-									<GameIcon className={styles.icon} />
-									<span>Create game</span>
+								<Button onClick={openCreateGameModal} icon={GameIcon}>
+									Create game
 								</Button>
 							</div>
 						</div>

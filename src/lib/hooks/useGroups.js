@@ -23,6 +23,15 @@ export const useGroups = ({ filters }) => {
 	const setError = () =>
 		setGroups({ data: [], count: 0, loading: false, error: true });
 
+	const refresh = () => {
+		loadGroups({
+			accessToken,
+			setData,
+			setError,
+			filters
+		});
+	};
+
 	useEffect(() => {
 		const controller = new AbortController();
 
@@ -41,7 +50,8 @@ export const useGroups = ({ filters }) => {
 		groups: groups.data,
 		count: groups.count,
 		error: groups.error,
-		loading: groups.loading
+		loading: groups.loading,
+		refresh
 	};
 };
 

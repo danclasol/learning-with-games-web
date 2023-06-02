@@ -1,18 +1,9 @@
-import { useState } from 'react';
-import Button from '../buttons/Button';
 import InputSearch from '../forms/InputSearch';
 import SelectSearch from '../forms/SelectSearch';
-import GroupCreateForm from '../group-form/GroupCreateForm';
-import GroupIcon from '../icons/GroupIcon';
 import SortIcon from '../icons/SortIcon';
-import Modal from '../shared/Modal';
 import styles from './GroupsListFilters.module.css';
 
 const GroupsListFilters = ({ search, sortBy, setSearch, setSortBy, reset }) => {
-	const { modalContent, closeModal, openCreateModal } = useModal({
-		reset
-	});
-
 	const handleSearchChange = ev => {
 		setSearch(ev.target.value);
 	};
@@ -27,7 +18,6 @@ const GroupsListFilters = ({ search, sortBy, setSearch, setSortBy, reset }) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<Modal onClose={closeModal}>{modalContent}</Modal>
 			<div className={styles.filters}>
 				<InputSearch
 					value={search}
@@ -50,34 +40,8 @@ const GroupsListFilters = ({ search, sortBy, setSearch, setSortBy, reset }) => {
 					</SelectSearch>
 				</div>
 			</div>
-			<div className={styles.actions}>
-				<Button onClick={openCreateModal}>
-					<GroupIcon className={styles.icon} />
-					<span>Create group</span>
-				</Button>
-			</div>
 		</div>
 	);
-};
-
-const useModal = ({ reset }) => {
-	const [modalContent, setModalContent] = useState();
-
-	const closeModal = () => {
-		setModalContent();
-	};
-
-	const openCreateModal = () => {
-		setModalContent(
-			<GroupCreateForm closeModal={closeModal} onSuccess={reset} />
-		);
-	};
-
-	return {
-		modalContent,
-		closeModal,
-		openCreateModal
-	};
 };
 
 export default GroupsListFilters;

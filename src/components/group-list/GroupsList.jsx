@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useGamesFilters } from '../../lib/hooks/useGamesFilters.js';
 import { useGroups } from '../../lib/hooks/useGroups.js';
+import { useGroupFilters } from '../../lib/hooks/useGroupsFilters.js';
 import Button from '../buttons/Button.jsx';
 import PageSelector from '../game-list/PageSelector.jsx';
 import GroupCreateForm from '../group-form/GroupCreateForm.jsx';
@@ -12,13 +12,13 @@ import GroupsListRows from './GroupsListRows.jsx';
 
 const GroupsList = () => {
 	const { filters, setSearch, setType, setSortBy, setPage, resetFilters } =
-		useGamesFilters();
+		useGroupFilters();
+
+	const { groups, count, error, loading, refresh } = useGroups({ filters });
 
 	const { modalContent, closeModal, openCreateModal } = useModal({
-		reset: resetFilters
+		refresh
 	});
-
-	const { groups, count, error, loading } = useGroups({ filters });
 
 	return (
 		<>
@@ -48,18 +48,20 @@ const GroupsList = () => {
 						loading={loading}
 						reset={resetFilters}
 					/>
-					<PageSelector
-						page={filters.page}
-						totalPages={Math.ceil(count / filters.itemsPerPage)}
-						setPage={newPage => setPage(newPage)}
-					/>
+					{groups.length !== 0 && (
+						<PageSelector
+							page={filters.page}
+							totalPages={Math.ceil(count / filters.itemsPerPage)}
+							setPage={newPage => setPage(newPage)}
+						/>
+					)}
 				</div>
 			</section>
 		</>
 	);
 };
 
-const useModal = ({ reset }) => {
+const useModal = ({ refresh }) => {
 	const [modalContent, setModalContent] = useState();
 
 	const closeModal = () => {
@@ -68,7 +70,7 @@ const useModal = ({ reset }) => {
 
 	const openCreateModal = () => {
 		setModalContent(
-			<GroupCreateForm closeModal={closeModal} onSuccess={reset} />
+			<GroupCreateForm closeModal={closeModal} onSuccess={refresh} />
 		);
 	};
 
